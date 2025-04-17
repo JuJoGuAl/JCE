@@ -1,0 +1,114 @@
+/* Dropdown Button */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+/* Dropdown button */
+.dropdown-toggle {
+    cursor: pointer;
+}
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+/* Show the dropdown menu */
+.show {display: block;}
+
+.logoparacelu {
+    display: none;
+}
+.textoprincipal {
+    font-size: 50px;	
+}
+.textoprincipal2 {
+    font-size: 30px;
+    line-height: 1;
+}
+@media screen and (max-width: 768px) {
+    .logoparacelu {
+        display: block;
+    }
+    .logoparacomputador {
+        display: none;
+    }	
+    .textoprincipal {
+        font-size: 30px;
+        line-height: 1;
+    }
+    .textoprincipal2 {
+        font-size: 20px;
+        line-height: 1;
+    }
+    h2 {
+        font-size: 28px !important;
+    }
+    .services .lqd-counter-element{
+        font-size: 100px !important;
+
+    }
+}
+.sostenibilidad-container { max-width: 1200px; margin: auto; padding: 5%; }
+.sostenibilidad-header { text-align: center; }
+.criteria-grid, .actions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.criteria-box, .actions-box { padding: 10px; }
+.ods-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.ods-icon { width: 100px; height: 100px; background-image: url('example-icon.png'); background-size: cover; display: flex; align-items: center; justify-content: center; }
+/* Placeholder image styles */
+.placeholder-image { width: 100%; height: auto; background-color: #ddd; color: #333; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.actions-grid, .actions-item { display: grid; align-items: start; grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); gap: 20px; }
+@media (max-width: 768px) {
+    .criteria-grid, .actions-grid { grid-template-columns: 1fr; }
+    .actions-grid, .actions-item { display: grid; align-items: start; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+}
+.ods-flex-container { display: flex; align-items: center; justify-content: space-between; }
+.ods-text { flex: 1; padding-right: 20px; }
+.ods-images { flex: 1; display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 10px; }
+.ods-icon { width: 100px; height: 100px; background-color: #eee; display: flex; align-items: center; justify-content: center; }
+@media (max-width: 768px) {
+    .ods-flex-container { flex-direction: column; }
+    .ods-text, .ods-images { padding: 0; }
+}
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijo en toda la pantalla */
+    z-index: 9999999999; /* Situado encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    padding: 0 3%;
+    overflow: auto; /* Habilita el desplazamiento si es necesario */
+    background-color: rgb(0,0,0); /* Color de fondo */
+    background-color: rgba(0,0,0,0.4); /* Color de fondo con opacidad */
+}
+.modal-contenido {
+    background-color: #fefefe;
+    margin: 5% 0; /* 10% desde arriba y centrado */
+    padding: 5px;
+    border: 1px solid #888;
+    width: 100%; /* Podrías querer un ancho más pequeño */
+    overflow-y: auto; /* Habilita el desplazamiento vertical si es necesario */
+}
+.cerrar {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.cerrar:hover,.cerrar:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

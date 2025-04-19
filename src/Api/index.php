@@ -40,10 +40,11 @@ try {
         $usuario = new Usuarios();
         $usuarioData = $usuario->logUser($username, $password);
 
+        $_SESSION['jce_log'] = $usuarioData['cusuario'];
+
         $response->setSuccess(
             resultTitle: 'Inicio de sesión exitoso',
             resultText: 'El usuario ha iniciado sesión correctamente.',
-            resultContent: $usuarioData,
             resultRows: 1
         );
         sendResponse($response);

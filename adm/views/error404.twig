@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="text-center my-4">
+                <img class="mb-4 img-error" src="../../images/error-404-monochrome.svg" />
+                <p class="lead">El módulo que estas solicitando no se encuentra, intenta realizar la petición nuevamente</p>
+                <a href="./">
+                    <i class="fas fa-arrow-left me-1"></i>
+                    Regresar al Inicio
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

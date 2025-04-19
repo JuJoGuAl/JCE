@@ -5,9 +5,7 @@ use PDO;
 use Exception;
 
 use App\Config\Conection;
-use App\Responses\ResponseObject;
 use App\Core\QueryOptions;
-
 
 class Database {
     public string $table;
@@ -372,70 +370,61 @@ class Database {
     }
 
     /**
-     * Ejecuta una consulta SQL preparada y regresa un ResponseObject con el resultado.
+     * Ejecuta una consulta SQL preparada y regresa un Array con el resultado.
      * @param string $query La consulta SQL a ejecutar.
      * @param array $values Valores para blindar los parámetros de la consulta.
-     * @return ResponseObject Objeto que contiene el resultado de la operación.
+     * @return array Array de resultados.
      */
-    private function validateOperation(string $query, array $values): ResponseObject {
+    private function validateOperation(string $query, array $values): array {
         try {
             $this->conn->exec('SET @current_user = "' . $this->user . '"');
             $this->conn->exec('SET @current_ip = "' . $this->ipAddress . '"');
 
             $statement = $this->conn->prepare($query);
             $executionResult = $statement->execute($values);
-            $response = new ResponseObject();
+
+            $rowsAffected = $statement->rowCount();
+            $insertedId = null;
+            $result = null;
+            $message = null;
 
             if ($executionResult) {
-                $rowsAffected = $statement->rowCount();
-
-                // Determinar el tipo de operación según el query
                 if (preg_match('/^SELECT/i', $query)) {
                     // Es una consulta SELECT
                     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    if ($result) {
-                        $response->resultContent = $result;
-                        $response->rowsAffected = $rowsAffected;
-                    } else {
-                        $response->isOk = false;
-                        $response->resultType = 'warning';
-                        $response->resultText = 'La consulta SELECT no devolvió resultados.';
-                        $response->rowsAffected = 0;
+                    if (empty($result)) {
+                        $message = 'La consulta SELECT no devolvió resultados.';
+                        if (!$this->isProduction) {
+                            $message .= " | Query: $query";
+                        }
                     }
                 } elseif (preg_match('/^INSERT/i', $query)) {
                     // Es una consulta INSERT
                     $insertedId = $this->conn->lastInsertId();
-                    $response->resultContent = true;
-                    $response->rowsAffected = $rowsAffected;
-                    $response->insertedId = $insertedId;
-                } elseif (preg_match('/^UPDATE|DELETE/i', $query)) {
-                    // Es una consulta UPDATE o DELETE
-                    $response->resultContent = true;
-                    $response->rowsAffected = $rowsAffected;
                 }
-            } else {
-                // La consulta no se ejecutó correctamente
-                $response->isOk = false;
-                $response->resultType = 'error';
-                $response->resultText = 'La consulta no pudo ser ejecutada.';
-                $response->resultContent = null;
             }
+
+            return [
+                'success' => $executionResult,
+                'rowsAffected' => $rowsAffected,
+                'insertedId' => $insertedId,
+                'result' => $result,
+                'message' => $message, // Advertencia o mensaje informativo
+                'error' => null
+            ];
         } catch (PDOException $e) {
-            // Manejo de excepciones de PDO
-            $response = new ResponseObject();
-            $response->isOk = false;
-            $response->resultType = 'error';
-            $response->resultText = 'Error al ejecutar la consulta.';
-            $response->resultDetail = $e->getMessage();
+            $errorMessage = "Error al ejecutar consulta: " . $e->getMessage();
+
+            if (!$this->isProduction) {
+                $errorMessage .= " | Query: $query";
+            }
+            
+            throw new \RuntimeException($errorMessage);
         }
 
-        // Agregar detalles adicionales si no es producción
         if (!$this->isProduction) {
             $response->resultDetail = $response->resultDetail ?? null;
             $response->query = $query;
         }
-
-        return $response;
     }
-
 }

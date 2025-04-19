@@ -129,17 +129,15 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
                         action: 'val_log'
                     };
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
-                    console.log(datas);
-                    // if (datas.title != \"SUCCESS\") {
-                    //     dialog(datas.content, datas.title);
-                    //     return;
-                    // }
-                    // document.location.href = \"./\";
+                    if (!datas.isOk){
+                        dialog(datas.resultText, datas.resultType);
+                    }
+                    document.location.href = \"./\";
                 }
                 return false;
             } catch (error) {
                 const mensaje = 'Error al procesar la petición: ' + error;
-                dialog(mensaje, 'ERROR');
+                dialog(mensaje, 'error');
             }
         });
     </script>
@@ -256,17 +254,15 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
                         action: 'val_log'
                     };
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
-                    console.log(datas);
-                    // if (datas.title != \"SUCCESS\") {
-                    //     dialog(datas.content, datas.title);
-                    //     return;
-                    // }
-                    // document.location.href = \"./\";
+                    if (!datas.isOk){
+                        dialog(datas.resultText, datas.resultType);
+                    }
+                    document.location.href = \"./\";
                 }
                 return false;
             } catch (error) {
                 const mensaje = 'Error al procesar la petición: ' + error;
-                dialog(mensaje, 'ERROR');
+                dialog(mensaje, 'error');
             }
         });
     </script>

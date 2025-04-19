@@ -3,7 +3,6 @@ namespace App\Core;
 
 use App\Core\Database;
 use App\Core\QueryOptions;
-use App\Responses\ResponseObject;
 
 class EntidadBase {
     private Database $db;
@@ -44,9 +43,9 @@ class EntidadBase {
     /**
      * Obtener todos los registros de la tabla con filtros opcionales.
      * @param array $filters Opciones de filtrado (row, operator, value).
-     * @return ResponseObject
+     * @return Array de registros.
      */
-    public function findAll(array $filters = [], string $groupBy = '', string $orderBy = '', string $limit = '', string $having = ''): ResponseObject {
+    public function findAll(array $filters = [], string $groupBy = '', string $orderBy = '', string $limit = '', string $having = ''): array {
         $options = new QueryOptions();
         // Agregar filtros
         foreach ($filters as $filter) {
@@ -74,18 +73,18 @@ class EntidadBase {
     /**
      * Buscar un registro por su clave primaria.
      * @param mixed $id Valor de la clave primaria.
-     * @return ResponseObject
+     * @return Array de registros.
      */
-    public function findById($id): ResponseObject {
+    public function findById($id): array {
         return $this->db->getRecord($id);
     }
 
     /**
      * Crear un nuevo registro en la tabla.
      * @param array $data Datos en formato clave => valor.
-     * @return ResponseObject
+     * @return Array de registros.
      */
-    public function create(array $data): ResponseObject {
+    public function create(array $data): array {
         return $this->db->insertRecord($data);
     }
 
@@ -93,18 +92,18 @@ class EntidadBase {
      * Actualizar un registro existente.
      * @param mixed $id Valor de la clave primaria del registro a actualizar.
      * @param array $data Datos a actualizar en formato clave => valor.
-     * @return ResponseObject
+     * @return Array de registros.
      */
-    public function update($id, array $data): ResponseObject {
+    public function update($id, array $data): array {
         return $this->db->updateRecord($data, null, $id);
     }
 
     /**
      * Eliminar un registro de la tabla.
      * @param mixed $id Valor de la clave primaria del registro a eliminar.
-     * @return ResponseObject
+     * @return Array de registros.
      */
-    public function remove($id): ResponseObject {
+    public function remove($id): array {
         return $this->db->deleteRecord(null, $id);
     }
 }

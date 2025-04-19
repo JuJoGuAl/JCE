@@ -38,11 +38,11 @@ class Usuarios extends EntidadBase {
         $resultado = $this->findAll($filtros);
 
         // Validar resultados
-        if (empty($resultado)) {
+        if (empty($resultado['result'])) {
             throw new \Exception('Usuario o clave inválidos.');
         }
 
-        $usuarioData = $resultado[0];
+        $usuarioData = $resultado['result'][0];
         if ((int) $usuarioData['status'] === 0 && $usuarioData['cusuario'] !== 'ADMINISTRADOR') {
             throw new \Exception('El usuario está inactivo.');
         }

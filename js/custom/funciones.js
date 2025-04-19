@@ -96,22 +96,22 @@ const dialog = function (_msj, _class, _funcion, _elemetsArray, _btn) {
 	var dialog_class;
 	var dialog_icon;
 
-	if (_class == 'ERROR') {
+	if (_class.toUpperCase() == 'ERROR') {
 		dialog_class = 'red';
 		button_class = `btn-${dialog_class}`;
 		clas = "danger";
 		dialog_icon = "fa fa-times";
-	} else if (_class == 'INFO') {
+	} else if (_class.toUpperCase() == 'INFO') {
 		dialog_class = 'blue';
 		button_class = `btn-${dialog_class}`;
 		clas = "info";
 		dialog_icon = "fa fa-exclamation-circle"
-	} else if (_class == 'WARNING') {
+	} else if (_class.toUpperCase() == 'WARNING') {
 		dialog_class = 'orange';
 		button_class = `btn-${dialog_class}`;
 		clas = "warning";
 		dialog_icon = "fa fa-exclamation-triangle"
-	} else if (_class == 'SUCCESS') {
+	} else if (_class.toUpperCase() == 'SUCCESS') {
 		dialog_class = 'green';
 		button_class = `btn-${dialog_class}`;
 		clas = "success";

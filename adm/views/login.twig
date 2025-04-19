@@ -79,17 +79,15 @@
                         action: 'val_log'
                     };
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
-                    console.log(datas);
-                    // if (datas.title != "SUCCESS") {
-                    //     dialog(datas.content, datas.title);
-                    //     return;
-                    // }
-                    // document.location.href = "./";
+                    if (!datas.isOk){
+                        dialog(datas.resultText, datas.resultType);
+                    }
+                    document.location.href = "./";
                 }
                 return false;
             } catch (error) {
                 const mensaje = 'Error al procesar la petición: ' + error;
-                dialog(mensaje, 'ERROR');
+                dialog(mensaje, 'error');
             }
         });
     </script>

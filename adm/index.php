@@ -2,16 +2,20 @@
 declare(strict_types=1);
 session_start();
 
-require_once __DIR__ . '/../vendor/autoload.php';
+define('PROJECT_ROOT', dirname(__DIR__));
+
+require_once PROJECT_ROOT . '/vendor/autoload.php';
 
 use App\Core\TwigEnvironment;
 use App\Helpers\GeneralFunctions;
 
 try {
-    $config = require __DIR__ . '/../src/Config/settings.php';
+    $config = require PROJECT_ROOT . '/src/Config/settings.php';
 
     $templatePath = $config['paths']['adm_views'];
     $cachePath = $config['paths']['cache'];
+    $controllerPath = $config['paths']['mod_controllers'];
+    $moduleViewsPath = $config['paths']['mod_views'];
     $twig = TwigEnvironment::create($templatePath, $cachePath);
 
     $functions = GeneralFunctions::addTimestamp('../js/custom/funciones.js');
@@ -28,14 +32,27 @@ try {
             'mensaje' => 'Por favor, inicie sesión para continuar',
         ]);
     } else {
-        $modError = 'page_404.twig';
         $modNav = isset($_GET['mod']) ? strtolower($_GET['mod']) : 'home';
-        $fileView = $config['paths']['mod_views'] . "{$modNav}.twig";
-    
+        $controllerFile = $controllerPath . "{$modNav}Controller.php";
+        $moduleViewFile = ($modNav == 'home' ? $templatePath : $moduleViewsPath) . "{$modNav}.twig";
+        $contenido = $templatePath . 'error404.twig';
+
+        if (file_exists($moduleViewFile)) {
+            $contenido = $moduleViewFile;
+        }
+
+        if (file_exists($controllerFile)) {
+            require_once $controllerFile;
+
+            $controllerClass = ucfirst($modNav) . 'Controller';
+
+            if (class_exists($controllerClass)) {
+                $controller = new $controllerClass($twig);
+                $contenido = $controller->index();
+            }
+        }
         echo $twig->render('body.twig', [
-            'profile' => 'profile.twig',
-            'nav' => 'nav.twig',
-            'contenido' => file_exists($fileView) ? "{$modNav}.twig" : $modError,
+            'contenido' => $contenido,
         ]);
     }
 } catch (Exception $e) {

@@ -2,9 +2,10 @@
 return [
     // Rutas del sistema administrativo
     'paths' => [
-        'adm_views' => __DIR__ . '/../../adm/views/',   // Ruta a las vistas del admin
-        'mod_views' => __DIR__ . '/../../adm/modules/views/', // Ruta a las vistas de módulos del admin
-        'cache' => __DIR__ . '/../../cache',           // Ruta al caché del sistema
+        'adm_views' => PROJECT_ROOT . '/adm/views/',   // Ruta a las vistas del admin
+        'mod_views' => PROJECT_ROOT . '/adm/modules/views/', // Ruta a las vistas de módulos del admin
+        'mod_controllers' => PROJECT_ROOT . '/adm/modules/controllers/', // Ruta a los controladores
+        'cache' => PROJECT_ROOT . '/cache',           // Ruta al caché del sistema
     ],
 
     // Configuración general

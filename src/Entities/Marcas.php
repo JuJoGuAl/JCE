@@ -5,8 +5,7 @@ use App\Core\EntidadBase;
 
 class Marcas extends EntidadBase {
     public function __construct() {
-        parent::__construct('marcas', 'id');
-        $this->db->setFields([
+        parent::__construct('marcas', 'id',[
             ['name' => 'id', 'type' => 'system', 'insert' => false, 'update' => false],
             ['name' => 'nombre', 'type' => 'public', 'insert' => true, 'update' => true],
             ['name' => 'descripcion_es', 'type' => 'public', 'insert' => true, 'update' => true],

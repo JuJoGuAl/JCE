@@ -1,9 +1,13 @@
 <?php
 namespace App\Core;
 
-use App\Config;
+use PDO;
+use Exception;
+
+use App\Config\Conection;
 use App\Responses\ResponseObject;
 use App\Core\QueryOptions;
+
 
 class Database {
     public string $table;
@@ -11,12 +15,11 @@ class Database {
     public array $fields;
     
     private PDO $conn;
-    private array $connectionDetails;
     private bool $isProduction;
     private string $user;
     private string $ipAddress;
     private array $excludedFields;
-    private bool $uppercaseEnabled = false;
+    private bool $uppercaseEnabled;
 
     /**
      * Constructor de la clase Database.
@@ -25,7 +28,7 @@ class Database {
      * @param bool $uppercaseEnabled Si es TRUE, convierte los valores a mayúsculas excepto los campos excluidos.
      * @throws Exception Si no se puede establecer la conexión con la base de datos.
      */
-    public function __construct(string $table, string $primaryKey, bool $uppercaseEnabled)
+    public function __construct(string $table, string $primaryKey, bool $uppercaseEnabled = false)
     {
         $this->table = $table;
         $this->primaryKey = $primaryKey;
@@ -41,13 +44,13 @@ class Database {
 
         $this->fields = [];
 
-        $this->connectionDetails = Config\connect();
-        if ($this->connectionDetails["title"] !== "SUCCESS") {
-            throw new Exception("Database connection failed: " . $this->connectionDetails["content"]);
+        $connectionInstance = new Conection();
+        if (!($connectionInstance->getConnection() instanceof PDO)) {
+            throw new Exception("No se pudo establecer una conexión válida con la base de datos.");
         }
 
-        $this->conn = $this->connectionDetails["content"];
-        $this->isProduction = $this->connectionDetails["pro"];
+        $this->conn = $connectionInstance->getConnection();
+        $this->isProduction = false;
         $this->user = $_SESSION['jce_log'] ?? 'Template';
         $this->ipAddress = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
     }
@@ -76,10 +79,10 @@ class Database {
             if (is_array($filter['value'])) {
                 // Manejar IN
                 $placeholders = implode(', ', array_fill(0, count($filter['value']), '?'));
-                $filterClauses[] = "{$filter['row']} $operator ($placeholders)";
+                $filterClauses[] = "{$filter['column']} $operator ($placeholders)";
                 $values = array_merge($values, $filter['value']);
             } else {
-                $filterClauses[] = "{$filter['row']} $operator ?";
+                $filterClauses[] = "{$filter['column']} $operator ?";
                 $values[] = $filter['value'];
             }
         }
@@ -101,7 +104,7 @@ class Database {
             $query .= " LIMIT {$options->limit}";
         }
 
-        return $this->executeQuery($query, $values);
+        return $this->validateOperation($query, $values);
     }
 
     /**

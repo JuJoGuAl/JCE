@@ -2,6 +2,7 @@
 namespace App\Core;
 
 use App\Core\Database;
+use App\Core\QueryOptions;
 use App\Responses\ResponseObject;
 
 class EntidadBase {
@@ -19,11 +20,25 @@ class EntidadBase {
     public function __construct(string $table, string $primaryKey, array $fields) {
         $this->table = $table;
         $this->primaryKey = $primaryKey;
-        $this->fields = $fields;
+        $this->setFields($fields);
 
         // Inicializar la instancia de la base de datos
         $this->db = new Database($this->table, $this->primaryKey);
-        $this->db->fields = $this->fields; // Configurar los campos en la base de datos
+        $this->db->fields = $this->fields;
+    }
+
+    /**
+     * Procesa y valida los campos de la entidad.
+     * @param array $fields Arreglo de campos con sus configuraciones.
+     */
+    protected function setFields(array $fields): void {
+        foreach ($fields as $field) {
+            // Validar que el campo tenga las claves necesarias
+            if (!isset($field['name'], $field['type'], $field['insert'], $field['update'])) {
+                throw new \InvalidArgumentException('Cada campo debe tener las claves: name, type, insert, update.');
+            }
+            $this->fields[] = $field;
+        }
     }
 
     /**
@@ -31,16 +46,29 @@ class EntidadBase {
      * @param array $filters Opciones de filtrado (row, operator, value).
      * @return ResponseObject
      */
-    public function findAll(array $filters = []): ResponseObject {
-        $data = [];
+    public function findAll(array $filters = [], string $groupBy = '', string $orderBy = '', string $limit = '', string $having = ''): ResponseObject {
+        $options = new QueryOptions();
+        // Agregar filtros
         foreach ($filters as $filter) {
-            $data[] = [
-                "row" => $filter["row"],
-                "operator" => $filter["operator"],
-                "value" => $filter["value"],
-            ];
+            $options->addFilter($filter['column'], $filter['operator'], $filter['value']);
         }
-        return $this->db->getRecords(false, $data);
+
+        // Agregar agrupación
+        if ($groupBy != '') {
+            $options->groupBy = $groupBy;
+        }
+
+        // Agregar orden
+        if ($orderBy != '') {
+            $options->orderBy = $orderBy;
+        }
+
+        // Establecer límite y desplazamiento
+        if ($having != '') {
+            $options->having = $having;
+        }
+        
+        return $this->db->getRecords($options);
     }
 
     /**

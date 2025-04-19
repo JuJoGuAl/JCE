@@ -52,6 +52,7 @@ class ComposerStaticInita8aa825f2d495e5a0f9ab3a917fbf3da
     );
 
     public static $classMap = array (
+        'App\\Config\\Conection' => __DIR__ . '/../..' . '/src/Config/Conection.php',
         'App\\Core\\Database' => __DIR__ . '/../..' . '/src/Core/Database.php',
         'App\\Core\\EntidadBase' => __DIR__ . '/../..' . '/src/Core/EntidadBase.php',
         'App\\Core\\QueryOptions' => __DIR__ . '/../..' . '/src/Core/QueryOptions.php',

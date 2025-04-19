@@ -5,8 +5,7 @@ use App\Core\EntidadBase;
 
 class Usuarios extends EntidadBase {
     public function __construct() {
-        parent::__construct('adm_usuarios', 'cusuario');
-        $this->db->setFields([
+        parent::__construct('adm_usuarios', 'cusuario',[
             //['name' => 'cusuario', 'type' => 'system', 'insert' => false, 'update' => false],
             ['name' => 'cusuario', 'type' => 'public', 'insert' => true, 'update' => false],
             ['name' => 'clave', 'type' => 'public', 'insert' => true, 'update' => true],
@@ -33,10 +32,10 @@ class Usuarios extends EntidadBase {
         $usuario = strtoupper($user);
         $claveMd5 = md5($pass);
         $filtros = [
-            ['row' => 'cusuario', 'operator' => '=', 'value' => $usuario],
-            ['row' => 'clave', 'operator' => '=', 'value' => $claveMd5],
+            ['column' => 'cusuario', 'operator' => '=', 'value' => $usuario],
+            ['column' => 'clave', 'operator' => '=', 'value' => $claveMd5],
         ];
-        $resultado = $this->getRecords($filtros);
+        $resultado = $this->findAll($filtros);
 
         // Validar resultados
         if (empty($resultado)) {

@@ -27,4 +27,20 @@ class QueryOptions {
         $this->having = $having;
         $this->limit = $limit;
     }
+
+    /**
+     * Agregar un filtro al array de filtros.
+     * @param string $column  Columna sobre la que se aplica el filtro.
+     * @param string $operator Operador del filtro (por ejemplo, '=', '<', '>').
+     * @param mixed $value Valor del filtro.
+     * @return self
+     */
+    public function addFilter(string $column, string $operator, $value): self {
+        $this->filters[] = [
+            'column' => $column,
+            'operator' => $operator,
+            'value' => $value,
+        ];
+        return $this;
+    }
 }

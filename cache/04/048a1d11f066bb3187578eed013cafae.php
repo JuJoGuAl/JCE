@@ -29,16 +29,32 @@ class __TwigTemplate_2c6822f2ec5ca2e818ecdc3119ae0848 extends Template
 
         $this->source = $this->getSourceContext();
 
-        $this->parent = false;
-
         $this->blocks = [
+            'contenido' => [$this, 'block_contenido'],
         ];
+    }
+
+    protected function doGetParent(array $context): bool|string|Template|TemplateWrapper
+    {
+        // line 1
+        return "@views/body.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 1
+        $this->parent = $this->loadTemplate("@views/body.twig", "@views/error404.twig", 1);
+        yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
+    }
+
+    // line 2
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_contenido(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        // line 3
         yield "<div class=\"container\">
     <div class=\"row justify-content-center\">
         <div class=\"col-lg-12\">
@@ -52,7 +68,8 @@ class __TwigTemplate_2c6822f2ec5ca2e818ecdc3119ae0848 extends Template
             </div>
         </div>
     </div>
-</div>";
+</div>
+";
         yield from [];
     }
 
@@ -67,14 +84,24 @@ class __TwigTemplate_2c6822f2ec5ca2e818ecdc3119ae0848 extends Template
     /**
      * @codeCoverageIgnore
      */
+    public function isTraitable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDebugInfo(): array
     {
-        return array (  42 => 1,);
+        return array (  58 => 3,  51 => 2,  40 => 1,);
     }
 
     public function getSourceContext(): Source
     {
-        return new Source("<div class=\"container\">
+        return new Source("{% extends \"@views/body.twig\" %}
+{% block contenido %}
+<div class=\"container\">
     <div class=\"row justify-content-center\">
         <div class=\"col-lg-12\">
             <div class=\"text-center my-4\">
@@ -87,6 +114,7 @@ class __TwigTemplate_2c6822f2ec5ca2e818ecdc3119ae0848 extends Template
             </div>
         </div>
     </div>
-</div>", "@views/error404.twig", "C:\\laragon\\www\\jce\\adm\\views\\error404.twig");
+</div>
+{% endblock %}", "@views/error404.twig", "C:\\laragon\\www\\jce\\adm\\views\\error404.twig");
     }
 }

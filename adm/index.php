@@ -48,9 +48,11 @@ try {
         $viewFile = '@views/error404.twig';
     }
 
-    echo $twig->render('@views/body.twig', [
-        'contenido' => $viewFile,
-    ]);
+    echo $twig->render($viewFile);
+
+    // echo $twig->render('@views/body.twig', [
+    //     'contenido' => $viewFile,
+    // ]);
 
     if (file_exists($controllerFile)) {
         require_once $controllerFile;

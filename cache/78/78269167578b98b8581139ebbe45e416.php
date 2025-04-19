@@ -14,7 +14,7 @@ use Twig\Source;
 use Twig\Template;
 use Twig\TemplateWrapper;
 
-/* body.twig */
+/* @views/body.twig */
 class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
 {
     private Source $source;
@@ -32,6 +32,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         $this->parent = false;
 
         $this->blocks = [
+            'contenido' => [$this, 'block_contenido'],
             'scripts' => [$this, 'block_scripts'],
         ];
     }
@@ -116,7 +117,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
             <main>
                 ";
         // line 66
-        yield from $this->loadTemplate(($context["contenido"] ?? null), "body.twig", 66)->unwrap()->yield($context);
+        yield from $this->unwrap()->yieldBlock('contenido', $context, $blocks);
         // line 67
         yield "            </main>
             <footer class=\"py-4 bg-light mt-auto\">
@@ -150,6 +151,16 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         yield from [];
     }
 
+    // line 66
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_contenido(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        yield from [];
+    }
+
     // line 84
     /**
      * @return iterable<null|scalar|\Stringable>
@@ -165,7 +176,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getTemplateName(): string
     {
-        return "body.twig";
+        return "@views/body.twig";
     }
 
     /**
@@ -181,7 +192,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  154 => 84,  148 => 85,  146 => 84,  142 => 83,  138 => 82,  121 => 67,  119 => 66,  74 => 24,  63 => 16,  56 => 12,  43 => 1,);
+        return array (  165 => 84,  155 => 66,  149 => 85,  147 => 84,  143 => 83,  139 => 82,  122 => 67,  120 => 66,  75 => 24,  64 => 16,  57 => 12,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -251,7 +262,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         </div>
         <div id=\"layoutSidenav_content\">
             <main>
-                {% include contenido %}
+                {% block contenido %}{% endblock %}
             </main>
             <footer class=\"py-4 bg-light mt-auto\">
                 <div class=\"container-fluid px-4\">
@@ -271,6 +282,6 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"{{ init }}\"></script>
     {% block scripts %}{% endblock %}
 </body>
-</html>", "body.twig", "C:\\laragon\\www\\jce\\adm\\views\\body.twig");
+</html>", "@views/body.twig", "C:\\laragon\\www\\jce\\adm\\views\\body.twig");
     }
 }

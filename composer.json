@@ -1,4 +1,7 @@
 {
+    "name": "jujogual/jce",
+    "description": "Sistema Administrativo para JCE",
+    "license": "proprietary",
     "autoload": {
         "psr-4": {
             "App\\": "src/",

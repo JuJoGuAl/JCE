@@ -7,6 +7,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\Core\TwigEnvironment;
 use App\Helpers\Helpers;
 
+if (class_exists('App\Helpers\Helpers')) {
+    echo "La clase Helpers está accesible.";
+} else {
+    echo "La clase Helpers no está accesible.";
+}
+die();
+
 $config = require __DIR__ . '/../src/Config/settings.php';
 
 $templatePath = $config['paths']['adm_views'];

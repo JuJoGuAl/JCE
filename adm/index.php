@@ -32,7 +32,7 @@ try {
     $twig->addGlobal('init', $init);
 
     if (!isset($_SESSION['jce_log'])) {
-        echo $twig->render('login.twig', [
+        echo $twig->render('@views/login.twig', [
             'mensaje' => 'Por favor, inicie sesión para continuar',
         ]);
         exit;
@@ -41,14 +41,14 @@ try {
     $modNav = isset($_GET['mod']) ? strtolower($_GET['mod']) : 'home';
     $controllerFile = $controllerPath . "{$modNav}Controller.php";
     $viewFile = $modNav === 'home'
-        ? $templatePath . "{$modNav}.twig"
-        : $moduleViewsPath . "{$modNav}.twig";
+        ? "@views/{$modNav}.twig"
+        : "@modules/{$modNav}.twig";
     
-    if (!file_exists($viewFile)) {
-        $viewFile = $templatePath . 'error.twig';
+    if (!file_exists(($modNav === 'home' ? $config['paths']['adm_views'] : $config['paths']['mod_views']) . "{$modNav}.twig")) {
+        $viewFile = '@views/error404.twig';
     }
 
-    echo $twig->render('body.twig', [
+    echo $twig->render('@views/body.twig', [
         'contenido' => $viewFile,
     ]);
 

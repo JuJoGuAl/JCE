@@ -28,6 +28,7 @@ class ComposerStaticInita8aa825f2d495e5a0f9ab3a917fbf3da
         ),
         'A' => 
         array (
+            'App\\Helpers\\' => 12,
             'App\\' => 4,
         ),
     );
@@ -44,6 +45,10 @@ class ComposerStaticInita8aa825f2d495e5a0f9ab3a917fbf3da
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'App\\Helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Helpers',
         ),
         'App\\' => 
         array (

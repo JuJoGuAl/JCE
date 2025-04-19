@@ -13,4 +13,3 @@ return [
         'debug' => true, // Cambiar a false en producción
     ],
 ];
-?>

@@ -3,7 +3,8 @@ const DEFAULT_HEADERS = {
 	'Content-Type': 'application/json; charset=utf-8',
 };
 const getUrl = window.location;
-const BASE_URL = `${getUrl.protocol}//${getUrl.host}/${getUrl.pathname.split('/')[1]}`;
+//const BASE_URL = `${getUrl.protocol}//${getUrl.host}/${getUrl.pathname.split('/')[1]}`;
+const BASE_URL = `${getUrl.protocol}//${getUrl.host}`;
 const $body = $('body');
 
 function accentsSupr(data) {

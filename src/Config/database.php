@@ -40,4 +40,3 @@ function connect() {
     }
     return $result;
 }
-?>

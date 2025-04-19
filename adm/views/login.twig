@@ -67,28 +67,29 @@
                 if (username == '') {
                     $('#user').focus();
                     $('#user').addClass("is-invalid");
-                    dialog("DEBE DE INGRESAR EL USUARIO", "ERROR");
+                    dialog("Debe ingresar el Usuario", "ERROR");
                 } else if (pass == '') {
                     $('#pass').focus();
                     $('#pass').addClass("is-invalid");
-                    dialog("DEBE DE INGRESAR LA CLAVE", "ERROR");
+                    dialog("Debe ingresar la Contraseña", "ERROR");
                 } else {
                     const requestData = {
                         username: username,
-                        pass: pass,
-                        accion: 'val_log'
+                        password: pass,
+                        action: 'val_log'
                     };
-                    const datas = await fetchCall(`./modules/controllers/json.php`, 'POST', requestData);
-                    if (datas.title != "SUCCESS") {
-                        dialog(datas.content, datas.title);
-                        return;
-                    }
-                    document.location.href = "./";
+                    const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
+                    console.log(datas);
+                    // if (datas.title != "SUCCESS") {
+                    //     dialog(datas.content, datas.title);
+                    //     return;
+                    // }
+                    // document.location.href = "./";
                 }
                 return false;
             } catch (error) {
                 const mensaje = 'Error al procesar la petición: ' + error;
-                dialog(mensaje, 'error');
+                dialog(mensaje, 'ERROR');
             }
         });
     </script>

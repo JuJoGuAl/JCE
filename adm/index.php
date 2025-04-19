@@ -5,33 +5,24 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Core\TwigEnvironment;
-use App\Helpers\Helpers;
-
-if (class_exists('App\Helpers\Helpers')) {
-    echo "La clase Helpers está accesible.";
-} else {
-    echo "La clase Helpers no está accesible.";
-}
-die();
-
-$config = require __DIR__ . '/../src/Config/settings.php';
-
-$templatePath = $config['paths']['adm_views'];
-$cachePath = $config['paths']['cache'];
-$twig = TwigEnvironment::create($templatePath, $cachePath);
-
-// Definir variables globales para Twig
-$twig->addGlobal('Sistema', $config['app']['name']);
-
-$functions = Helpers::addTimestamp(__DIR__ . '/../js/custom/funciones.js');
-$style = Helpers::addTimestamp(__DIR__ . '/../css/custom/adm.css');
-$init = Helpers::addTimestamp(__DIR__ . '/../js/custom/init.js');
-
-$twig->addGlobal('functions', $functions);
-$twig->addGlobal('style', $style);
-$twig->addGlobal('init', $init);
+use App\Helpers\GeneralFunctions;
 
 try {
+    $config = require __DIR__ . '/../src/Config/settings.php';
+
+    $templatePath = $config['paths']['adm_views'];
+    $cachePath = $config['paths']['cache'];
+    $twig = TwigEnvironment::create($templatePath, $cachePath);
+
+    $functions = GeneralFunctions::addTimestamp('../js/custom/funciones.js');
+    $style = GeneralFunctions::addTimestamp('../css/custom/adm.css');
+    $init = GeneralFunctions::addTimestamp('../js/custom/init.js');
+
+    $twig->addGlobal('Sistema', $config['app']['name']);
+    $twig->addGlobal('functions', $functions);
+    $twig->addGlobal('style', $style);
+    $twig->addGlobal('init', $init);
+
     if (!isset($_SESSION['jce_log'])) {
         echo $twig->render('login.twig', [
             'mensaje' => 'Por favor, inicie sesión para continuar',

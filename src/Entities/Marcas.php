@@ -24,4 +24,3 @@ class Marcas extends EntidadBase {
 
     // Métodos específicos para la entidad Marcas pueden añadirse aquí si son necesarios
 }
-?>

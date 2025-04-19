@@ -80,4 +80,3 @@ class EntidadBase {
         return $this->db->deleteRecord(null, $id);
     }
 }
-?>

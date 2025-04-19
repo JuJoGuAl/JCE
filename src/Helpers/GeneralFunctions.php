@@ -1,7 +1,7 @@
 <?php
 namespace App\Helpers;
 
-class Helpers
+class GeneralFunctions
 {
     /**
      * Genera un timestamp único para un archivo para evitar problemas de caché.
@@ -32,4 +32,3 @@ class Helpers
         return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8');
     }
 }
-?>

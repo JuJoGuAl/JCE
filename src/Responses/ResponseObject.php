@@ -28,19 +28,32 @@ class ResponseObject {
         $this->resultRows = $resultRows;
     }
 
-    // Método auxiliar para crear un objeto de error
-    public static function error(
+    public function setSuccess(
+        string $resultTitle,
+        string $resultText,
+        mixed $resultContent = null,
+        int $resultRows = 0
+    ): void {
+        $this->isOk = true;
+        $this->resultType = 'success';
+        $this->resultTitle = $resultTitle;
+        $this->resultText = $resultText;
+        $this->resultDetail = null;
+        $this->resultContent = $resultContent;
+        $this->resultRows = $resultRows;
+    }
+
+    public function setError(
         string $resultText,
         ?string $resultDetail = null,
         mixed $resultContent = null
-    ): self {
-        return new self(
-            isOk: false,
-            resultType: 'error',
-            resultText: $resultText,
-            resultDetail: $resultDetail,
-            resultContent: $resultContent
-        );
+    ): void {
+        $this->isOk = false;
+        $this->resultType = 'error';
+        $this->resultTitle = 'Error';
+        $this->resultText = $resultText;
+        $this->resultDetail = $resultDetail;
+        $this->resultContent = $resultContent;
+        $this->resultRows = 0;
     }
 }
-?>

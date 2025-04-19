@@ -81,6 +81,7 @@
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
                     if (!datas.isOk){
                         dialog(datas.resultText, datas.resultType);
+                        return;
                     }
                     document.location.href = "./";
                 }

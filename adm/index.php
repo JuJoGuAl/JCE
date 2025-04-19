@@ -31,29 +31,31 @@ try {
         echo $twig->render('login.twig', [
             'mensaje' => 'Por favor, inicie sesión para continuar',
         ]);
-    } else {
-        $modNav = isset($_GET['mod']) ? strtolower($_GET['mod']) : 'home';
-        $controllerFile = $controllerPath . "{$modNav}Controller.php";
-        $moduleViewFile = ($modNav == 'home' ? $templatePath : $moduleViewsPath) . "{$modNav}.twig";
-        $contenido = $templatePath . 'error404.twig';
+        exit;
+    }
 
-        if (file_exists($moduleViewFile)) {
-            $contenido = $moduleViewFile;
+    $modNav = isset($_GET['mod']) ? strtolower($_GET['mod']) : 'home';
+    $controllerFile = $controllerPath . "{$modNav}Controller.php";
+    $viewFile = $modNav === 'home'
+        ? $templatePath . "{$modNav}.twig"
+        : $moduleViewsPath . "{$modNav}.twig";
+    
+    if (!file_exists($viewFile)) {
+        $viewFile = $templatePath . 'error.twig';
+    }
+
+    echo $twig->render('body.twig', [
+        'contenido' => $viewFile,
+    ]);
+
+    if (file_exists($controllerFile)) {
+        require_once $controllerFile;
+
+        $controllerClass = ucfirst($modNav) . 'Controller';
+        if (class_exists($controllerClass)) {
+            $controller = new $controllerClass($twig);
+            $controller->index();
         }
-
-        if (file_exists($controllerFile)) {
-            require_once $controllerFile;
-
-            $controllerClass = ucfirst($modNav) . 'Controller';
-
-            if (class_exists($controllerClass)) {
-                $controller = new $controllerClass($twig);
-                $contenido = $controller->index();
-            }
-        }
-        echo $twig->render('body.twig', [
-            'contenido' => $contenido,
-        ]);
     }
 } catch (Exception $e) {
     // Manejo de errores

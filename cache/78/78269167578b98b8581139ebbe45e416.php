@@ -32,7 +32,6 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         $this->parent = false;
 
         $this->blocks = [
-            'contenido' => [$this, 'block_contenido'],
             'scripts' => [$this, 'block_scripts'],
         ];
     }
@@ -117,7 +116,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
             <main>
                 ";
         // line 66
-        yield from $this->unwrap()->yieldBlock('contenido', $context, $blocks);
+        yield from $this->loadTemplate(($context["contenido"] ?? null), "body.twig", 66)->unwrap()->yield($context);
         // line 67
         yield "            </main>
             <footer class=\"py-4 bg-light mt-auto\">
@@ -148,16 +147,6 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         // line 85
         yield "</body>
 </html>";
-        yield from [];
-    }
-
-    // line 66
-    /**
-     * @return iterable<null|scalar|\Stringable>
-     */
-    public function block_contenido(array $context, array $blocks = []): iterable
-    {
-        $macros = $this->macros;
         yield from [];
     }
 
@@ -192,7 +181,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  165 => 84,  155 => 66,  149 => 85,  147 => 84,  143 => 83,  139 => 82,  122 => 67,  120 => 66,  75 => 24,  64 => 16,  57 => 12,  44 => 1,);
+        return array (  154 => 84,  148 => 85,  146 => 84,  142 => 83,  138 => 82,  121 => 67,  119 => 66,  74 => 24,  63 => 16,  56 => 12,  43 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -262,7 +251,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         </div>
         <div id=\"layoutSidenav_content\">
             <main>
-                {% block contenido %}{% endblock %}
+                {% include contenido %}
             </main>
             <footer class=\"py-4 bg-light mt-auto\">
                 <div class=\"container-fluid px-4\">

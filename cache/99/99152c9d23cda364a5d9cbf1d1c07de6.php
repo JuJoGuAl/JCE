@@ -131,6 +131,7 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
                     if (!datas.isOk){
                         dialog(datas.resultText, datas.resultType);
+                        return;
                     }
                     document.location.href = \"./\";
                 }
@@ -256,6 +257,7 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
                     if (!datas.isOk){
                         dialog(datas.resultText, datas.resultType);
+                        return;
                     }
                     document.location.href = \"./\";
                 }

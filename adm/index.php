@@ -1,4 +1,5 @@
 <?php
+//require __DIR__ . '/../vendor/autoload.php';
 include_once("../config.php");
 include_once(CLASES."TemplatePower.php");
 include_once("functions.php");

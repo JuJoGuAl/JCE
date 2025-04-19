@@ -12,11 +12,15 @@ use App\Helpers\GeneralFunctions;
 try {
     $config = require PROJECT_ROOT . '/src/Config/settings.php';
 
-    $templatePath = $config['paths']['adm_views'];
+    $paths = [
+        'views' => $config['paths']['adm_views'],
+        'modules' => $config['paths']['mod_views'],
+    ];
+
     $cachePath = $config['paths']['cache'];
     $controllerPath = $config['paths']['mod_controllers'];
     $moduleViewsPath = $config['paths']['mod_views'];
-    $twig = TwigEnvironment::create($templatePath, $cachePath);
+    $twig = TwigEnvironment::create($paths, $cachePath);
 
     $functions = GeneralFunctions::addTimestamp('../js/custom/funciones.js');
     $style = GeneralFunctions::addTimestamp('../css/custom/adm.css');

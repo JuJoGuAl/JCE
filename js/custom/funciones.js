@@ -143,17 +143,24 @@ const dialog = function (_msj, _class, _funcion, _elemetsArray, _btn) {
         }
     });
 }
-const fetchCall = async (endPoint, methodType = 'GET', jsonData = null, customHeaders = {}) => {
+const fetchCall = async (endPoint, methodType = 'GET', data = null, customHeaders = {}) => {
     try {
-        const combinedHeaders = { ...DEFAULT_HEADERS, ...customHeaders };
         const fetchOptions = {
             method: methodType,
-            headers: combinedHeaders,
         };
 
-        if (['POST', 'PUT', 'PATCH'].includes(methodType.toUpperCase()) && jsonData) {
-            fetchOptions.body = JSON.stringify(jsonData);
+        if (data instanceof FormData) {
+            fetchOptions.body = data;
+        } else if (['POST', 'PUT', 'PATCH'].includes(methodType.toUpperCase()) && data) {
+            fetchOptions.body = JSON.stringify(data);
+            fetchOptions.headers = {
+                'Content-Type': 'application/json; charset=utf-8',
+                ...customHeaders,
+            };
+        } else {
+            fetchOptions.headers = customHeaders;
         }
+
         const response = await fetch(`${BASE_URL}${endPoint}`, fetchOptions);
 
         if (!response.ok) {
@@ -475,23 +482,15 @@ $.fn.sendForm = async function (){
                 const mod = $obj.find('button[form]').attr('data-mod').toLowerCase();
                 const form = document.getElementById(id); 
                 const formData = new FormData(form);
-                const datos = {};
-                for (let [name, value] of formData.entries()) {
-                    const input = form.querySelector(`[name="${name}"]`);
-                    if (input && input.id) {
-                        datos[input.id] = value;
-                    }
-                }
-                Object.assign(datos, {["mod"]: mod});
-                const action = datos.id && datos.id > 0 ? 'update' : 'insert';
-                const entity = form.dataset.entity;
+
+                formData.append('mod', mod);
+                const action = formData.get('id') && formData.get('id') > 0 ? 'update' : 'insert';
+                formData.append('action', action);
+                formData.append('entity', form.dataset.entity);
+
                 const endpoint = `/src/Api/index.php`;
-                
-                const response = await fetchCall(endpoint, action === 'insert' ? 'POST' : 'PUT', {
-                    action: action,
-                    entity: entity,
-                    data: datos
-                });
+
+                const response = await fetchCall(endpoint, action === 'insert' ? 'POST' : 'PUT', formData);
                 
                 if (!response.isOk){
                     $(".preloader").fadeOut();

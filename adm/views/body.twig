@@ -34,7 +34,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="#!">Salir</a></li>
+                    <li><a id="btnSalir" class="dropdown-item" href="javascript:void(0)">Salir</a></li>
                 </ul>
             </li>
         </ul>
@@ -100,6 +100,32 @@
     <script src="../js/vendor/DataTables/datatables.min.js"></script>
     <script src="{{ functions }}"></script>
     <script src="{{ init }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        try {
+            const btnSalir = document.getElementById('btnSalir');
+
+            btnSalir.addEventListener('click', async function () { 
+                event.preventDefault();
+                const url = `/src/Api/index.php?action=logout&entity=Usuarios`;
+                const response = await fetchCall(url, 'GET');
+                if (!response.isOk){
+                    $(".preloader").fadeOut();
+                    if (response.Content == 0) {
+                        //Session
+                        document.location.href = "./";
+                    }
+                    dialog(response.Message, response.Type);
+                    return;
+                }
+                document.location.href = "./";
+            });
+        } catch (error) {
+            const mensaje = `Error al procesar la petición: ${error}`;
+            dialog(mensaje, 'error');
+        }
+    });
+    </script>
     {% block scripts %}{% endblock %}
 </body>
 

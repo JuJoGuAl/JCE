@@ -7,8 +7,6 @@ use App\Responses\ResponseObject;
 class MarcasController
 {
     private $marcas;
-    private $mod_name;
-    private $mod_descrip;
     private $response;
 
     public function __construct()
@@ -16,6 +14,7 @@ class MarcasController
         $this->marcas = new Marcas();
         $this->module_titulo = 'Marcas';
         $this->module_subtitulo = 'Listado de Marcas del sistema';
+        $this->ruta_fotos = 'images/marcas/';
         $this->response = new ResponseObject();
         $this->response->showAudit = false;
     }
@@ -27,6 +26,8 @@ class MarcasController
     {
         try {
             $id = isset($params['id']) ? intval($params['id']) : null;
+            $this->response->ruta_logo = $this->ruta_fotos .'logos/';
+            $this->response->ruta_fotos = $this->ruta_fotos .'fotos/';
             if ($id === null) {
                 // Listar
                 $this->response->module = 'list';

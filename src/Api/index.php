@@ -5,25 +5,118 @@ session_start();
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Responses\ResponseObject;
-// use App\Entities\Usuarios;
-// use App\Entities\Marcas;
+use App\Helpers\ImageHandler;
 
 header('Content-Type: application/json');
 $response = new ResponseObject();
 
+/**
+ * Procesa y devuelve los datos de la solicitud según el método HTTP.
+ *
+ * @param string $method El método HTTP utilizado en la solicitud.
+ * @return array Los datos procesados de la solicitud.
+ */
+function getRequestData(string $method): array
+{
+    if ($method === 'GET') {
+        return $_GET;
+    }
+
+    if ($method === 'POST') {
+        return $_POST;
+    }
+
+    // Manejo de métodos PUT, PATCH, DELETE con FormData
+    $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
+    if (strpos($contentType, 'multipart/form-data') !== false) {
+        $boundary = substr($contentType, strpos($contentType, "boundary=") + 9);
+        $rawData = file_get_contents('php://input');
+        $parts = explode("--" . $boundary, $rawData);
+
+        $data = [];
+        foreach ($parts as $part) {
+            if (empty($part) || $part === "--\r\n") {
+                continue;
+            }
+
+            // Separar encabezado y contenido
+            list($headers, $body) = explode("\r\n\r\n", $part, 2);
+            $headers = explode("\r\n", $headers);
+
+            // Extraer el nombre del campo
+            $name = null;
+            foreach ($headers as $header) {
+                if (strpos($header, 'Content-Disposition:') !== false) {
+                    preg_match('/name="([^"]+)"/', $header, $matches);
+                    if (!empty($matches[1])) {
+                        $name = $matches[1];
+                    }
+                }
+            }
+
+            // Ignorar partes sin nombre
+            if ($name === null) {
+                continue;
+            }
+
+            // Limpiar contenido
+            $body = rtrim($body, "\r\n");
+
+            // Agregar al array de datos
+            $data[$name] = $body;
+        }
+
+        return $data;
+    }
+
+    // Manejo de JSON como alternativa
+    $input = file_get_contents('php://input');
+    if (!empty($input)) {
+        $decoded = json_decode($input, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            return $decoded;
+        }
+    }
+
+    return [];
+}
+
+/**
+ * Maneja los archivos subidos, si existen.
+ */
+function handleUploadedFiles(): array
+{
+    $uploadedFiles = [];
+
+    if (!empty($_FILES)) {
+        foreach ($_FILES as $key => $file) {
+            if ($file['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = __DIR__ . '/../../../uploads/';
+                $filePath = $uploadDir . basename($file['name']);
+                move_uploaded_file($file['tmp_name'], $filePath);
+                $uploadedFiles[$key] = $filePath; // Guardar la ruta en el array.
+            }
+        }
+    }
+
+    return $uploadedFiles;
+}
+
+/**
+ * Enviar respuesta JSON y salir.
+ */
 function sendResponse(ResponseObject $response): void
 {
     echo json_encode($response);
     exit();
 }
 
+$imageHandler = new ImageHandler();
+
 try {
     $requestMethod = $_SERVER['REQUEST_METHOD'];
-    if ($requestMethod === 'GET' || $requestMethod === 'DELETE') {
-        $requestData = $_GET;
-    } else {
-        $requestData = json_decode(file_get_contents('php://input'), true);
-    }
+    $requestData = getRequestData($requestMethod);
+    //$uploadedFiles = handleUploadedFiles();
     $action = $requestData['action'] ?? null;
     $entityName = $requestData['entity'] ?? null;
 
@@ -81,13 +174,27 @@ try {
             throw new Exception('Método no permitido para esta acción.');
         }
 
-        $data = $requestData['data'] ?? null;
+        $data = $requestData ?? null;
         
         if (!$data) {
             throw new Exception('Los datos son requeridos para insertar.');
         }
-        
-        $result = $entity->create($data);
+        //print_r($data);
+        //print_r($_FILES);
+        //$result = $entity->create($data);
+        foreach ($_FILES as $key => $file) {
+            //print_r($file);
+            if ($file['error'] === UPLOAD_ERR_OK) {
+                if (!empty($file['tmp_name'])) {
+                    //$imageHandler()
+                }
+                //echo 'El archivo va en: '.$data[$key];
+                // $uploadDir = __DIR__ . '/../../../uploads/';
+                // $filePath = $uploadDir . basename($file['name']);
+                // move_uploaded_file($file['tmp_name'], $filePath);
+                // $data[$key] = $filePath; // Guardar la ruta en el array.
+            }
+        }
 
         $response->setSuccess(
             Message: 'El Registro fue creado con exito!',
@@ -101,7 +208,7 @@ try {
             throw new Exception('Método no permitido para esta acción.');
         }
 
-        $data = $requestData['data'] ?? null;
+        $data = $requestData ?? null;
         
         if (!$data) {
             throw new Exception('Los datos son requeridos para actualizar.');

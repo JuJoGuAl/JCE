@@ -86,7 +86,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
                     <li>
                         <hr class=\"dropdown-divider\" />
                     </li>
-                    <li><a class=\"dropdown-item\" href=\"#!\">Salir</a></li>
+                    <li><a id=\"btnSalir\" class=\"dropdown-item\" href=\"javascript:void(0)\">Salir</a></li>
                 </ul>
             </li>
         </ul>
@@ -180,10 +180,36 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         // line 102
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["init"] ?? null), "html", null, true);
         yield "\"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        try {
+            const btnSalir = document.getElementById('btnSalir');
+
+            btnSalir.addEventListener('click', async function () { 
+                event.preventDefault();
+                const url = `/src/Api/index.php?action=logout&entity=Usuarios`;
+                const response = await fetchCall(url, 'GET');
+                if (!response.isOk){
+                    \$(\".preloader\").fadeOut();
+                    if (response.Content == 0) {
+                        //Session
+                        document.location.href = \"./\";
+                    }
+                    dialog(response.Message, response.Type);
+                    return;
+                }
+                document.location.href = \"./\";
+            });
+        } catch (error) {
+            const mensaje = `Error al procesar la petición: \${error}`;
+            dialog(mensaje, 'error');
+        }
+    });
+    </script>
     ";
-        // line 103
+        // line 129
         yield from $this->unwrap()->yieldBlock('scripts', $context, $blocks);
-        // line 104
+        // line 130
         yield "</body>
 
 </html>";
@@ -200,7 +226,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         yield from [];
     }
 
-    // line 103
+    // line 129
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -231,7 +257,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  204 => 103,  194 => 84,  187 => 104,  185 => 103,  181 => 102,  177 => 101,  159 => 85,  156 => 84,  149 => 80,  145 => 78,  142 => 77,  136 => 74,  131 => 73,  129 => 72,  125 => 71,  75 => 24,  64 => 16,  57 => 12,  44 => 1,);
+        return array (  230 => 129,  220 => 84,  213 => 130,  211 => 129,  181 => 102,  177 => 101,  159 => 85,  156 => 84,  149 => 80,  145 => 78,  142 => 77,  136 => 74,  131 => 73,  129 => 72,  125 => 71,  75 => 24,  64 => 16,  57 => 12,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -272,7 +298,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
                     <li>
                         <hr class=\"dropdown-divider\" />
                     </li>
-                    <li><a class=\"dropdown-item\" href=\"#!\">Salir</a></li>
+                    <li><a id=\"btnSalir\" class=\"dropdown-item\" href=\"javascript:void(0)\">Salir</a></li>
                 </ul>
             </li>
         </ul>
@@ -338,6 +364,32 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/DataTables/datatables.min.js\"></script>
     <script src=\"{{ functions }}\"></script>
     <script src=\"{{ init }}\"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        try {
+            const btnSalir = document.getElementById('btnSalir');
+
+            btnSalir.addEventListener('click', async function () { 
+                event.preventDefault();
+                const url = `/src/Api/index.php?action=logout&entity=Usuarios`;
+                const response = await fetchCall(url, 'GET');
+                if (!response.isOk){
+                    \$(\".preloader\").fadeOut();
+                    if (response.Content == 0) {
+                        //Session
+                        document.location.href = \"./\";
+                    }
+                    dialog(response.Message, response.Type);
+                    return;
+                }
+                document.location.href = \"./\";
+            });
+        } catch (error) {
+            const mensaje = `Error al procesar la petición: \${error}`;
+            dialog(mensaje, 'error');
+        }
+    });
+    </script>
     {% block scripts %}{% endblock %}
 </body>
 

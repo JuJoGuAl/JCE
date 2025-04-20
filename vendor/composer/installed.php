@@ -1,19 +1,37 @@
 <?php return array(
     'root' => array(
-        'name' => '__root__',
+        'name' => 'jujogual/jce',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '73292425f3c144852e43d9293edb52e0bf5ca73a',
+        'reference' => 'ef2098c787b6c9c961a54e482c57fd8cfe6cd524',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        '__root__' => array(
+        'intervention/gif' => array(
+            'pretty_version' => '4.2.2',
+            'version' => '4.2.2.0',
+            'reference' => '5999eac6a39aa760fb803bc809e8909ee67b451a',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../intervention/gif',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'intervention/image' => array(
+            'pretty_version' => '3.11.2',
+            'version' => '3.11.2.0',
+            'reference' => 'ebbb711871fb261c064cf4c422f5f3c124fe1842',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../intervention/image',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'jujogual/jce' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '73292425f3c144852e43d9293edb52e0bf5ca73a',
+            'reference' => 'ef2098c787b6c9c961a54e482c57fd8cfe6cd524',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

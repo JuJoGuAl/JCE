@@ -120,28 +120,42 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         <div id=\"layoutSidenav_content\">
             <main>
                 <div class=\"container-fluid px-4\">
-                    <h1 class=\"mt-4\">";
+                    <h1 class=\"my-4\">";
         // line 71
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod_name"] ?? null), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module_titulo"] ?? null), "html", null, true);
         yield "</h1>
                     ";
         // line 72
-        if ((array_key_exists("mod_descrip", $context) && ($context["mod_descrip"] ?? null))) {
+        if (($context["Message"] ?? null)) {
             // line 73
+            yield "                    <div class=\"alert alert-";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Type"] ?? null), "html", null, true);
+            yield "\" role=\"alert\">
+                        ";
+            // line 74
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Message"] ?? null), "html", null, true);
+            yield "
+                    </div>
+                    ";
+        }
+        // line 77
+        yield "                    ";
+        if ((array_key_exists("mod_descrip", $context) && ($context["mod_descrip"] ?? null))) {
+            // line 78
             yield "                    <div class=\"card mb-4\">
                         <div class=\"card-body\">
                             ";
-            // line 75
+            // line 80
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod_descrip"] ?? null), "html", null, true);
             yield "
                         </div>
                     </div>
                     ";
         }
-        // line 79
+        // line 84
         yield "                    ";
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 80
+        // line 85
         yield "                </div>
             </main>
             <footer class=\"py-4 bg-light mt-auto\">
@@ -159,24 +173,24 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/jquery-confirm/jquery-confirm.min.js\"></script>
     <script src=\"../js/vendor/DataTables/datatables.min.js\"></script>
     <script src=\"";
-        // line 96
+        // line 101
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["functions"] ?? null), "html", null, true);
         yield "\"></script>
     <script src=\"";
-        // line 97
+        // line 102
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["init"] ?? null), "html", null, true);
         yield "\"></script>
     ";
-        // line 98
+        // line 103
         yield from $this->unwrap()->yieldBlock('scripts', $context, $blocks);
-        // line 99
+        // line 104
         yield "</body>
 
 </html>";
         yield from [];
     }
 
-    // line 79
+    // line 84
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -186,7 +200,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         yield from [];
     }
 
-    // line 98
+    // line 103
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -217,7 +231,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  190 => 98,  180 => 79,  173 => 99,  171 => 98,  167 => 97,  163 => 96,  145 => 80,  142 => 79,  135 => 75,  131 => 73,  129 => 72,  125 => 71,  75 => 24,  64 => 16,  57 => 12,  44 => 1,);
+        return array (  204 => 103,  194 => 84,  187 => 104,  185 => 103,  181 => 102,  177 => 101,  159 => 85,  156 => 84,  149 => 80,  145 => 78,  142 => 77,  136 => 74,  131 => 73,  129 => 72,  125 => 71,  75 => 24,  64 => 16,  57 => 12,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -292,7 +306,12 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         <div id=\"layoutSidenav_content\">
             <main>
                 <div class=\"container-fluid px-4\">
-                    <h1 class=\"mt-4\">{{ mod_name }}</h1>
+                    <h1 class=\"my-4\">{{ module_titulo }}</h1>
+                    {% if Message %}
+                    <div class=\"alert alert-{{ Type }}\" role=\"alert\">
+                        {{ Message }}
+                    </div>
+                    {% endif %}
                     {% if mod_descrip is defined and mod_descrip %}
                     <div class=\"card mb-4\">
                         <div class=\"card-body\">

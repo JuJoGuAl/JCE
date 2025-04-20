@@ -2,58 +2,60 @@
 namespace Adm\Modules\Controllers;
 
 use App\Entities\Marcas;
+use App\Responses\ResponseObject;
 
 class MarcasController
 {
     private $marcas;
+    private $mod_name;
+    private $mod_descrip;
+    private $response;
 
     public function __construct()
     {
-        $this->marcas = new Marcas(); // Inicializa la entidad Marcas
+        $this->marcas = new Marcas();
+        $this->module_titulo = 'Marcas';
+        $this->module_subtitulo = 'Listado de Marcas del sistema';
+        $this->response = new ResponseObject();
     }
 
     /**
      * Maneja solicitudes GET (prepara datos para la vista)
      */
-    public function onGet($params): array
+    public function onGet($params): ResponseObject
     {
-        $id = isset($params['id']) ? intval($params['id']) : null;
-
-        if ($id === null) {
-            $data = $this->marcas->findAll();
-            // Listar todas las marcas
-            return [
-                'mod_name' => 'Listado de Marcas',
-                'mod_descrip' => 'Utilice este módulo para gestionar las marcas que se asignaran a los productos que desee crear',
-                'operation' => 'list',
-                'marcas' => $data['result'],
-            ];
-        } elseif ($id === 0) {
-            // Crear nueva marca
-            return [
-                'mod_name' => 'Creación de Marca',
-                'mod_descrip' => 'Complete el formulario para crear una nueva marca',
-                'operation' => 'create',
-                'marca' => [
-                    'codigo' => 0,
-                    'nombre' => '',
-                    'descripcion_es' => '',
-                    'descripcion_en' => '',
-                ],
-            ];
-        } else {
-            // Editar una marca existente
-            $marca = $this->marcas->get_($id);
-            if (!$marca) {
-                throw new \Exception("La marca con ID {$id} no existe.");
+        try {
+            $id = isset($params['id']) ? intval($params['id']) : null;
+            if ($id === null) {
+                // Listar
+                $this->response->module = 'list';
+                $data = $this->marcas->findAll();
+                if (count($data['result']) > 0){
+                    $this->response->Content = $data['result'];
+                    $this->response->Rows = count($data['result']);
+                } else {
+                    $this->response->setWarning('No se encontraron marcas en la base de datos.');	
+                }
+            } elseif ($id === 0) {
+                // Crear
+                $this->response->module = 'form';
+                $this->module_subtitulo = 'Complete el formulario para crear una nueva marca';
+            } else {
+                // Editar
+                $this->response->module = 'form';
+                $this->module_subtitulo = 'Modifique los datos de la marca seleccionada';
+                $data = $this->marcas->findById($id);
+                if (!$data){
+                    throw new \Exception("La marca con ID {$id} no existe.");
+                }
+                $this->response->Content = $data;
+                $this->response->Rows = 1;
             }
-
-            return [
-                'mod_name' => 'Edición de Marca',
-                'mod_descrip' => 'Modifique los datos de la marca seleccionada',
-                'operation' => 'edit',
-                'marca' => $marca,
-            ];
+            $this->response->module_titulo = $this->module_titulo;
+            $this->response->module_subtitulo = $this->module_subtitulo;
+        } catch (\Exception $e) {
+            $this->response->setError($e->getMessage());
         }
+        return $this->response;
     }
 }

@@ -3,57 +3,73 @@ namespace App\Responses;
 
 class ResponseObject {
     public bool $isOk;
-    public string $resultType;
-    public ?string $resultTitle;
-    public ?string $resultText;
-    public ?string $resultDetail;
-    public mixed $resultContent;
-    public int $resultRows;
+    public string $Type;
+    public ?string $Message;
+    public ?string $Detail;
+    public mixed $Content;
+    public ?string $module;
+    public ?string $module_titulo;
+    public ?string $module_subtitulo;
+    public int $Rows;
 
     public function __construct(
         bool $isOk = true,
-        string $resultType = 'success',
-        ?string $resultTitle = null,
-        ?string $resultText = null,
-        ?string $resultDetail = null,
-        mixed $resultContent = null,
-        int $resultRows = 0
+        string $Type = 'success',
+        ?string $Message = null,
+        ?string $Detail = null,
+        mixed $Content = null,
+        ?string $module = null,
+        ?string $module_titulo = null,
+        ?string $module_subtitulo = null,
+        int $Rows = 0
     ) {
         $this->isOk = $isOk;
-        $this->resultType = $resultType;
-        $this->resultTitle = $resultTitle;
-        $this->resultText = $resultText;
-        $this->resultDetail = $resultDetail;
-        $this->resultContent = $resultContent;
-        $this->resultRows = $resultRows;
+        $this->Type = $Type;
+        $this->Message = $Message;
+        $this->Detail = $Detail;
+        $this->Content = $Content;
+        $this->module = $module;
+        $this->module_titulo = $module_titulo;
+        $this->module_subtitulo = $module_subtitulo;
+        $this->Rows = $Rows;
     }
 
     public function setSuccess(
-        string $resultTitle,
-        string $resultText,
-        mixed $resultContent = null,
-        int $resultRows = 0
+        string $Message,
+        mixed $Content = null,
+        int $Rows = 0
     ): void {
         $this->isOk = true;
-        $this->resultType = 'success';
-        $this->resultTitle = $resultTitle;
-        $this->resultText = $resultText;
-        $this->resultDetail = null;
-        $this->resultContent = $resultContent;
-        $this->resultRows = $resultRows;
+        $this->Type = 'success';
+        $this->Message = $Message;
+        $this->Detail = null;
+        $this->Content = $Content;
+        $this->Rows = $Rows;
+    }
+
+    public function setWarning(
+        string $Message,
+        ?string $Detail = null,
+        mixed $Content = null
+    ): void {
+        $this->isOk = false;
+        $this->Type = 'warning';
+        $this->Message = $Message;
+        $this->Detail = $Detail;
+        $this->Content = $Content;
+        $this->Rows = 0;
     }
 
     public function setError(
-        string $resultText,
-        ?string $resultDetail = null,
-        mixed $resultContent = null
+        string $Message,
+        ?string $Detail = null,
+        mixed $Content = null
     ): void {
         $this->isOk = false;
-        $this->resultType = 'error';
-        $this->resultTitle = 'Error';
-        $this->resultText = $resultText;
-        $this->resultDetail = $resultDetail;
-        $this->resultContent = $resultContent;
-        $this->resultRows = 0;
+        $this->Type = 'error';
+        $this->Message = $Message;
+        $this->Detail = $Detail;
+        $this->Content = $Content;
+        $this->Rows = 0;
     }
 }

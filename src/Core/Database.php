@@ -115,7 +115,7 @@ class Database {
             fields: $this->getAllFields(true),
             filters: [
                 [
-                    'row' => $this->primaryKey,
+                    'column' => $this->primaryKey,
                     'operator' => '=',
                     'value' => $id
                 ]
@@ -125,7 +125,7 @@ class Database {
 
         $result = $this->getRecords($options);
 
-        return $result[0] ?? null;
+        return $result['result'];
     }
 
     /**

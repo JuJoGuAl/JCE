@@ -1,13 +1,19 @@
 {% extends '@views/body.twig' %}
 
 {% block content %}
-
-{% if operation == 'list' %}
 <div class="card mb-4">
-    <div class="card-header">Lista de Marcas</div>
+    <div class="card-header">{{module_subtitulo}}</div>
     <div class="card-body">
+        {% if module == 'list' %}
+        <div class="row mb-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="button-group">
+                    <a class="btn btn-outline-primary btn-sm" href="?mod={{mod}}&id=0" data-id="0"><span class="btn-label"><i class="fas fa-plus"></i></span> Nuevo</a>
+                </div>
+            </div>
+        </div>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover datatables">
                 <thead>
                     <tr>
                         <th>CODIGO</th>
@@ -18,38 +24,68 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for marca in marcas %}
+                    {% for marca in Content %}
                     <tr>
                         <td>{{ marca.codigo }}</td>
                         <td>{{ marca.nombre }}</td>
                         <td>{{ marca.descripcion_es }}</td>
                         <td>{{ marca.descripcion_en }}</td>
-                        <td>
-                            <a href="?mod=marcas&id={{ marca.codigo }}" class="btn btn-sm btn-warning">Editar</a>
+                        <td class="text-center">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-outline-primary btn-circle btn-sm"
+                                    href="?mod={{ mod }}&id={{ marca.id }}" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-search"></i></a>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+        {% elseif module == 'form' %}
+        {% set marca = Content[0] %}
+        <form role="form" name="form_" id="form_" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <div class="col-sm-8">
+                    <div class="form-floating mb-3 mb-md-0">
+                        <input type="text" class="form-control validar" id="dato" name="dato" maxlength="100" placeholder="Ingrese el Nombre de la Marca" value="{{ marca.nombre }}">
+                        <label for="dato" class="control-label col-form-label">Nombre de la Marca</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <div class="form-floating mb-3">
+                        <textarea id="descripcion_es" name="descripcion_es" class="form-control h-100 validar" rows="4" placeholder="Ingrese la descricíon de la marca en Español">{{ marca.descripcion_es }}</textarea>
+                        <label for="descripcion_es" class="control-label col-form-label">Descripcion (Español)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <div class="form-floating mb-3">
+                        <textarea id="descripcion_en" name="descripcion_en" class="form-control h-100 validar" rows="4" placeholder="Ingrese la descricíon de la marca en Ingles">{{ marca.descripcion_en }}</textarea>
+                        <label for="descripcion_en" class="control-label col-form-label">Descripcion (Ingles)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="action-form">
+                    <div class="form-group mb-0 text-center">
+                        <input type="hidden" name="id" value="{{ marca.id }}">
+                        <button class="btn btn-outline-primary" type="button" form="form_" data-mod="{{ mod }}"><span class="btn-label"><i class="fas fa-save"></i></span> Guardar</button>
+                        <a class="btn btn-outline-primary" href="?mod={{ mod }}"><span class="btn-label"><i class="fas fa-sign-out-alt"></i></span> Cerrar</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% else %}
+        <div class="alert alert-warning"> Operación no válida: {{ module }} </div>
+        {% endif %}
     </div>
 </div>
-{% else %}
-<form id="form_">
-    <input type="hidden" name="id" value="{{ marca.codigo }}">
-    <div class="mb-3">
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" id="nombre" class="form-control" value="{{ marca.nombre }}">
-    </div>
-    <div class="mb-3">
-        <label for="descripcion_es">Descripción (Español):</label>
-        <textarea name="descripcion_es" id="descripcion_es" class="form-control">{{ marca.descripcion_es }}</textarea>
-    </div>
-    <div class="mb-3">
-        <label for="descripcion_en">Descripción (Inglés):</label>
-        <textarea name="descripcion_en" id="descripcion_en" class="form-control">{{ marca.descripcion_en }}</textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
-</form>
-{% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+
+</script>
 {% endblock %}

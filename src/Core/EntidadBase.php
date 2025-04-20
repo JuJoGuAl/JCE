@@ -61,12 +61,15 @@ class EntidadBase {
         if ($orderBy != '') {
             $options->orderBy = $orderBy;
         }
+        else{
+            $options->orderBy = "$this->primaryKey DESC";
+        }
 
         // Establecer límite y desplazamiento
         if ($having != '') {
             $options->having = $having;
         }
-        
+        //$options->addFilter($this->primaryKey, '>', 999);
         return $this->db->getRecords($options);
     }
 

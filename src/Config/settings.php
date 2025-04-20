@@ -13,4 +13,11 @@ return [
         'name' => 'Panel Administrativo JCE',
         'debug' => true, // Cambiar a false en producción
     ],
+
+    'messageTypes' => [
+        'success' => 'success',
+        'error' => 'danger',
+        'info' => 'info',
+        'warning' => 'warning',
+    ],
 ];

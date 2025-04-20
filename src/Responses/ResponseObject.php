@@ -7,9 +7,6 @@ class ResponseObject {
     public ?string $Message;
     public ?string $Detail;
     public mixed $Content;
-    public ?string $module;
-    public ?string $module_titulo;
-    public ?string $module_subtitulo;
     public int $Rows;
 
     public function __construct(
@@ -18,9 +15,6 @@ class ResponseObject {
         ?string $Message = null,
         ?string $Detail = null,
         mixed $Content = null,
-        ?string $module = null,
-        ?string $module_titulo = null,
-        ?string $module_subtitulo = null,
         int $Rows = 0
     ) {
         $this->isOk = $isOk;
@@ -28,9 +22,6 @@ class ResponseObject {
         $this->Message = $Message;
         $this->Detail = $Detail;
         $this->Content = $Content;
-        $this->module = $module;
-        $this->module_titulo = $module_titulo;
-        $this->module_subtitulo = $module_subtitulo;
         $this->Rows = $Rows;
     }
 

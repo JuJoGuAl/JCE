@@ -32,8 +32,8 @@
                         <td>{{ marca.descripcion_en }}</td>
                         <td class="text-center">
                             <div class="btn-group" role="group">
-                                <a class="btn btn-outline-primary btn-circle btn-sm"
-                                    href="?mod={{ mod }}&id={{ marca.id }}" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-search"></i></a>
+                                <a class="btn btn-outline-primary btn-circle btn-sm" href="?mod={{ mod }}&id={{ marca.id }}" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-search"></i></a>
+                                <a class="btn btn-outline-primary btn-circle btn-sm btnEliminarRegistro" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-id="{{ marca.id }}" title="Eliminar"><i class="fas fa-trash"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -43,12 +43,12 @@
         </div>
         {% elseif module == 'form' %}
         {% set marca = Content[0] %}
-        <form role="form" name="form_" id="form_" enctype="multipart/form-data">
+        <form role="form" name="form_" id="form_" enctype="multipart/form-data" data-entity="Marcas">
             <div class="row mb-3">
                 <div class="col-sm-8">
                     <div class="form-floating mb-3 mb-md-0">
-                        <input type="text" class="form-control validar" id="dato" name="dato" maxlength="100" placeholder="Ingrese el Nombre de la Marca" value="{{ marca.nombre }}">
-                        <label for="dato" class="control-label col-form-label">Nombre de la Marca</label>
+                        <input type="text" class="form-control validar" id="nombre" name="nombre" maxlength="100" placeholder="Ingrese el Nombre de la Marca" value="{{ marca.nombre }}">
+                        <label for="nombre" class="control-label col-form-label">Nombre de la Marca</label>
                     </div>
                 </div>
             </div>
@@ -82,9 +82,11 @@
             <div class="card-body">
                 <div class="action-form">
                     <div class="form-group mb-0 text-center">
-                        <input type="hidden" name="id" value="{{ marca.id }}">
-                        <button class="btn btn-outline-primary" type="button" form="form_" data-mod="{{ mod }}"><span class="btn-label"><i class="fas fa-save"></i></span> Guardar</button>
-                        <a class="btn btn-outline-primary" href="?mod={{ mod }}"><span class="btn-label"><i class="fas fa-sign-out-alt"></i></span> Cerrar</a>
+                        <input type="hidden" id="id" name="id" value="{{ marca.id }}">
+                        <input type="hidden" id="logo_path" name="logo_path" value="{{ marca.logo_path }}">
+                        <input type="hidden" id="foto_path" name="foto_path" value="{{ marca.foto_path }}">
+                        <button id="btnGuardar" class="btn btn-outline-primary" type="button" form="form_" data-mod="{{ mod }}"><span class="btn-label"><i class="fas fa-save"></i></span> Guardar</button>
+                        <a id="btnCancelar" class="btn btn-outline-primary" href="?mod={{ mod }}"><span class="btn-label"><i class="fas fa-sign-out-alt"></i></span> Cerrar</a>
                     </div>
                 </div>
             </div>
@@ -97,8 +99,61 @@
 {% endblock %}
 {% block scripts %}
 <script>
-    $('button[form]').click(function () {
-        $('#form_').sendForm();
+    document.addEventListener('DOMContentLoaded', function () {
+        try {
+            const btnGuardar = document.getElementById('btnGuardar');
+            const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
+
+            btnEliminarRegistro.forEach(btn => {
+                btn.addEventListener('click', eliminaRegistro);
+            });
+            
+            if(btnGuardar != null) {
+                btnGuardar.addEventListener('click', async function () { $('#form_').sendForm(); });
+            }
+
+            async function eliminaRegistro(event) {
+                event.preventDefault();
+                try {
+                    dialog(
+                        "¿Está seguro?",
+                        "WARNING",
+                        null,
+                        null,
+                        {
+                            "Sí": { 
+                                btnClass: "btn-orange", 
+                                action: async function () { 
+                                    const dataID = event.target.parentElement.getAttribute('data-id');
+                                    const url = `/src/Api/index.php?action=delete&entity=Marcas&id=${dataID}`;
+                                    const response = await fetchCall(url, 'DELETE');
+                                    if (!response.isOk){
+                                        $(".preloader").fadeOut();
+                                        if (response.Content == 0) {
+                                            //Session
+                                            document.location.href = "./";
+                                        }
+                                        dialog(response.Message, response.Type);
+                                        return;
+                                    }
+                                    const botones = { ACEPTAR: { btnClass: 'btn-success', action: function(){ document.location.href="./?mod=marcas"; } }};
+                                    dialog(response.Message,response.Type,null,null,botones);
+                                } 
+                            },
+                            "No": { 
+                                btnClass: "btn-default", 
+                            }
+                        }
+                    );
+                } catch (error) {
+                    const mensaje = `Error al procesar la petición: ${error}`;
+                    dialog(mensaje, 'error');
+                }
+            }
+        } catch (error) {
+            const mensaje = `Error al procesar la petición: ${error}`;
+            dialog(mensaje, 'error');
+        }
     });
 </script>
 {% endblock %}

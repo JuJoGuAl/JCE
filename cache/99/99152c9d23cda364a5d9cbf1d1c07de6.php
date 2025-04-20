@@ -14,7 +14,7 @@ use Twig\Source;
 use Twig\Template;
 use Twig\TemplateWrapper;
 
-/* login.twig */
+/* @views/login.twig */
 class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
 {
     private Source $source;
@@ -126,11 +126,12 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
                     const requestData = {
                         username: username,
                         password: pass,
+                        entity: 'Usuarios',
                         action: 'val_log'
                     };
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
                     if (!datas.isOk){
-                        dialog(datas.resultText, datas.resultType);
+                        dialog(datas.Message, datas.Type);
                         return;
                     }
                     document.location.href = \"./\";
@@ -153,7 +154,7 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
      */
     public function getTemplateName(): string
     {
-        return "login.twig";
+        return "@views/login.twig";
     }
 
     /**
@@ -252,11 +253,12 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
                     const requestData = {
                         username: username,
                         password: pass,
+                        entity: 'Usuarios',
                         action: 'val_log'
                     };
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
                     if (!datas.isOk){
-                        dialog(datas.resultText, datas.resultType);
+                        dialog(datas.Message, datas.Type);
                         return;
                     }
                     document.location.href = \"./\";
@@ -270,6 +272,6 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
     </script>
 </body>
 
-</html>", "login.twig", "C:\\laragon\\www\\jce\\adm\\views\\login.twig");
+</html>", "@views/login.twig", "C:\\laragon\\www\\jce\\adm\\views\\login.twig");
     }
 }

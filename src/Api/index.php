@@ -5,7 +5,8 @@ session_start();
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Responses\ResponseObject;
-use App\Entities\Usuarios;
+// use App\Entities\Usuarios;
+// use App\Entities\Marcas;
 
 header('Content-Type: application/json');
 $response = new ResponseObject();
@@ -18,12 +19,27 @@ function sendResponse(ResponseObject $response): void
 
 try {
     $requestMethod = $_SERVER['REQUEST_METHOD'];
-    $requestData = json_decode(file_get_contents('php://input'), true);
+    if ($requestMethod === 'GET' || $requestMethod === 'DELETE') {
+        $requestData = $_GET;
+    } else {
+        $requestData = json_decode(file_get_contents('php://input'), true);
+    }
     $action = $requestData['action'] ?? null;
+    $entityName = $requestData['entity'] ?? null;
 
     if (!$action) {
         throw new Exception('No se especificó ninguna acción.');
     }
+
+    if (!$entityName) {
+        throw new Exception('No se especificó ninguna entidad.');
+    }
+
+    $entityClass = "App\\Entities\\" . ucfirst($entityName);
+    if (!class_exists($entityClass)) {
+        throw new Exception("La entidad '{$entityName}' no existe.");
+    }
+    $entity = new $entityClass();
 
     if ($action === 'val_log') {
         if ($requestMethod !== 'POST') {
@@ -37,15 +53,13 @@ try {
             throw new Exception('Usuario y contraseña son requeridos.');
         }
 
-        $usuario = new Usuarios();
-        $usuarioData = $usuario->logUser($username, $password);
+        $usuarioData = $entity->logUser($username, $password);
 
         $_SESSION['jce_log'] = $usuarioData['cusuario'];
 
         $response->setSuccess(
-            resultTitle: 'Inicio de sesión exitoso',
-            resultText: 'El usuario ha iniciado sesión correctamente.',
-            resultRows: 1
+            Message: 'El usuario ha iniciado sesión correctamente.',
+            Rows: 1
         );
         sendResponse($response);
     }
@@ -53,8 +67,7 @@ try {
     if ($action === 'logout') {
         session_destroy();
         $response->setSuccess(
-            resultTitle: 'Cierre de sesión',
-            resultText: 'Sesión cerrada exitosamente.'
+            Message: 'Sesión cerrada exitosamente.'
         );
         sendResponse($response);
     }
@@ -63,21 +76,62 @@ try {
         throw new Exception('No tienes una sesión activa.');
     }
 
-    if ($action === 'some_action') {
+    if ($action === 'insert') {
         if ($requestMethod !== 'POST') {
             throw new Exception('Método no permitido para esta acción.');
         }
 
-        $someData = $requestData['some_data'] ?? null;
-
-        if (!$someData) {
-            throw new Exception('El campo "some_data" es requerido.');
+        $data = $requestData['data'] ?? null;
+        
+        if (!$data) {
+            throw new Exception('Los datos son requeridos para insertar.');
         }
+        
+        $result = $entity->create($data);
 
         $response->setSuccess(
-            resultTitle: 'Acción ejecutada',
-            resultText: 'La acción se ejecutó correctamente.',
-            resultContent: ['processed_data' => $someData]
+            Message: 'El Registro fue creado con exito!',
+            Content: ['processed_data' => $data]
+        );
+        sendResponse($response);
+    }
+
+    if ($action === 'update') {
+        if ($requestMethod !== 'PUT') {
+            throw new Exception('Método no permitido para esta acción.');
+        }
+
+        $data = $requestData['data'] ?? null;
+        
+        if (!$data) {
+            throw new Exception('Los datos son requeridos para actualizar.');
+        }
+
+        $result = $entity->update($data['id'],$data);
+
+        $response->setSuccess(
+            Message: 'El Registro fue actualizado con exito!',
+            Content: ['processed_data' => $data]
+        );
+        sendResponse($response);
+    }
+
+    if ($action === 'delete') {
+        if ($requestMethod !== 'DELETE') {
+            throw new Exception('Método no permitido para esta acción.');
+        }
+
+        $id = $requestData['id'] ?? null;
+        
+        if (!$id) {
+            throw new Exception('El ID es requerido para eliminar.');
+        }
+
+        $result = $entity->remove($id);
+
+        $response->setSuccess(
+            Message: 'El Registro fue elminado con exito!',
+            Content: ['processed_data' => $id]
         );
         sendResponse($response);
     }
@@ -85,7 +139,8 @@ try {
     throw new Exception('Acción no válida.');
 } catch (Exception $e) {
     $response->setError(
-        resultText: $e->getMessage()
+        Message: $e->getMessage(),
+        Content: !isset($_SESSION['jce_log']) ? 0 : 1
     );
     sendResponse($response);
 }

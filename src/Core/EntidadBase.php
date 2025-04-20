@@ -88,7 +88,11 @@ class EntidadBase {
      * @return Array de registros.
      */
     public function create(array $data): array {
-        return $this->db->insertRecord($data);
+        $filteredData = array_map(
+            fn($value) => $value === "" ? null : $value,
+            $data
+        );
+        return $this->db->insertRecord($filteredData);
     }
 
     /**
@@ -98,7 +102,11 @@ class EntidadBase {
      * @return Array de registros.
      */
     public function update($id, array $data): array {
-        return $this->db->updateRecord($data, null, $id);
+        $filteredData = array_map(
+            fn($value) => $value === "" ? null : $value,
+            $data
+        );
+        return $this->db->updateRecord($filteredData, null, $id);
     }
 
     /**

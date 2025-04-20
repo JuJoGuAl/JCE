@@ -76,11 +76,12 @@
                     const requestData = {
                         username: username,
                         password: pass,
+                        entity: 'Usuarios',
                         action: 'val_log'
                     };
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
                     if (!datas.isOk){
-                        dialog(datas.resultText, datas.resultType);
+                        dialog(datas.Message, datas.Type);
                         return;
                     }
                     document.location.href = "./";

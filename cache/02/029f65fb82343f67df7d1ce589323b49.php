@@ -113,13 +113,16 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                 yield "</td>
                         <td class=\"text-center\">
                             <div class=\"btn-group\" role=\"group\">
-                                <a class=\"btn btn-outline-primary btn-circle btn-sm\"
-                                    href=\"?mod=";
-                // line 36
+                                <a class=\"btn btn-outline-primary btn-circle btn-sm\" href=\"?mod=";
+                // line 35
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
                 yield "&id=";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["marca"], "id", [], "any", false, false, false, 36), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["marca"], "id", [], "any", false, false, false, 35), "html", null, true);
                 yield "\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Ver\"><i class=\"fas fa-search\"></i></a>
+                                <a class=\"btn btn-outline-primary btn-circle btn-sm btnEliminarRegistro\" href=\"javascript:void(0)\" data-toggle=\"tooltip\" data-placement=\"top\" data-id=\"";
+                // line 36
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["marca"], "id", [], "any", false, false, false, 36), "html", null, true);
+                yield "\" title=\"Eliminar\"><i class=\"fas fa-trash\"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -139,15 +142,15 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
             yield "        ";
             $context["marca"] = (($_v0 = ($context["Content"] ?? null)) && is_array($_v0) || $_v0 instanceof ArrayAccess ? ($_v0[0] ?? null) : null);
             // line 46
-            yield "        <form role=\"form\" name=\"form_\" id=\"form_\" enctype=\"multipart/form-data\">
+            yield "        <form role=\"form\" name=\"form_\" id=\"form_\" enctype=\"multipart/form-data\" data-entity=\"Marcas\">
             <div class=\"row mb-3\">
                 <div class=\"col-sm-8\">
                     <div class=\"form-floating mb-3 mb-md-0\">
-                        <input type=\"text\" class=\"form-control validar\" id=\"dato\" name=\"dato\" maxlength=\"100\" placeholder=\"Ingrese el Nombre de la Marca\" value=\"";
+                        <input type=\"text\" class=\"form-control validar\" id=\"nombre\" name=\"nombre\" maxlength=\"100\" placeholder=\"Ingrese el Nombre de la Marca\" value=\"";
             // line 50
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["marca"] ?? null), "nombre", [], "any", false, false, false, 50), "html", null, true);
             yield "\">
-                        <label for=\"dato\" class=\"control-label col-form-label\">Nombre de la Marca</label>
+                        <label for=\"nombre\" class=\"control-label col-form-label\">Nombre de la Marca</label>
                     </div>
                 </div>
             </div>
@@ -204,16 +207,24 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
             yield "            <div class=\"card-body\">
                 <div class=\"action-form\">
                     <div class=\"form-group mb-0 text-center\">
-                        <input type=\"hidden\" name=\"id\" value=\"";
+                        <input type=\"hidden\" id=\"id\" name=\"id\" value=\"";
             // line 85
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["marca"] ?? null), "id", [], "any", false, false, false, 85), "html", null, true);
             yield "\">
-                        <button class=\"btn btn-outline-primary\" type=\"button\" form=\"form_\" data-mod=\"";
+                        <input type=\"hidden\" id=\"logo_path\" name=\"logo_path\" value=\"";
             // line 86
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["marca"] ?? null), "logo_path", [], "any", false, false, false, 86), "html", null, true);
+            yield "\">
+                        <input type=\"hidden\" id=\"foto_path\" name=\"foto_path\" value=\"";
+            // line 87
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["marca"] ?? null), "foto_path", [], "any", false, false, false, 87), "html", null, true);
+            yield "\">
+                        <button id=\"btnGuardar\" class=\"btn btn-outline-primary\" type=\"button\" form=\"form_\" data-mod=\"";
+            // line 88
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
             yield "\"><span class=\"btn-label\"><i class=\"fas fa-save\"></i></span> Guardar</button>
-                        <a class=\"btn btn-outline-primary\" href=\"?mod=";
-            // line 87
+                        <a id=\"btnCancelar\" class=\"btn btn-outline-primary\" href=\"?mod=";
+            // line 89
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
             yield "\"><span class=\"btn-label\"><i class=\"fas fa-sign-out-alt\"></i></span> Cerrar</a>
                     </div>
@@ -222,30 +233,83 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
         </form>
         ";
         } else {
-            // line 93
+            // line 95
             yield "        <div class=\"alert alert-warning\"> Operación no válida: ";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module"] ?? null), "html", null, true);
             yield " </div>
         ";
         }
-        // line 95
+        // line 97
         yield "    </div>
 </div>
 ";
         yield from [];
     }
 
-    // line 98
+    // line 100
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_scripts(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 99
+        // line 101
         yield "<script>
-    \$('button[form]').click(function () {
-        \$('#form_').sendForm();
+    document.addEventListener('DOMContentLoaded', function () {
+        try {
+            const btnGuardar = document.getElementById('btnGuardar');
+            const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
+
+            btnEliminarRegistro.forEach(btn => {
+                btn.addEventListener('click', eliminaRegistro);
+            });
+            
+            if(btnGuardar != null) {
+                btnGuardar.addEventListener('click', async function () { \$('#form_').sendForm(); });
+            }
+
+            async function eliminaRegistro(event) {
+                event.preventDefault();
+                try {
+                    dialog(
+                        \"¿Está seguro?\",
+                        \"WARNING\",
+                        null,
+                        null,
+                        {
+                            \"Sí\": { 
+                                btnClass: \"btn-orange\", 
+                                action: async function () { 
+                                    const dataID = event.target.parentElement.getAttribute('data-id');
+                                    const url = `/src/Api/index.php?action=delete&entity=Marcas&id=\${dataID}`;
+                                    const response = await fetchCall(url, 'DELETE');
+                                    if (!response.isOk){
+                                        \$(\".preloader\").fadeOut();
+                                        if (response.Content == 0) {
+                                            //Session
+                                            document.location.href = \"./\";
+                                        }
+                                        dialog(response.Message, response.Type);
+                                        return;
+                                    }
+                                    const botones = { ACEPTAR: { btnClass: 'btn-success', action: function(){ document.location.href=\"./?mod=marcas\"; } }};
+                                    dialog(response.Message,response.Type,null,null,botones);
+                                } 
+                            },
+                            \"No\": { 
+                                btnClass: \"btn-default\", 
+                            }
+                        }
+                    );
+                } catch (error) {
+                    const mensaje = `Error al procesar la petición: \${error}`;
+                    dialog(mensaje, 'error');
+                }
+            }
+        } catch (error) {
+            const mensaje = `Error al procesar la petición: \${error}`;
+            dialog(mensaje, 'error');
+        }
     });
 </script>
 ";
@@ -273,7 +337,7 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  246 => 99,  239 => 98,  232 => 95,  226 => 93,  217 => 87,  213 => 86,  209 => 85,  204 => 82,  196 => 77,  192 => 76,  188 => 75,  184 => 74,  180 => 72,  178 => 71,  170 => 66,  159 => 58,  148 => 50,  142 => 46,  139 => 45,  137 => 44,  132 => 41,  119 => 36,  112 => 32,  108 => 31,  104 => 30,  100 => 29,  97 => 28,  93 => 27,  74 => 11,  69 => 8,  67 => 7,  62 => 5,  59 => 4,  52 => 3,  41 => 1,);
+        return array (  257 => 101,  250 => 100,  243 => 97,  237 => 95,  228 => 89,  224 => 88,  220 => 87,  216 => 86,  212 => 85,  207 => 82,  199 => 77,  195 => 76,  191 => 75,  187 => 74,  183 => 72,  181 => 71,  173 => 66,  162 => 58,  151 => 50,  145 => 46,  142 => 45,  140 => 44,  135 => 41,  124 => 36,  118 => 35,  112 => 32,  108 => 31,  104 => 30,  100 => 29,  97 => 28,  93 => 27,  74 => 11,  69 => 8,  67 => 7,  62 => 5,  59 => 4,  52 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -312,8 +376,8 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                         <td>{{ marca.descripcion_en }}</td>
                         <td class=\"text-center\">
                             <div class=\"btn-group\" role=\"group\">
-                                <a class=\"btn btn-outline-primary btn-circle btn-sm\"
-                                    href=\"?mod={{ mod }}&id={{ marca.id }}\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Ver\"><i class=\"fas fa-search\"></i></a>
+                                <a class=\"btn btn-outline-primary btn-circle btn-sm\" href=\"?mod={{ mod }}&id={{ marca.id }}\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Ver\"><i class=\"fas fa-search\"></i></a>
+                                <a class=\"btn btn-outline-primary btn-circle btn-sm btnEliminarRegistro\" href=\"javascript:void(0)\" data-toggle=\"tooltip\" data-placement=\"top\" data-id=\"{{ marca.id }}\" title=\"Eliminar\"><i class=\"fas fa-trash\"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -323,12 +387,12 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
         </div>
         {% elseif module == 'form' %}
         {% set marca = Content[0] %}
-        <form role=\"form\" name=\"form_\" id=\"form_\" enctype=\"multipart/form-data\">
+        <form role=\"form\" name=\"form_\" id=\"form_\" enctype=\"multipart/form-data\" data-entity=\"Marcas\">
             <div class=\"row mb-3\">
                 <div class=\"col-sm-8\">
                     <div class=\"form-floating mb-3 mb-md-0\">
-                        <input type=\"text\" class=\"form-control validar\" id=\"dato\" name=\"dato\" maxlength=\"100\" placeholder=\"Ingrese el Nombre de la Marca\" value=\"{{ marca.nombre }}\">
-                        <label for=\"dato\" class=\"control-label col-form-label\">Nombre de la Marca</label>
+                        <input type=\"text\" class=\"form-control validar\" id=\"nombre\" name=\"nombre\" maxlength=\"100\" placeholder=\"Ingrese el Nombre de la Marca\" value=\"{{ marca.nombre }}\">
+                        <label for=\"nombre\" class=\"control-label col-form-label\">Nombre de la Marca</label>
                     </div>
                 </div>
             </div>
@@ -362,9 +426,11 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
             <div class=\"card-body\">
                 <div class=\"action-form\">
                     <div class=\"form-group mb-0 text-center\">
-                        <input type=\"hidden\" name=\"id\" value=\"{{ marca.id }}\">
-                        <button class=\"btn btn-outline-primary\" type=\"button\" form=\"form_\" data-mod=\"{{ mod }}\"><span class=\"btn-label\"><i class=\"fas fa-save\"></i></span> Guardar</button>
-                        <a class=\"btn btn-outline-primary\" href=\"?mod={{ mod }}\"><span class=\"btn-label\"><i class=\"fas fa-sign-out-alt\"></i></span> Cerrar</a>
+                        <input type=\"hidden\" id=\"id\" name=\"id\" value=\"{{ marca.id }}\">
+                        <input type=\"hidden\" id=\"logo_path\" name=\"logo_path\" value=\"{{ marca.logo_path }}\">
+                        <input type=\"hidden\" id=\"foto_path\" name=\"foto_path\" value=\"{{ marca.foto_path }}\">
+                        <button id=\"btnGuardar\" class=\"btn btn-outline-primary\" type=\"button\" form=\"form_\" data-mod=\"{{ mod }}\"><span class=\"btn-label\"><i class=\"fas fa-save\"></i></span> Guardar</button>
+                        <a id=\"btnCancelar\" class=\"btn btn-outline-primary\" href=\"?mod={{ mod }}\"><span class=\"btn-label\"><i class=\"fas fa-sign-out-alt\"></i></span> Cerrar</a>
                     </div>
                 </div>
             </div>
@@ -377,8 +443,61 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
 {% endblock %}
 {% block scripts %}
 <script>
-    \$('button[form]').click(function () {
-        \$('#form_').sendForm();
+    document.addEventListener('DOMContentLoaded', function () {
+        try {
+            const btnGuardar = document.getElementById('btnGuardar');
+            const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
+
+            btnEliminarRegistro.forEach(btn => {
+                btn.addEventListener('click', eliminaRegistro);
+            });
+            
+            if(btnGuardar != null) {
+                btnGuardar.addEventListener('click', async function () { \$('#form_').sendForm(); });
+            }
+
+            async function eliminaRegistro(event) {
+                event.preventDefault();
+                try {
+                    dialog(
+                        \"¿Está seguro?\",
+                        \"WARNING\",
+                        null,
+                        null,
+                        {
+                            \"Sí\": { 
+                                btnClass: \"btn-orange\", 
+                                action: async function () { 
+                                    const dataID = event.target.parentElement.getAttribute('data-id');
+                                    const url = `/src/Api/index.php?action=delete&entity=Marcas&id=\${dataID}`;
+                                    const response = await fetchCall(url, 'DELETE');
+                                    if (!response.isOk){
+                                        \$(\".preloader\").fadeOut();
+                                        if (response.Content == 0) {
+                                            //Session
+                                            document.location.href = \"./\";
+                                        }
+                                        dialog(response.Message, response.Type);
+                                        return;
+                                    }
+                                    const botones = { ACEPTAR: { btnClass: 'btn-success', action: function(){ document.location.href=\"./?mod=marcas\"; } }};
+                                    dialog(response.Message,response.Type,null,null,botones);
+                                } 
+                            },
+                            \"No\": { 
+                                btnClass: \"btn-default\", 
+                            }
+                        }
+                    );
+                } catch (error) {
+                    const mensaje = `Error al procesar la petición: \${error}`;
+                    dialog(mensaje, 'error');
+                }
+            }
+        } catch (error) {
+            const mensaje = `Error al procesar la petición: \${error}`;
+            dialog(mensaje, 'error');
+        }
     });
 </script>
 {% endblock %}", "@modules/marcas.twig", "C:\\laragon\\www\\jce\\adm\\modules\\views\\marcas.twig");

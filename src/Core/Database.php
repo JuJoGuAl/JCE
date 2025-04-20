@@ -146,16 +146,20 @@ class Database {
         $placeholders = [];
         $values = [];
         foreach ($data as $record) {
-            $rowPlaceholders = [];
+            $filteredRecord = array_filter(
+                $record,
+                fn($key) => in_array($key, $fields, true),
+                ARRAY_FILTER_USE_KEY
+            );
+
             foreach ($fields as $field) {
-                if (array_key_exists($field, $record)) {
-                    $rowPlaceholders[] = '?';
-                    $values[] = $record[$field];
-                } else {
-                    throw new InvalidArgumentException("Falta el campo '$field' en uno de los registros.");
+                if (!array_key_exists($field, $filteredRecord)) {
+                    throw new \InvalidArgumentException("Falta el campo '{$field}' en uno de los registros.");
                 }
             }
-            $placeholders[] = '(' . implode(', ', $rowPlaceholders) . ')';
+
+            $placeholders[] = '(' . implode(', ', array_fill(0, count($filteredRecord), '?')) . ')';
+            $values = array_merge($values, array_values($filteredRecord));
         }
 
         $fieldsString = implode(', ', $fields);
@@ -178,15 +182,31 @@ class Database {
         }
 
         $campos = $this->getEditFields();
+
+        if (empty($campos)) {
+            throw new \InvalidArgumentException("No se definieron campos actualizables para esta entidad.");
+        }
+
+        $filteredData = array_filter(
+            $data,
+            fn($key) => in_array($key, $campos, true),
+            ARRAY_FILTER_USE_KEY
+        );
+
+        if (empty($filteredData)) {
+            throw new \InvalidArgumentException("No se proporcionaron campos válidos para actualizar.");
+        }
+
         $query = "UPDATE {$this->table} SET ";
         $values = [];
-        foreach ($data as $key => $value) {
-            if (!isset($campos[$key])) {
-                throw new \InvalidArgumentException("El campo '{$key}' no es editable o no existe en la tabla.");
+        foreach ($campos as $campo) {
+            if (!array_key_exists($campo, $filteredData)) {
+                throw new \InvalidArgumentException("Falta el campo '{$campo}' en uno de los registros.");
             }
-            $query .= "{$campos[$key]} = ?, ";
-            $values[] = $value;
+            $query .= "{$campo} = ?, ";
+            $values[] = $filteredData[$campo];
         }
+
         $query = rtrim($query, ', ');
 
         if ($conditions) {
@@ -206,7 +226,7 @@ class Database {
                 }
             }
         } elseif ($id !== null) {
-            $query .= " WHERE {$this->tablekey} = ?";
+            $query .= " WHERE {$this->primaryKey} = ?";
             $values[] = $id;
         } else {
             throw new \InvalidArgumentException("Debe proporcionar un ID o condiciones para el filtro.");
@@ -228,14 +248,30 @@ class Database {
 
         $insertFields = $this->getInsertFields();
         $updateFields = $this->getEditFields();
+
+        $filteredInsertData = array_filter(
+            $data,
+            fn($key) => in_array($key, $insertFields, true),
+            ARRAY_FILTER_USE_KEY
+        );
+        $filteredUpdateData = array_filter(
+            $data,
+            fn($key) => in_array($key, $updateFields, true),
+            ARRAY_FILTER_USE_KEY
+        );
+
+        if (empty($filteredInsertData)) {
+            throw new \InvalidArgumentException("No se proporcionaron campos válidos para insertar.");
+        }
+
         $insertValues = [];
         $placeholders = [];
         foreach ($insertFields as $field) {
-            if (!array_key_exists($field, $data)) {
+            if (!array_key_exists($field, $filteredInsertData)) {
                 throw new \InvalidArgumentException("Falta el campo '$field' en los datos proporcionados.");
             }
             $placeholders[] = '?';
-            $insertValues[] = $data[$field];
+            $insertValues[] = $filteredInsertData[$field];
         }
 
         // Construir la parte de "INSERT"
@@ -246,10 +282,11 @@ class Database {
         $updateClauses = [];
         $updateValues = [];
         foreach ($updateFields as $field) {
-            if (array_key_exists($field, $data)) {
-                $updateClauses[] = "$field = ?";
-                $updateValues[] = $data[$field];
+            if (!array_key_exists($field, $filteredUpdateData)) {
+                throw new \InvalidArgumentException("Falta el campo '$field' en los datos proporcionados.");
             }
+            $updateClauses[] = "$field = ?";
+            $updateValues[] = $filteredUpdateData[$field];
         }
 
         if (empty($updateClauses)) {
@@ -291,7 +328,7 @@ class Database {
                 }
             }
         } elseif ($id !== null) {
-            $query .= " WHERE {$this->tablekey} = ?";
+            $query .= " WHERE {$this->primaryKey} = ?";
             $values[] = $id;
         } else {
             throw new \InvalidArgumentException("Debe proporcionar un ID o condiciones para el filtro.");

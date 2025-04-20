@@ -32,7 +32,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         $this->parent = false;
 
         $this->blocks = [
-            'contenido' => [$this, 'block_contenido'],
+            'content' => [$this, 'block_content'],
             'scripts' => [$this, 'block_scripts'],
         ];
     }
@@ -74,14 +74,18 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         // line 24
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Sistema"] ?? null), "html", null, true);
         yield "</a>
-        <button class=\"btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0\" id=\"sidebarToggle\" href=\"#!\"><i class=\"fas fa-bars\"></i></button>
+        <button class=\"btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0\" id=\"sidebarToggle\" href=\"#!\"><i
+                class=\"fas fa-bars\"></i></button>
         <ul class=\"navbar-nav ms-auto me-0 me-md-3 me-lg-4\">
             <li class=\"nav-item dropdown\">
-                <a class=\"nav-link dropdown-toggle\" id=\"navbarDropdown\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"fas fa-user fa-fw\"></i></a>
+                <a class=\"nav-link dropdown-toggle\" id=\"navbarDropdown\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\"
+                    aria-expanded=\"false\"><i class=\"fas fa-user fa-fw\"></i></a>
                 <ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"navbarDropdown\">
                     <li><a class=\"dropdown-item\" href=\"#!\">Settings</a></li>
                     <li><a class=\"dropdown-item\" href=\"#!\">Activity Log</a></li>
-                    <li><hr class=\"dropdown-divider\" /></li>
+                    <li>
+                        <hr class=\"dropdown-divider\" />
+                    </li>
                     <li><a class=\"dropdown-item\" href=\"#!\">Salir</a></li>
                 </ul>
             </li>
@@ -115,11 +119,31 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         </div>
         <div id=\"layoutSidenav_content\">
             <main>
-                ";
-        // line 66
-        yield from $this->unwrap()->yieldBlock('contenido', $context, $blocks);
-        // line 67
-        yield "            </main>
+                <div class=\"container-fluid px-4\">
+                    <h1 class=\"mt-4\">";
+        // line 71
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod_name"] ?? null), "html", null, true);
+        yield "</h1>
+                    ";
+        // line 72
+        if ((array_key_exists("mod_descrip", $context) && ($context["mod_descrip"] ?? null))) {
+            // line 73
+            yield "                    <div class=\"card mb-4\">
+                        <div class=\"card-body\">
+                            ";
+            // line 75
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod_descrip"] ?? null), "html", null, true);
+            yield "
+                        </div>
+                    </div>
+                    ";
+        }
+        // line 79
+        yield "                    ";
+        yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
+        // line 80
+        yield "                </div>
+            </main>
             <footer class=\"py-4 bg-light mt-auto\">
                 <div class=\"container-fluid px-4\">
                     <div class=\"d-flex align-items-center justify-content-between small\">
@@ -135,33 +159,34 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/jquery-confirm/jquery-confirm.min.js\"></script>
     <script src=\"../js/vendor/DataTables/datatables.min.js\"></script>
     <script src=\"";
-        // line 82
+        // line 96
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["functions"] ?? null), "html", null, true);
         yield "\"></script>
     <script src=\"";
-        // line 83
+        // line 97
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["init"] ?? null), "html", null, true);
         yield "\"></script>
     ";
-        // line 84
+        // line 98
         yield from $this->unwrap()->yieldBlock('scripts', $context, $blocks);
-        // line 85
+        // line 99
         yield "</body>
+
 </html>";
         yield from [];
     }
 
-    // line 66
+    // line 79
     /**
      * @return iterable<null|scalar|\Stringable>
      */
-    public function block_contenido(array $context, array $blocks = []): iterable
+    public function block_content(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
         yield from [];
     }
 
-    // line 84
+    // line 98
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -192,7 +217,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  165 => 84,  155 => 66,  149 => 85,  147 => 84,  143 => 83,  139 => 82,  122 => 67,  120 => 66,  75 => 24,  64 => 16,  57 => 12,  44 => 1,);
+        return array (  190 => 98,  180 => 79,  173 => 99,  171 => 98,  167 => 97,  163 => 96,  145 => 80,  142 => 79,  135 => 75,  131 => 73,  129 => 72,  125 => 71,  75 => 24,  64 => 16,  57 => 12,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -221,14 +246,18 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     </div>
     <nav class=\"sb-topnav navbar navbar-expand navbar-dark bg-dark\">
         <a class=\"navbar-brand ps-3\" href=\"./\">{{ Sistema }}</a>
-        <button class=\"btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0\" id=\"sidebarToggle\" href=\"#!\"><i class=\"fas fa-bars\"></i></button>
+        <button class=\"btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0\" id=\"sidebarToggle\" href=\"#!\"><i
+                class=\"fas fa-bars\"></i></button>
         <ul class=\"navbar-nav ms-auto me-0 me-md-3 me-lg-4\">
             <li class=\"nav-item dropdown\">
-                <a class=\"nav-link dropdown-toggle\" id=\"navbarDropdown\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"><i class=\"fas fa-user fa-fw\"></i></a>
+                <a class=\"nav-link dropdown-toggle\" id=\"navbarDropdown\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\"
+                    aria-expanded=\"false\"><i class=\"fas fa-user fa-fw\"></i></a>
                 <ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"navbarDropdown\">
                     <li><a class=\"dropdown-item\" href=\"#!\">Settings</a></li>
                     <li><a class=\"dropdown-item\" href=\"#!\">Activity Log</a></li>
-                    <li><hr class=\"dropdown-divider\" /></li>
+                    <li>
+                        <hr class=\"dropdown-divider\" />
+                    </li>
                     <li><a class=\"dropdown-item\" href=\"#!\">Salir</a></li>
                 </ul>
             </li>
@@ -262,7 +291,17 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         </div>
         <div id=\"layoutSidenav_content\">
             <main>
-                {% block contenido %}{% endblock %}
+                <div class=\"container-fluid px-4\">
+                    <h1 class=\"mt-4\">{{ mod_name }}</h1>
+                    {% if mod_descrip is defined and mod_descrip %}
+                    <div class=\"card mb-4\">
+                        <div class=\"card-body\">
+                            {{ mod_descrip }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% block content %}{% endblock %}
+                </div>
             </main>
             <footer class=\"py-4 bg-light mt-auto\">
                 <div class=\"container-fluid px-4\">
@@ -282,6 +321,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"{{ init }}\"></script>
     {% block scripts %}{% endblock %}
 </body>
+
 </html>", "@views/body.twig", "C:\\laragon\\www\\jce\\adm\\views\\body.twig");
     }
 }

@@ -5,8 +5,8 @@ use App\Core\EntidadBase;
 
 class Marcas extends EntidadBase {
     public function __construct() {
-        parent::__construct('marcas', 'id',[
-            ['name' => 'id', 'type' => 'system', 'insert' => false, 'update' => false],
+        parent::__construct('marcas1', 'id',[
+            ['name' => 'id', 'type' => 'system', 'definition' => "LPAD(id, '6','0') AS codigo", 'insert' => false, 'update' => false],
             ['name' => 'nombre', 'type' => 'public', 'insert' => true, 'update' => true],
             ['name' => 'descripcion_es', 'type' => 'public', 'insert' => true, 'update' => true],
             ['name' => 'descripcion_en', 'type' => 'public', 'insert' => true, 'update' => true],

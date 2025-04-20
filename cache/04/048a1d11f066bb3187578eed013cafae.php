@@ -30,7 +30,7 @@ class __TwigTemplate_2c6822f2ec5ca2e818ecdc3119ae0848 extends Template
         $this->source = $this->getSourceContext();
 
         $this->blocks = [
-            'contenido' => [$this, 'block_contenido'],
+            'content' => [$this, 'block_content'],
         ];
     }
 
@@ -51,7 +51,7 @@ class __TwigTemplate_2c6822f2ec5ca2e818ecdc3119ae0848 extends Template
     /**
      * @return iterable<null|scalar|\Stringable>
      */
-    public function block_contenido(array $context, array $blocks = []): iterable
+    public function block_content(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
         // line 3
@@ -99,8 +99,8 @@ class __TwigTemplate_2c6822f2ec5ca2e818ecdc3119ae0848 extends Template
 
     public function getSourceContext(): Source
     {
-        return new Source("{% extends \"@views/body.twig\" %}
-{% block contenido %}
+        return new Source("{% extends '@views/body.twig' %}
+{% block content %}
 <div class=\"container\">
     <div class=\"row justify-content-center\">
         <div class=\"col-lg-12\">

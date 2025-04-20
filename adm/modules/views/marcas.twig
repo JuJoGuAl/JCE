@@ -68,6 +68,17 @@
                     </div>
                 </div>
             </div>
+            {% if showAudit %}
+            <div class="card-body">
+                <div class="row" style="font-size: 12px; text-align: justify;">
+                <div class="col-sm-3"><strong>CREADO POR: </strong>{{ marca.creacion_usuario }}</div>
+                <div class="col-sm-3"><strong>FECHA: </strong>{{ marca.creacion_fecha }}</div>
+                <div class="col-sm-3"><strong>MODIFICADO POR: </strong>{{ marca.actualizacion_usuario }}</div>
+                <div class="col-sm-3"><strong>FECHA: </strong>{{ marca.actualizacion_fecha }}</div>
+                </div>
+            </div>
+            <hr>
+            {% endif %}
             <div class="card-body">
                 <div class="action-form">
                     <div class="form-group mb-0 text-center">
@@ -86,6 +97,8 @@
 {% endblock %}
 {% block scripts %}
 <script>
-
+    $('button[form]').click(function () {
+        $('#form_').sendForm();
+    });
 </script>
 {% endblock %}

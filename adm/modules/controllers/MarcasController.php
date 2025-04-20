@@ -17,6 +17,7 @@ class MarcasController
         $this->module_titulo = 'Marcas';
         $this->module_subtitulo = 'Listado de Marcas del sistema';
         $this->response = new ResponseObject();
+        $this->response->showAudit = false;
     }
 
     /**
@@ -50,6 +51,7 @@ class MarcasController
                 }
                 $this->response->Content = $data;
                 $this->response->Rows = 1;
+                $this->response->showAudit = true;
             }
             $this->response->module_titulo = $this->module_titulo;
             $this->response->module_subtitulo = $this->module_subtitulo;

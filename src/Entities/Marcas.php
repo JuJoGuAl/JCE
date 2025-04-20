@@ -13,10 +13,10 @@ class Marcas extends EntidadBase {
             ['name' => 'descripcion_en', 'type' => 'public', 'insert' => true, 'update' => true],
             ['name' => 'logo_path', 'type' => 'public', 'insert' => true, 'update' => true],
             ['name' => 'foto_path', 'type' => 'public', 'insert' => true, 'update' => true],
-            ['name' => 'creacion_fecha', 'type' => 'system', 'definition' => "DATE_FORMAT(creacion_fecha, '%d/%m/%Y %T')", 'insert' => false, 'update' => false],
+            ['name' => 'creacion_fecha', 'type' => 'system', 'definition' => "DATE_FORMAT(creacion_fecha, '%d/%m/%Y %T') AS creacion_fecha", 'insert' => false, 'update' => false],
             ['name' => 'creacion_usuario', 'type' => 'system', 'insert' => false, 'update' => false],
             ['name' => 'creacion_IP', 'type' => 'system', 'insert' => false, 'update' => false],
-            ['name' => 'actualizacion_fecha', 'type' => 'system', 'definition' => "DATE_FORMAT(actualizacion_fecha, '%d/%m/%Y %T')", 'insert' => false, 'update' => false],
+            ['name' => 'actualizacion_fecha', 'type' => 'system', 'definition' => "DATE_FORMAT(actualizacion_fecha, '%d/%m/%Y %T') AS actualizacion_fecha", 'insert' => false, 'update' => false],
             ['name' => 'actualizacion_usuario', 'type' => 'system', 'insert' => false, 'update' => false],
             ['name' => 'actualizacion_IP', 'type' => 'system', 'insert' => false, 'update' => false],
         ]);

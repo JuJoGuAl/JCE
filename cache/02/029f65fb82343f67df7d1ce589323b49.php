@@ -173,19 +173,47 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                     </div>
                 </div>
             </div>
-            <div class=\"card-body\">
+            ";
+            // line 71
+            if (($context["showAudit"] ?? null)) {
+                // line 72
+                yield "            <div class=\"card-body\">
+                <div class=\"row\" style=\"font-size: 12px; text-align: justify;\">
+                <div class=\"col-sm-3\"><strong>CREADO POR: </strong>";
+                // line 74
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["marca"] ?? null), "creacion_usuario", [], "any", false, false, false, 74), "html", null, true);
+                yield "</div>
+                <div class=\"col-sm-3\"><strong>FECHA: </strong>";
+                // line 75
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["marca"] ?? null), "creacion_fecha", [], "any", false, false, false, 75), "html", null, true);
+                yield "</div>
+                <div class=\"col-sm-3\"><strong>MODIFICADO POR: </strong>";
+                // line 76
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["marca"] ?? null), "actualizacion_usuario", [], "any", false, false, false, 76), "html", null, true);
+                yield "</div>
+                <div class=\"col-sm-3\"><strong>FECHA: </strong>";
+                // line 77
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["marca"] ?? null), "actualizacion_fecha", [], "any", false, false, false, 77), "html", null, true);
+                yield "</div>
+                </div>
+            </div>
+            <hr>
+            ";
+            }
+            // line 82
+            yield "            <div class=\"card-body\">
                 <div class=\"action-form\">
                     <div class=\"form-group mb-0 text-center\">
                         <input type=\"hidden\" name=\"id\" value=\"";
-            // line 74
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["marca"] ?? null), "id", [], "any", false, false, false, 74), "html", null, true);
+            // line 85
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["marca"] ?? null), "id", [], "any", false, false, false, 85), "html", null, true);
             yield "\">
                         <button class=\"btn btn-outline-primary\" type=\"button\" form=\"form_\" data-mod=\"";
-            // line 75
+            // line 86
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
             yield "\"><span class=\"btn-label\"><i class=\"fas fa-save\"></i></span> Guardar</button>
                         <a class=\"btn btn-outline-primary\" href=\"?mod=";
-            // line 76
+            // line 87
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
             yield "\"><span class=\"btn-label\"><i class=\"fas fa-sign-out-alt\"></i></span> Cerrar</a>
                     </div>
@@ -194,29 +222,31 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
         </form>
         ";
         } else {
-            // line 82
+            // line 93
             yield "        <div class=\"alert alert-warning\"> Operación no válida: ";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module"] ?? null), "html", null, true);
             yield " </div>
         ";
         }
-        // line 84
+        // line 95
         yield "    </div>
 </div>
 ";
         yield from [];
     }
 
-    // line 87
+    // line 98
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_scripts(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 88
+        // line 99
         yield "<script>
-
+    \$('button[form]').click(function () {
+        \$('#form_').sendForm();
+    });
 </script>
 ";
         yield from [];
@@ -243,7 +273,7 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  218 => 88,  211 => 87,  204 => 84,  198 => 82,  189 => 76,  185 => 75,  181 => 74,  170 => 66,  159 => 58,  148 => 50,  142 => 46,  139 => 45,  137 => 44,  132 => 41,  119 => 36,  112 => 32,  108 => 31,  104 => 30,  100 => 29,  97 => 28,  93 => 27,  74 => 11,  69 => 8,  67 => 7,  62 => 5,  59 => 4,  52 => 3,  41 => 1,);
+        return array (  246 => 99,  239 => 98,  232 => 95,  226 => 93,  217 => 87,  213 => 86,  209 => 85,  204 => 82,  196 => 77,  192 => 76,  188 => 75,  184 => 74,  180 => 72,  178 => 71,  170 => 66,  159 => 58,  148 => 50,  142 => 46,  139 => 45,  137 => 44,  132 => 41,  119 => 36,  112 => 32,  108 => 31,  104 => 30,  100 => 29,  97 => 28,  93 => 27,  74 => 11,  69 => 8,  67 => 7,  62 => 5,  59 => 4,  52 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -318,6 +348,17 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                     </div>
                 </div>
             </div>
+            {% if showAudit %}
+            <div class=\"card-body\">
+                <div class=\"row\" style=\"font-size: 12px; text-align: justify;\">
+                <div class=\"col-sm-3\"><strong>CREADO POR: </strong>{{ marca.creacion_usuario }}</div>
+                <div class=\"col-sm-3\"><strong>FECHA: </strong>{{ marca.creacion_fecha }}</div>
+                <div class=\"col-sm-3\"><strong>MODIFICADO POR: </strong>{{ marca.actualizacion_usuario }}</div>
+                <div class=\"col-sm-3\"><strong>FECHA: </strong>{{ marca.actualizacion_fecha }}</div>
+                </div>
+            </div>
+            <hr>
+            {% endif %}
             <div class=\"card-body\">
                 <div class=\"action-form\">
                     <div class=\"form-group mb-0 text-center\">
@@ -336,7 +377,9 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
 {% endblock %}
 {% block scripts %}
 <script>
-
+    \$('button[form]').click(function () {
+        \$('#form_').sendForm();
+    });
 </script>
 {% endblock %}", "@modules/marcas.twig", "C:\\laragon\\www\\jce\\adm\\modules\\views\\marcas.twig");
     }

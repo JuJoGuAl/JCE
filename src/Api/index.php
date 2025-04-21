@@ -181,8 +181,7 @@ try {
         if (!$data) {
             throw new Exception('Los datos son requeridos para insertar.');
         }
-        //print_r($data);
-        //print_r($_FILES);
+
         foreach ($_FILES as $key => $file) {
             if ($file['error'] === UPLOAD_ERR_OK) {
                 if (!empty($file['tmp_name'])) {
@@ -196,7 +195,7 @@ try {
 
                     $uploadedFileName = $imageHandler->upload();
 
-                    $data[$key] = $data[$key].$uploadedFileName;
+                    $data[$key] = $uploadedFileName;
                 }
             }
         }
@@ -211,7 +210,7 @@ try {
     }
 
     if ($action === 'update') {
-        if ($requestMethod !== 'PUT') {
+        if ($requestMethod !== 'POST') {//PUT
             throw new Exception('Método no permitido para esta acción.');
         }
 
@@ -219,6 +218,26 @@ try {
         
         if (!$data) {
             throw new Exception('Los datos son requeridos para actualizar.');
+        }
+
+        foreach ($_FILES as $key => $file) {
+            if ($file['error'] === UPLOAD_ERR_OK) {
+                if (!empty($file['tmp_name'])) {
+                    $relativePath = $data[$key . '_path'];
+                    $actualPicture = $relativePath . $data[$key . '_actual'];
+                    $uniqueName = $GeneralFunctions->generateUniqueName($data['nombre']);
+                    
+                    $imageHandler = new ImageHandler();
+                    $imageHandler->file = $file;
+                    $imageHandler->relativePath = $relativePath;
+                    $imageHandler->uniqueName = $uniqueName;
+                    $imageHandler->fileToDelete = $actualPicture;
+
+                    $uploadedFileName = $imageHandler->upload();
+
+                    $data[$key] = $uploadedFileName;
+                }
+            }
         }
 
         $result = $entity->update($data['id'],$data);

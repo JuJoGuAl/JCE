@@ -152,17 +152,15 @@ class Database {
                 ARRAY_FILTER_USE_KEY
             );
 
-            foreach ($fields as $field) {
-                if (!array_key_exists($field, $filteredRecord)) {
-                    throw new \InvalidArgumentException("Falta el campo '{$field}' en uno de los registros.");
-                }
+            if (empty($filteredRecord)) {
+                throw new \InvalidArgumentException("No se proporcionaron campos válidos para insertar.");
             }
 
             $placeholders[] = '(' . implode(', ', array_fill(0, count($filteredRecord), '?')) . ')';
             $values = array_merge($values, array_values($filteredRecord));
         }
 
-        $fieldsString = implode(', ', $fields);
+        $fieldsString = implode(', ', array_keys($filteredRecord));
         $placeholdersString = implode(', ', $placeholders);
         $query = "INSERT INTO {$this->table} ($fieldsString) VALUES $placeholdersString";
 
@@ -200,11 +198,10 @@ class Database {
         $query = "UPDATE {$this->table} SET ";
         $values = [];
         foreach ($campos as $campo) {
-            if (!array_key_exists($campo, $filteredData)) {
-                throw new \InvalidArgumentException("Falta el campo '{$campo}' en uno de los registros.");
+            if (array_key_exists($campo, $filteredData)) {
+                $query .= "{$campo} = ?, ";
+                $values[] = $filteredData[$campo];
             }
-            $query .= "{$campo} = ?, ";
-            $values[] = $filteredData[$campo];
         }
 
         $query = rtrim($query, ', ');
@@ -245,10 +242,10 @@ class Database {
         if (empty($data)) {
             throw new \InvalidArgumentException("No se proporcionaron datos para insertar o actualizar.");
         }
-
+    
         $insertFields = $this->getInsertFields();
         $updateFields = $this->getEditFields();
-
+    
         $filteredInsertData = array_filter(
             $data,
             fn($key) => in_array($key, $insertFields, true),
@@ -259,45 +256,32 @@ class Database {
             fn($key) => in_array($key, $updateFields, true),
             ARRAY_FILTER_USE_KEY
         );
-
+    
         if (empty($filteredInsertData)) {
             throw new \InvalidArgumentException("No se proporcionaron campos válidos para insertar.");
         }
-
-        $insertValues = [];
-        $placeholders = [];
-        foreach ($insertFields as $field) {
-            if (!array_key_exists($field, $filteredInsertData)) {
-                throw new \InvalidArgumentException("Falta el campo '$field' en los datos proporcionados.");
-            }
-            $placeholders[] = '?';
-            $insertValues[] = $filteredInsertData[$field];
+    
+        if (empty($filteredUpdateData)) {
+            throw new \InvalidArgumentException("No se proporcionaron campos válidos para actualizar.");
         }
-
+    
         // Construir la parte de "INSERT"
-        $fieldsString = implode(', ', $insertFields);
-        $placeholdersString = implode(', ', $placeholders);
-
+        $fieldsString = implode(', ', array_keys($filteredInsertData));
+        $placeholdersString = implode(', ', array_fill(0, count($filteredInsertData), '?'));
+        $insertValues = array_values($filteredInsertData);
+    
         // Construir la parte de "ON DUPLICATE KEY UPDATE"
         $updateClauses = [];
         $updateValues = [];
-        foreach ($updateFields as $field) {
-            if (!array_key_exists($field, $filteredUpdateData)) {
-                throw new \InvalidArgumentException("Falta el campo '$field' en los datos proporcionados.");
-            }
+        foreach ($filteredUpdateData as $field => $value) {
             $updateClauses[] = "$field = ?";
-            $updateValues[] = $filteredUpdateData[$field];
+            $updateValues[] = $value;
         }
-
-        if (empty($updateClauses)) {
-            throw new \InvalidArgumentException("No se proporcionaron campos válidos para actualizar.");
-        }
-
         $updateString = implode(', ', $updateClauses);
-
+    
         $query = "INSERT INTO {$this->table} ($fieldsString) VALUES ($placeholdersString) ON DUPLICATE KEY UPDATE $updateString";
         $values = array_merge($insertValues, $updateValues);
-
+    
         return $this->validateOperation($query, $values);
     }
 

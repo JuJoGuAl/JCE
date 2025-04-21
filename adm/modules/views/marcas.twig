@@ -70,14 +70,35 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-6">
-                    <label for="logo_path" class="form-label">Logo</label>
-                    <input type="file" name="logo_path" id="logo_path" class="form-control" accept="image/*">
+                    <label for="logo" class="form-label">Logo</label>
+                    <input type="file" name="logo" id="logo" class="form-control" accept="image/*" value="{{ marca.logo }}">
                 </div>
                 <div class="col-sm-6">
                     <label for="foto" class="form-label">Foto</label>
-                    <input type="file" name="foto_path" id="foto_path" class="form-control" accept="image/*">
+                    <input type="file" name="foto" id="foto" class="form-control" accept="image/*" value="{{ marca.foto }}">
                 </div>
             </div>
+            <div class="row my-5">
+                <div class="col-sm-6">
+                    <span class="form-label">Logo Actual</span>
+                    <input type="hidden" name="logo_actual" id="logo_actual" value="{{ marca.logo }}" />
+                    {% if marca.logo is not empty %}
+                    <img src="../{{ ruta_logo ~ marca.logo }}" alt="Logo" class="img-fluid" style="max-width: 100px; max-height: 100px;">
+                    {% else %}
+                    <span class="text-muted">No hay logo cargado</span>
+                    {% endif %}
+                </div>
+                <div class="col-sm-6">
+                    <span class="form-label">Foto Actual</span>
+                    <input type="hidden" name="foto_actual" id="foto_actual" value="{{ marca.foto }}" />
+                    {% if marca.foto is not empty %}
+                    <img src="../{{ ruta_fotos ~ marca.foto }}" alt="Foto" class="img-fluid" style="max-width: 100px; max-height: 100px;">
+                    {% else %}
+                    <span class="text-muted">No hay logo cargado</span>
+                    {% endif %}
+                </div>
+            </div>
+            
             {% if showAudit %}
             <div class="card-body">
                 <div class="row" style="font-size: 12px; text-align: justify;">

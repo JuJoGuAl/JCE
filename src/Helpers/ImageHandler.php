@@ -14,6 +14,7 @@ class ImageHandler
     public ?string $relativePath = null;
     public ?string $uniqueName = null;
     public ?array $resizeDimensions = null;
+    public ?string $fileToDelete = null;
 
     /**
      * Sube y procesa una imagen, utilizando las propiedades configuradas.
@@ -24,6 +25,10 @@ class ImageHandler
     {
         if (!$this->file || !$this->relativePath || !$this->uniqueName) {
             throw new Exception("Faltan propiedades obligatorias: 'file', 'relativePath' o 'uniqueName'.");
+        }
+
+        if ($this->fileToDelete) {
+            $this->deleteExistingFile($this->fileToDelete);
         }
 
         $this->validateFile($this->file);
@@ -38,7 +43,9 @@ class ImageHandler
             }
         }
 
-        $destination = rtrim($absolutePath, '/') . '/' . $this->uniqueName;
+        $originalExtension = pathinfo($this->file['name'], PATHINFO_EXTENSION);
+        $file = $this->uniqueName . '.' . $originalExtension;
+        $destination = rtrim($absolutePath, '/') . '/' . $file;
 
         if ($this->resizeDimensions) {
             // Redimensionar y guardar la imagen
@@ -50,7 +57,7 @@ class ImageHandler
             }
         }
 
-        return $this->uniqueName;
+        return $file;
     }
 
     /**
@@ -112,5 +119,22 @@ class ImageHandler
     {
         $hash = hash('sha256', uniqid($salt, true));
         return "{$hash}.{$extension}";
+    }
+
+    /**
+     * Elimina un archivo existente.
+     * @param string $filePath Ruta del archivo a eliminar.
+     * @throws Exception Si no se puede eliminar el archivo.
+     */
+    private function deleteExistingFile(string $filePath): void
+    {
+        $rootPath = $_SERVER['DOCUMENT_ROOT'];
+        $file = rtrim($rootPath, '/') . '/' . ltrim($filePath, '/');
+
+        if (file_exists($file)) {
+            if (!unlink($file)) {
+                throw new Exception("No se pudo eliminar el archivo existente: $filePath");
+            }
+        }
     }
 }

@@ -490,7 +490,8 @@ $.fn.sendForm = async function (){
 
                 const endpoint = `/src/Api/index.php`;
 
-                const response = await fetchCall(endpoint, action === 'insert' ? 'POST' : 'PUT', formData);
+                //PUT
+                const response = await fetchCall(endpoint, action === 'insert' || action === 'update' ? 'POST' : 'GET', formData);
                 
                 if (!response.isOk){
                     $(".preloader").fadeOut();

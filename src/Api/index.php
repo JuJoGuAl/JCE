@@ -181,20 +181,23 @@ try {
         }
         //print_r($data);
         //print_r($_FILES);
-        //$result = $entity->create($data);
         foreach ($_FILES as $key => $file) {
-            //print_r($file);
             if ($file['error'] === UPLOAD_ERR_OK) {
                 if (!empty($file['tmp_name'])) {
-                    //$imageHandler()
+                    $uniqueId = uniqid('temp_', true);
+                    $salt = $data['nombre'] . $uniqueId;
+                    
+                    $uploadedFileName = $imageHandler->upload(
+                        $file,
+                        $salt,
+                        $data[$key]
+                    );
+                    $data[$key] = $data[$key].$uploadedFileName;
                 }
-                //echo 'El archivo va en: '.$data[$key];
-                // $uploadDir = __DIR__ . '/../../../uploads/';
-                // $filePath = $uploadDir . basename($file['name']);
-                // move_uploaded_file($file['tmp_name'], $filePath);
-                // $data[$key] = $filePath; // Guardar la ruta en el array.
             }
         }
+
+        $result = $entity->create($data);
 
         $response->setSuccess(
             Message: 'El Registro fue creado con exito!',

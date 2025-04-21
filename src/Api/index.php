@@ -185,7 +185,8 @@ try {
         foreach ($_FILES as $key => $file) {
             if ($file['error'] === UPLOAD_ERR_OK) {
                 if (!empty($file['tmp_name'])) {
-                    $relativePath = $data[$key];
+                    $relativePath = $data[$key . '_path'];
+                    $actualPicture = $relativePath . $data[$key . '_actual'];
                     $uniqueName = $GeneralFunctions->generateUniqueName($data['nombre']);
                     
                     $imageHandler = new ImageHandler();
@@ -250,14 +251,44 @@ try {
     }
 
     if ($action === 'delete') {
-        if ($requestMethod !== 'DELETE') {
+        if ($requestMethod !== 'POST') {//DELETE
             throw new Exception('Método no permitido para esta acción.');
         }
 
         $id = $requestData['id'] ?? null;
+        $filesToDelete = $requestData['files'] ?? null;
+        $directoryToDelete = $requestData['directory'] ?? null;
+
+        if(!is_array($filesToDelete) && $filesToDelete !== null && !empty($filesToDelete)){
+            $filesToDelete = explode(',', $filesToDelete);
+        }
+
+        if(!is_array($directoryToDelete) && $directoryToDelete !== null && !empty($directoryToDelete)){
+            $directoryToDelete = explode(',', $directoryToDelete);
+        }
         
         if (!$id) {
             throw new Exception('El ID es requerido para eliminar.');
+        }
+
+        if (!empty($filesToDelete)) {
+            foreach ($filesToDelete as $file) {
+                $filePath = $_SERVER['DOCUMENT_ROOT'] . '/' . ltrim($file, '/');
+                if (file_exists($filePath)) {
+                    if (!unlink($filePath)) {
+                        throw new Exception("No se pudo eliminar el archivo: $file");
+                    }
+                }
+            }
+        }
+
+        if ($directoryToDelete) {
+            $absoluteDirectoryPath = $_SERVER['DOCUMENT_ROOT'] . '/' . ltrim($directoryToDelete, '/');
+            if (is_dir($absoluteDirectoryPath)) {
+                deleteDirectoryRecursively($absoluteDirectoryPath);
+            } else {
+                throw new Exception("El directorio no existe: $directoryToDelete");
+            }
         }
 
         $result = $entity->remove($id);

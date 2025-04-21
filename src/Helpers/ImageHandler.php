@@ -73,11 +73,14 @@ class ImageHandler
 
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
         if (!in_array(strtolower($extension), $this->allowedExtensions)) {
-            throw new Exception("Extensión inválida: $extension");
+            $extensiones = implode(', ', $this->allowedExtensions);
+            throw new Exception("El archivo: <b>{$file['name']}</b> posee una extensión inválida, extensión actual: <b>{$extension}</b>, permitidas: <b>{$extensiones}</b>");
         }
 
         if ($file['size'] > $this->maxFileSize) {
-            throw new Exception("El archivo excede el tamaño máximo permitido.");
+            $size = round($file['size'] / 1024 / 1024,2);
+            $size_max = round($this->maxFileSize / 1024 / 1024,2);
+            throw new Exception("El archivo: <b>{$file['name']}</b> excede el tamaño máximo permitido, tamaño actual: <b>{$size}MB</b>, permitido: <b>{$size_max}MB</b>");
         }
     }
 

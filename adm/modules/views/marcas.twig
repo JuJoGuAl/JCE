@@ -25,7 +25,11 @@
                 </thead>
                 <tbody>
                     {% for marca in Content %}
-                    <tr>
+                    <tr 
+                        data-id="{{ marca.id }}" 
+                        data-foto="{{ marca.foto }}" 
+                        data-logo="{{ marca.logo }}"
+                    >
                         <td>{{ marca.codigo }}</td>
                         <td>{{ marca.nombre }}</td>
                         <td>{{ marca.descripcion_es }}</td>
@@ -33,7 +37,7 @@
                         <td class="text-center">
                             <div class="btn-group" role="group">
                                 <a class="btn btn-outline-primary btn-circle btn-sm" href="?mod={{ mod }}&id={{ marca.id }}" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-search"></i></a>
-                                <a class="btn btn-outline-primary btn-circle btn-sm btnEliminarRegistro" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-id="{{ marca.id }}" title="Eliminar"><i class="fas fa-trash"></i></a>
+                                <a class="btn btn-outline-primary btn-circle btn-sm btnEliminarRegistro" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fas fa-trash"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -154,9 +158,23 @@
                         "Sí": { 
                             btnClass: "btn-orange", 
                             action: async function () { 
-                                const dataID = event.target.parentElement.getAttribute('data-id');
-                                const url = `/src/Api/index.php?action=delete&entity=Marcas&id=${dataID}`;
-                                const response = await fetchCall(url, 'DELETE');
+                                const row = event.target.closest('tr');
+                                const id = row.getAttribute('data-id');
+                                const foto = row.getAttribute('data-foto');
+                                const logo = row.getAttribute('data-logo');
+
+                                const filesToDelete = [];
+                                if (foto) filesToDelete.push(`images/marcas/fotos/${foto}`);
+                                if (logo) filesToDelete.push(`images/marcas/logos/${logo}`);
+                                
+                                const formData = new FormData();
+                                formData.append('action', 'delete');
+                                formData.append('entity', 'Marcas');
+                                formData.append('id', id);
+                                formData.append('files', filesToDelete);
+                                
+                                const url = `/src/Api/index.php`;
+                                const response = await fetchCall(url, 'POST',formData);
                                 if (!response.isOk){
                                     $(".preloader").fadeOut();
                                     if (response.Content == 0) {

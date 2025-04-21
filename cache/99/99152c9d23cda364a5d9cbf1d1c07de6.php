@@ -123,13 +123,18 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
                     \$('#pass').addClass(\"is-invalid\");
                     dialog(\"Debe ingresar la Contraseña\", \"ERROR\");
                 } else {
+                    const formData = new FormData();
+                    formData.append('username', username);
+                    formData.append('password', pass);
+                    formData.append('entity', 'Usuarios');
+                    formData.append('action', 'val_log');
                     const requestData = {
                         username: username,
                         password: pass,
                         entity: 'Usuarios',
                         action: 'val_log'
                     };
-                    const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
+                    const datas = await fetchCall(`/src/Api/Index.php`, 'POST', formData);
                     if (!datas.isOk){
                         dialog(datas.Message, datas.Type);
                         return;
@@ -250,13 +255,18 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
                     \$('#pass').addClass(\"is-invalid\");
                     dialog(\"Debe ingresar la Contraseña\", \"ERROR\");
                 } else {
+                    const formData = new FormData();
+                    formData.append('username', username);
+                    formData.append('password', pass);
+                    formData.append('entity', 'Usuarios');
+                    formData.append('action', 'val_log');
                     const requestData = {
                         username: username,
                         password: pass,
                         entity: 'Usuarios',
                         action: 'val_log'
                     };
-                    const datas = await fetchCall(`/src/Api/Index.php`, 'POST', requestData);
+                    const datas = await fetchCall(`/src/Api/Index.php`, 'POST', formData);
                     if (!datas.isOk){
                         dialog(datas.Message, datas.Type);
                         return;

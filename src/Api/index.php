@@ -4,11 +4,13 @@ session_start();
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use App\Responses\ResponseObject;
 use App\Helpers\ImageHandler;
+use App\Helpers\GeneralFunctions;
+use App\Responses\ResponseObject;
 
 header('Content-Type: application/json');
 $response = new ResponseObject();
+$GeneralFunctions = new GeneralFunctions();
 
 /**
  * Procesa y devuelve los datos de la solicitud según el método HTTP.
@@ -184,14 +186,16 @@ try {
         foreach ($_FILES as $key => $file) {
             if ($file['error'] === UPLOAD_ERR_OK) {
                 if (!empty($file['tmp_name'])) {
-                    $uniqueId = uniqid('temp_', true);
-                    $salt = $data['nombre'] . $uniqueId;
+                    $relativePath = $data[$key];
+                    $uniqueName = $GeneralFunctions->generateUniqueName($data['nombre']);
                     
-                    $uploadedFileName = $imageHandler->upload(
-                        $file,
-                        $salt,
-                        $data[$key]
-                    );
+                    $imageHandler = new ImageHandler();
+                    $imageHandler->file = $file;
+                    $imageHandler->relativePath = $relativePath;
+                    $imageHandler->uniqueName = $uniqueName;
+
+                    $uploadedFileName = $imageHandler->upload();
+
                     $data[$key] = $data[$key].$uploadedFileName;
                 }
             }

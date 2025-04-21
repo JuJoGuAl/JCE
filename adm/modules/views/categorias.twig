@@ -21,9 +21,8 @@
                 <thead>
                     <tr>
                         <th>CODIGO</th>
-                        <th>MARCA</th>
-                        <th>DESCRIPCION (ES)</th>
-                        <th>DESCRIPCION (EN)</th>
+                        <th>NOMBRE (ES)</th>
+                        <th>NOMBRE (EN)</th>
                         <th>OPCIONES</th>
                     </tr>
                 </thead>
@@ -31,13 +30,10 @@
                     {% for data in Content %}
                     <tr 
                         data-id="{{ data.id }}" 
-                        data-foto="{{ data.foto }}" 
-                        data-logo="{{ data.logo }}"
                     >
                         <td>{{ data.codigo }}</td>
-                        <td>{{ data.nombre }}</td>
-                        <td>{{ data.descripcion_es }}</td>
-                        <td>{{ data.descripcion_en }}</td>
+                        <td>{{ data.nombre_es }}</td>
+                        <td>{{ data.nombre_en }}</td>
                         <td class="text-center">
                             <div class="btn-group" role="group">
                                 <a class="btn btn-outline-primary btn-circle btn-sm" href="?mod={{ mod }}&id={{ data.id }}" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-search"></i></a>
@@ -51,62 +47,21 @@
         </div>
         {% elseif module == 'form' %}
         {% set data = Content[0] %}
-        <form role="form" name="form_" id="form_" enctype="multipart/form-data" data-entity="Marcas">
+        <form role="form" name="form_" id="form_" enctype="multipart/form-data" data-entity="Categorias">
             <div class="row mb-3">
-                <div class="col-sm-8">
-                    <div class="form-floating mb-3 mb-md-0">
-                        <input type="text" class="form-control validar" id="nombre" name="nombre" maxlength="100" placeholder="Ingrese el Nombre de la Marca" value="{{ data.nombre }}">
-                        <label for="nombre" class="control-label col-form-label">Nombre de la Marca</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <div class="form-floating mb-3">
-                        <textarea id="descripcion_es" name="descripcion_es" class="form-control h-100 validar" rows="4" placeholder="Ingrese la descricíon de la marca en Español">{{ data.descripcion_es }}</textarea>
-                        <label for="descripcion_es" class="control-label col-form-label">Descripcion (Español)</label>
+                        <input id="nombre_es" name="nombre_es" class="form-control validar" placeholder="Ingrese el nombre de la Categoria en Español" value="{{ data.nombre_es }}">
+                        <label for="nombre_es" class="control-label col-form-label">Nombre (Español)</label>
                     </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <div class="form-floating mb-3">
-                        <textarea id="descripcion_en" name="descripcion_en" class="form-control h-100 validar" rows="4" placeholder="Ingrese la descricíon de la marca en Ingles">{{ data.descripcion_en }}</textarea>
-                        <label for="descripcion_en" class="control-label col-form-label">Descripcion (Ingles)</label>
+                        <input id="nombre_en" name="nombre_en" class="form-control validar" placeholder="Ingrese el nombre de la Categoria en Ingles" value="{{ data.nombre_en }}">
+                        <label for="nombre_en" class="control-label col-form-label">Nombre (Ingles)</label>
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col-sm-6">
-                    <label for="logo" class="form-label">Logo</label>
-                    <input type="file" name="logo" id="logo" class="form-control" accept="image/*" value="{{ data.logo }}">
-                </div>
-                <div class="col-sm-6">
-                    <label for="foto" class="form-label">Foto</label>
-                    <input type="file" name="foto" id="foto" class="form-control" accept="image/*" value="{{ data.foto }}">
-                </div>
-            </div>
-            <div class="row my-5">
-                <div class="col-sm-6">
-                    <span class="form-label">Logo Actual</span>
-                    <input type="hidden" name="logo_actual" id="logo_actual" value="{{ data.logo }}" />
-                    {% if data.logo is not empty %}
-                    <img src="../{{ ruta_logo ~ data.logo }}" alt="Logo" class="img-fluid" style="max-width: 100px; max-height: 100px;">
-                    {% else %}
-                    <span class="text-muted">No hay logo cargado</span>
-                    {% endif %}
-                </div>
-                <div class="col-sm-6">
-                    <span class="form-label">Foto Actual</span>
-                    <input type="hidden" name="foto_actual" id="foto_actual" value="{{ data.foto }}" />
-                    {% if data.foto is not empty %}
-                    <img src="../{{ ruta_fotos ~ data.foto }}" alt="Foto" class="img-fluid" style="max-width: 100px; max-height: 100px;">
-                    {% else %}
-                    <span class="text-muted">No hay logo cargado</span>
-                    {% endif %}
-                </div>
-            </div>
-            
             {% if showAudit %}
             <div class="card-body">
                 <div class="row" style="font-size: 12px; text-align: justify;">
@@ -164,18 +119,11 @@
                             action: async function () { 
                                 const row = event.target.closest('tr');
                                 const id = row.getAttribute('data-id');
-                                const foto = row.getAttribute('data-foto');
-                                const logo = row.getAttribute('data-logo');
-
-                                const filesToDelete = [];
-                                if (foto) filesToDelete.push(`images/marcas/fotos/${foto}`);
-                                if (logo) filesToDelete.push(`images/marcas/logos/${logo}`);
                                 
                                 const formData = new FormData();
                                 formData.append('action', 'delete');
                                 formData.append('entity', entity);
                                 formData.append('id', id);
-                                formData.append('files', filesToDelete);
                                 
                                 const url = `/src/Api/index.php`;
                                 const response = await fetchCall(url, 'POST',formData);

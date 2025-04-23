@@ -11288,3 +11288,24 @@ body {
       margin-top: 30px;
   }
 }
+.table td .btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
+.table td {
+  vertical-align: middle;
+}
+.columna-acciones {
+  width: 100px !important;
+  text-align: center !important;
+}
+.ts-dropdown {
+  position: absolute !important;
+  z-index: 1000 !important;
+}
+.ts-wrapper {
+  position: relative;
+}

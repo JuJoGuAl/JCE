@@ -8,17 +8,18 @@ require_once PROJECT_ROOT . '/vendor/autoload.php';
 use App\Core\TwigEnvironment;
 use App\Helpers\GeneralFunctions;
 use App\Responses\ResponseObject;
+use App\Config\Settings;
 
 try {
-    $config = require PROJECT_ROOT . '/src/Config/settings.php';
+    $settings = Settings::getInstance();
 
     $paths = [
-        'views' => $config['paths']['adm_views'],
-        'modules' => $config['paths']['mod_views'],
+        'views' => $settings->get('paths.adm_views'),
+        'modules' => $settings->get('paths.mod_views'),
     ];
 
-    $cachePath = $config['paths']['cache'];
-    $controllerPath = $config['paths']['mod_controllers'];
+    $cachePath = $settings->get('paths.cache');
+    $controllerPath = $settings->get('paths.mod_controllers');
     $controllerNamespace = 'Adm\\Modules\\Controllers\\';
 
     $twig = TwigEnvironment::create($paths, $cachePath);
@@ -27,7 +28,7 @@ try {
     $style = GeneralFunctions::addTimestamp('../css/custom/adm.css');
     $init = GeneralFunctions::addTimestamp('../js/custom/init.js');
 
-    $twig->addGlobal('Sistema', $config['app']['name']);
+    $twig->addGlobal('Sistema', $settings->get('app.name'));
     $twig->addGlobal('functions', $functions);
     $twig->addGlobal('style', $style);
     $twig->addGlobal('init', $init);
@@ -70,7 +71,7 @@ try {
                 $controllerData = $controller->onGet($_GET);
                 
                 $data = array_merge($data, get_object_vars($controllerData));
-                $data['Type'] =  $config['messageTypes'][$controllerData->Type];
+                $data['Type'] =  $settings->get('messageTypes')[$controllerData->Type];
 
                 //print_r($data);
             } else {

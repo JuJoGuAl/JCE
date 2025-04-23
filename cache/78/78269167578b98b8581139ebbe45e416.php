@@ -59,8 +59,10 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <link href=\"../css/vendor/jquery-confirm/jquery-confirm.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/font-awesome/all.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/DataTables/datatables.min.css\" rel=\"stylesheet\">
+    <link href=\"../css/vendor/tom-select/tom-select.css\" rel=\"stylesheet\">
+    <link href=\"../css/vendor/tom-select/tom-select.bootstrap5.min.css\" rel=\"stylesheet\">
     <link href=\"";
-        // line 16
+        // line 18
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["style"] ?? null), "html", null, true);
         yield "\" rel=\"stylesheet\">
 </head>
@@ -71,7 +73,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     </div>
     <nav class=\"sb-topnav navbar navbar-expand navbar-dark bg-dark\">
         <a class=\"navbar-brand ps-3\" href=\"./\">";
-        // line 24
+        // line 26
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Sistema"] ?? null), "html", null, true);
         yield "</a>
         <button class=\"btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0\" id=\"sidebarToggle\" href=\"#!\"><i
@@ -121,41 +123,41 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
             <main>
                 <div class=\"container-fluid px-4\">
                     <h1 class=\"my-4\">";
-        // line 71
+        // line 73
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module_titulo"] ?? null), "html", null, true);
         yield "</h1>
                     ";
-        // line 72
+        // line 74
         if (($context["Message"] ?? null)) {
-            // line 73
+            // line 75
             yield "                    <div class=\"alert alert-";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Type"] ?? null), "html", null, true);
             yield "\" role=\"alert\">
                         ";
-            // line 74
+            // line 76
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Message"] ?? null), "html", null, true);
             yield "
                     </div>
                     ";
         }
-        // line 77
+        // line 79
         yield "                    ";
         if ((array_key_exists("mod_descrip", $context) && ($context["mod_descrip"] ?? null))) {
-            // line 78
+            // line 80
             yield "                    <div class=\"card mb-4\">
                         <div class=\"card-body\">
                             ";
-            // line 80
+            // line 82
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod_descrip"] ?? null), "html", null, true);
             yield "
                         </div>
                     </div>
                     ";
         }
-        // line 84
+        // line 86
         yield "                    ";
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 85
+        // line 87
         yield "                </div>
             </main>
             <footer class=\"py-4 bg-light mt-auto\">
@@ -172,12 +174,13 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/popper/popper.min.js\"></script>
     <script src=\"../js/vendor/jquery-confirm/jquery-confirm.min.js\"></script>
     <script src=\"../js/vendor/DataTables/datatables.min.js\"></script>
+    <script src=\"../js/vendor/tom-select/tom-select.complete.min.js\"></script>
     <script src=\"";
-        // line 101
+        // line 104
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["functions"] ?? null), "html", null, true);
         yield "\"></script>
     <script src=\"";
-        // line 102
+        // line 105
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["init"] ?? null), "html", null, true);
         yield "\"></script>
     <script>
@@ -207,16 +210,16 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     });
     </script>
     ";
-        // line 129
+        // line 132
         yield from $this->unwrap()->yieldBlock('scripts', $context, $blocks);
-        // line 130
+        // line 133
         yield "</body>
 
 </html>";
         yield from [];
     }
 
-    // line 84
+    // line 86
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -226,7 +229,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         yield from [];
     }
 
-    // line 129
+    // line 132
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -257,7 +260,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  230 => 129,  220 => 84,  213 => 130,  211 => 129,  181 => 102,  177 => 101,  159 => 85,  156 => 84,  149 => 80,  145 => 78,  142 => 77,  136 => 74,  131 => 73,  129 => 72,  125 => 71,  75 => 24,  64 => 16,  57 => 12,  44 => 1,);
+        return array (  233 => 132,  223 => 86,  216 => 133,  214 => 132,  184 => 105,  180 => 104,  161 => 87,  158 => 86,  151 => 82,  147 => 80,  144 => 79,  138 => 76,  133 => 75,  131 => 74,  127 => 73,  77 => 26,  66 => 18,  57 => 12,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -277,6 +280,8 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <link href=\"../css/vendor/jquery-confirm/jquery-confirm.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/font-awesome/all.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/DataTables/datatables.min.css\" rel=\"stylesheet\">
+    <link href=\"../css/vendor/tom-select/tom-select.css\" rel=\"stylesheet\">
+    <link href=\"../css/vendor/tom-select/tom-select.bootstrap5.min.css\" rel=\"stylesheet\">
     <link href=\"{{ style }}\" rel=\"stylesheet\">
 </head>
 
@@ -362,6 +367,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/popper/popper.min.js\"></script>
     <script src=\"../js/vendor/jquery-confirm/jquery-confirm.min.js\"></script>
     <script src=\"../js/vendor/DataTables/datatables.min.js\"></script>
+    <script src=\"../js/vendor/tom-select/tom-select.complete.min.js\"></script>
     <script src=\"{{ functions }}\"></script>
     <script src=\"{{ init }}\"></script>
     <script>

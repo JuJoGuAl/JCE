@@ -4,9 +4,11 @@ session_start();
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use App\Helpers\ImageHandler;
 use App\Helpers\GeneralFunctions;
 use App\Responses\ResponseObject;
+use App\Config\Settings;
+use App\Helpers\DocumentHandler;
+use App\Helpers\ImagenHandler;
 
 header('Content-Type: application/json');
 $response = new ResponseObject();
@@ -113,8 +115,6 @@ function sendResponse(ResponseObject $response): void
     exit();
 }
 
-$imageHandler = new ImageHandler();
-
 try {
     $requestMethod = $_SERVER['REQUEST_METHOD'];
     $requestData = getRequestData($requestMethod);
@@ -182,26 +182,56 @@ try {
             throw new Exception('Los datos son requeridos para insertar.');
         }
 
+        // Primero intentar la inserción en la base de datos
+        $result = $entity->create($data);
+        
+        // Si la inserción fue exitosa, procesar los archivos
         foreach ($_FILES as $key => $file) {
             if ($file['error'] === UPLOAD_ERR_OK) {
                 if (!empty($file['tmp_name'])) {
                     $relativePath = $data[$key . '_path'];
                     $actualPicture = $relativePath . $data[$key . '_actual'];
-                    $uniqueName = $GeneralFunctions->generateUniqueName($data['nombre']);
                     
-                    $imageHandler = new ImageHandler();
-                    $imageHandler->file = $file;
-                    $imageHandler->relativePath = $relativePath;
-                    $imageHandler->uniqueName = $uniqueName;
+                    // Usar el ID de la inserción para el hash, asegurando que sea string
+                    $uniqueName = $GeneralFunctions->generateUniqueName((string)$result['insertedId']);
+                    
+                    // Obtener la configuración de tipos permitidos
+                    $settings = Settings::getInstance();
+                    $allowedTypes = $settings->get('uploads.allowed_types');
+                    
+                    // Determinar si es documento o imagen
+                    $isDocument = in_array($file['type'], $allowedTypes['document']);
+                    $isImage = in_array($file['type'], $allowedTypes['image']);
+                    
+                    if ($isDocument) {
+                        $handler = new DocumentHandler();
+                        $handler->file = $file;
+                        $handler->relativePath = $relativePath;
+                        $handler->uniqueName = $uniqueName;
+                    } elseif ($isImage) {
+                        $handler = new ImagenHandler();
+                        $handler->file = $file;
+                        $handler->relativePath = $relativePath;
+                        $handler->uniqueName = $uniqueName;
+                    } else {
+                        throw new Exception("Tipo de archivo no permitido: " . $file['type']);
+                    }
 
-                    $uploadedFileName = $imageHandler->upload();
-
-                    $data[$key] = $uploadedFileName;
+                    $uploadedFileName = $handler->upload();
+                    
+                    // Actualizar el registro con el nombre del archivo
+                    $updateData = [
+                        'id' => (int)$result['insertedId'],
+                        $key => $uploadedFileName
+                    ];
+                    if ($entityName === 'Productos') {
+                        $entity->updateSimple((int)$result['insertedId'], $updateData);
+                    } else {
+                        $entity->update((int)$result['insertedId'], $updateData);
+                    }
                 }
             }
         }
-
-        $result = $entity->create($data);
 
         $response->setSuccess(
             Message: 'El Registro fue creado con exito!',
@@ -211,7 +241,7 @@ try {
     }
 
     if ($action === 'update') {
-        if ($requestMethod !== 'POST') {//PUT
+        if ($requestMethod !== 'POST') {
             throw new Exception('Método no permitido para esta acción.');
         }
 
@@ -221,27 +251,58 @@ try {
             throw new Exception('Los datos son requeridos para actualizar.');
         }
 
+        // Primero intentar la actualización en la base de datos
+        $result = $entity->update((int)$data['id'], $data);
+        
+        // Procesar los archivos
         foreach ($_FILES as $key => $file) {
             if ($file['error'] === UPLOAD_ERR_OK) {
                 if (!empty($file['tmp_name'])) {
                     $relativePath = $data[$key . '_path'];
                     $actualPicture = $relativePath . $data[$key . '_actual'];
-                    $uniqueName = $GeneralFunctions->generateUniqueName($data['nombre']);
                     
-                    $imageHandler = new ImageHandler();
-                    $imageHandler->file = $file;
-                    $imageHandler->relativePath = $relativePath;
-                    $imageHandler->uniqueName = $uniqueName;
-                    $imageHandler->fileToDelete = $actualPicture;
+                    // Usar el ID del registro para el hash
+                    $uniqueName = $GeneralFunctions->generateUniqueName((string)$data['id']);
+                    
+                    // Obtener la configuración de tipos permitidos
+                    $settings = Settings::getInstance();
+                    $allowedTypes = $settings->get('uploads.allowed_types');
+                    
+                    // Determinar si es documento o imagen
+                    $isDocument = in_array($file['type'], $allowedTypes['document']);
+                    $isImage = in_array($file['type'], $allowedTypes['image']);
+                    
+                    if ($isDocument) {
+                        $handler = new DocumentHandler();
+                        $handler->file = $file;
+                        $handler->relativePath = $relativePath;
+                        $handler->uniqueName = $uniqueName;
+                        $handler->fileToDelete = $actualPicture;
+                    } elseif ($isImage) {
+                        $handler = new ImagenHandler();
+                        $handler->file = $file;
+                        $handler->relativePath = $relativePath;
+                        $handler->uniqueName = $uniqueName;
+                        $handler->fileToDelete = $actualPicture;
+                    } else {
+                        throw new Exception("Tipo de archivo no permitido: " . $file['type']);
+                    }
 
-                    $uploadedFileName = $imageHandler->upload();
-
-                    $data[$key] = $uploadedFileName;
+                    $uploadedFileName = $handler->upload();
+                    
+                    // Actualizar el registro con el nombre del archivo
+                    $updateData = [
+                        'id' => (int)$data['id'],
+                        $key => $uploadedFileName
+                    ];
+                    if ($entityName === 'Productos') {
+                        $entity->updateSimple((int)$data['id'], $updateData);
+                    } else {
+                        $entity->update((int)$data['id'], $updateData);
+                    }
                 }
             }
         }
-
-        $result = $entity->update($data['id'],$data);
 
         $response->setSuccess(
             Message: 'El Registro fue actualizado con exito!',
@@ -251,7 +312,7 @@ try {
     }
 
     if ($action === 'delete') {
-        if ($requestMethod !== 'POST') {//DELETE
+        if ($requestMethod !== 'POST') {
             throw new Exception('Método no permitido para esta acción.');
         }
 
@@ -271,6 +332,10 @@ try {
             throw new Exception('El ID es requerido para eliminar.');
         }
 
+        // Primero intentar la eliminación en la base de datos
+        $result = $entity->remove((int)$id);
+
+        // Solo si la eliminación en BD fue exitosa, proceder con los archivos
         if (!empty($filesToDelete)) {
             foreach ($filesToDelete as $file) {
                 $filePath = $_SERVER['DOCUMENT_ROOT'] . '/' . ltrim($file, '/');
@@ -291,10 +356,8 @@ try {
             }
         }
 
-        $result = $entity->remove($id);
-
         $response->setSuccess(
-            Message: 'El Registro fue elminado con exito!',
+            Message: 'El Registro fue eliminado con éxito!',
             Content: ['processed_data' => $id]
         );
         sendResponse($response);

@@ -1,0 +1,475 @@
+{% extends '@views/body.twig' %}
+
+{% block content %}
+<style>
+    /* Estilos para el contenedor de la tabla de características */
+    .tabla-caracteristicas-container {
+        position: relative;
+        min-height: 100px;
+        overflow: visible;
+    }
+</style>
+
+<script>
+    const mod = '{{ mod }}';
+    const entity = 'Productos';
+</script>
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div>{{module_subtitulo}}</div>
+        {% if module == 'form' %}
+        <div class="btn-group">
+            <button id="btnGuardar" class="btn btn-primary" type="button" form="form_" data-mod="{{ mod }}"><i class="fas fa-save"></i> Guardar</button>
+            <a id="btnCancelar" class="btn btn-outline-secondary" href="?mod={{ mod }}"><i class="fas fa-times"></i> Cancelar</a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        {% if module == 'list' %}
+        <div class="row mb-4">
+            <div class="col-md-3 col-sm-6">
+                <a class="btn btn-outline-primary btn-sm" href="?mod={{mod}}&id=0" data-id="0"><i class="fas fa-plus"></i> Nuevo</a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover datatables" data-dt_order='[[2,"asc"]]'>
+                <thead>
+                    <tr>
+                        <th style="width: 100px">Imagen</th>
+                        <th>SKU</th>
+                        <th>Producto</th>
+                        <th>Marca</th>
+                        <th>Descripción</th>
+                        <th class="columna-acciones">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in Content %}
+                    <tr 
+                        data-id="{{ data.id }}" 
+                        data-ficha="{{ data.ficha }}" 
+                    >
+                        <td>
+                            {% if data.imagen %}
+                            <img src="{{ data.imagen }}" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                            {% else %}
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="fas fa-image text-muted"></i>
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td>{{ data.sku }}</td>
+                        <td>
+                            <div class="fw-bold">{{ data.nombre_es }}</div>
+                            <small class="text-muted">{{ data.nombre_en }}</small>
+                        </td>
+                        <td>{{ data.marca.nombre }}</td>
+                        <td>
+                            <div class="fw-bold">
+                                {% if data.descripcion_es|length > 20 %}
+                                    {{ data.descripcion_es[:20] }}...
+                                {% else %}
+                                    {{ data.descripcion_es }}
+                                {% endif %}
+                            </div>
+                            <small class="text-muted">
+                                {% if data.descripcion_en|length > 20 %}
+                                    {{ data.descripcion_en[:20] }}...
+                                {% else %}
+                                    {{ data.descripcion_en }}
+                                {% endif %}
+                            </small>
+                        </td>
+                        <td class="columna-acciones">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-primary" href="?mod={{ mod }}&id={{ data.id }}" title="Ver" data-toggle="tooltip" data-placement="top">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-danger btnEliminarRegistro" title="Eliminar" data-toggle="tooltip" data-placement="top">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% elseif module == 'form' %}
+        {% set data = Content[0] %}
+        <form role="form" name="form_" id="form_" enctype="multipart/form-data" data-entity="Productos">
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Sección Principal -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información del Producto</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input id="nombre_es" name="nombre_es" class="form-control validar" placeholder="Nombre en Español" value="{{ data.nombre_es }}">
+                                        <label for="nombre_es">Nombre (Español)</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input id="nombre_en" name="nombre_en" class="form-control validar" placeholder="Nombre en Inglés" value="{{ data.nombre_en }}">
+                                        <label for="nombre_en">Nombre (Inglés)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input id="sku" name="sku" class="form-control validar" placeholder="SKU" value="{{ data.sku }}">
+                                        <label for="sku">SKU</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select id="marca_id" name="marca_id" class="form-select validar">
+                                            <option value="">Seleccione una Marca</option>
+                                            {% for marca in Marcas %}
+                                                <option value="{{ marca.id }}" {% if data.marca_id == marca.id %}selected{% endif %}>{{ marca.nombre }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="marca_id">Marca</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        <textarea id="descripcion_es" name="descripcion_es" class="form-control h-100 validar" rows="4" placeholder="Descripción en Español">{{ data.descripcion_es }}</textarea>
+                                        <label for="descripcion_es">Descripción (Español)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        <textarea id="descripcion_en" name="descripcion_en" class="form-control h-100 validar" rows="4" placeholder="Descripción en Inglés">{{ data.descripcion_en }}</textarea>
+                                        <label for="descripcion_en">Descripción (Inglés)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección de Características -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Características del Producto</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive tabla-caracteristicas-container">
+                                <table class="table" id="tablaCaracteristicas">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50%">Característica</th>
+                                            <th style="width: 40%">Valor</th>
+                                            <th class="columna-acciones"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="min-height: 150px;">
+                                        {% if data.caracteristicas is not empty %}
+                                            {% for caracteristica in data.caracteristicas %}
+                                                <tr data-caracteristica-id="{{ caracteristica.caracteristica_id }}">
+                                                    <td>
+                                                        <select class="form-select caracteristica-select" name="caracteristicas[{{ loop.index0 }}][id]">
+                                                            <option value="">Seleccione una característica</option>
+                                                            {% for carac in Caracteristicas %}
+                                                                <option value="{{ carac.id }}" {% if carac.id == caracteristica.caracteristica_id %}selected{% endif %}>
+                                                                    {{ carac.nombre_es }}
+                                                                </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="caracteristicas[{{ loop.index0 }}][valor]" value="{{ caracteristica.valor }}" placeholder="Valor">
+                                                    </td>
+                                                    <td class="columna-acciones">
+                                                        <button type="button" class="btn btn-sm btn-outline-danger eliminar-fila" title="Eliminar">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-end mt-3">
+                                <button type="button" class="btn btn-outline-primary btn-sm" id="agregarCaracteristica" title="Agregar Característica">
+                                    <i class="fas fa-plus"></i> Característica
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-md-4">
+                    <!-- Categorías -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Categorías</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-floating">
+                                <select id="categorias" name="categorias[]" class="form-select tomselect validar" data-remove-button="true" multiple data-placeholder="Seleccione categorías">
+                                    {% for categoria in Categorias %}
+                                        <option value="{{ categoria.id }}" {% if categoria.id in data.categorias|default([])|map(c => c.categoria_id) %}selected{% endif %}>
+                                            {{ categoria.nombre_es }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <label for="categorias">Categorías</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ficha Técnica -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Ficha Técnica</h5>
+                        </div>
+                        <div class="card-body">
+                            <label for="ficha" class="form-label">Subir PDF</label>
+                            <input type="file" name="ficha" id="ficha" class="form-control" accept=".pdf" value="{{ data.ficha }}">
+                            <input type="hidden" name="ficha_actual" id="ficha_actual" value="{{ data.ficha }}" />
+                            <input type="hidden" id="ficha_path" name="ficha_path" value="{{ ruta_ficha }}">
+                            {% if data.ficha is not empty %}
+                            <div class="mt-2">
+                                <a href="../{{ ruta_ficha ~ data.ficha }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-file-pdf"></i> Ver Ficha Actual
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Auditoría -->
+                    {% if showAudit %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información de Auditoría</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="small text-muted">
+                                <div class="mb-2">
+                                    <strong>Creado por:</strong><br>
+                                    {{ data.creacion_usuario }}<br>
+                                    {{ data.creacion_fecha }}
+                                </div>
+                                <div>
+                                    <strong>Modificado por:</strong><br>
+                                    {{ data.actualizacion_usuario }}<br>
+                                    {{ data.actualizacion_fecha }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <input type="hidden" id="id" name="id" value="{{ data.id }}">
+        </form>
+        {% else %}
+        <div class="alert alert-warning">Operación no válida: {{ module }}</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        try {
+            const btnGuardar = document.getElementById('btnGuardar');
+            const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
+            const tablaCaracteristicas = document.getElementById('tablaCaracteristicas');
+            const btnAgregarCaracteristica = document.getElementById('agregarCaracteristica');
+            let contadorFilas = {% if data.caracteristicas is not empty %}{{ data.caracteristicas|length }}{% else %}0{% endif %};
+
+            // Función para agregar nueva fila de característica
+            function agregarFilaCaracteristica() {
+                const tbody = tablaCaracteristicas.querySelector('tbody');
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <select class="form-control form-select caracteristica-select" name="caracteristicas[${contadorFilas}][id]">
+                            <option value="">Seleccione una característica</option>
+                            {% for carac in Caracteristicas %}
+                                <option value="{{ carac.id }}">{{ carac.nombre_es }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="caracteristicas[${contadorFilas}][valor]" placeholder="Valor">
+                    </td>
+                    <td class="columna-acciones">
+                        <button type="button" class="btn btn-sm btn-outline-danger eliminar-fila" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+                contadorFilas++;
+
+                // Inicializar TomSelect para el nuevo select
+                new TomSelect(tr.querySelector('.caracteristica-select'), {
+                    create: false,
+                    sortField: {
+                        field: "text",
+                        direction: "asc"
+                    },
+                    dropdownParent: 'body'
+                });
+            }
+
+            // Evento para el botón de agregar característica
+            if (btnAgregarCaracteristica) {
+                btnAgregarCaracteristica.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    agregarFilaCaracteristica();
+                });
+            }
+
+            // Evento para eliminar fila
+            if (tablaCaracteristicas) {
+                tablaCaracteristicas.addEventListener('click', function(e) {
+                    if (e.target.closest('.eliminar-fila')) {
+                        e.target.closest('tr').remove();
+                        contadorFilas--;
+                    }
+                });
+            }
+
+            // Validación de duplicados
+            if (tablaCaracteristicas) {
+                tablaCaracteristicas.addEventListener('change', function(e) {
+                    if (e.target.classList.contains('caracteristica-select')) {
+                        const selectedValue = e.target.value;
+                        const selects = document.querySelectorAll('.caracteristica-select');
+                        let duplicado = false;
+
+                        selects.forEach(select => {
+                            if (select !== e.target && select.value === selectedValue && selectedValue !== '') {
+                                duplicado = true;
+                            }
+                        });
+
+                        if (duplicado) {
+                            dialog('Esta característica ya ha sido seleccionada', 'warning');
+                            e.target.value = '';
+                        }
+                    }
+                });
+            }
+
+            // Inicializar TomSelect para selects existentes
+            document.querySelectorAll('.caracteristica-select').forEach(select => {
+                new TomSelect(select, {
+                    create: false,
+                    sortField: {
+                        field: "text",
+                        direction: "asc"
+                    },
+                    dropdownParent: 'body'
+                });
+            });
+
+            if (btnEliminarRegistro) {
+                btnEliminarRegistro.forEach(btn => {
+                    btn.addEventListener('click', eliminaRegistro);
+                });
+            }
+            
+            if (btnGuardar) {
+                btnGuardar.addEventListener('click', async function () { 
+                    // Validar que no haya características duplicadas antes de enviar
+                    const selects = document.querySelectorAll('select.caracteristica-select');
+                    const valores = new Set();
+                    let duplicado = false;
+                    let caracteristicaVacia = false;
+
+                    selects.forEach(select => {
+                        const valor = select.value;
+                        if (valor === '') {
+                            caracteristicaVacia = true;
+                        } else if (valores.has(valor)) {
+                            duplicado = true;
+                        }
+                        valores.add(valor);
+                    });
+
+                    if (caracteristicaVacia) {
+                        dialog('Existen características sin seleccionar. Por favor, complete todas las características.', 'warning');
+                        return;
+                    }
+
+                    if (duplicado) {
+                        dialog('Existen características duplicadas. Por favor, corrija antes de guardar.', 'warning');
+                        return;
+                    }
+
+                    $('#form_').sendForm(); 
+                });
+            }
+
+            async function eliminaRegistro(event) {
+                event.preventDefault();
+                dialog(
+                    "¿Está seguro?",
+                    "WARNING",
+                    null,
+                    null,
+                    {
+                        "Sí": { 
+                            btnClass: "btn-orange", 
+                            action: async function () { 
+                                const row = event.target.closest('tr');
+                                const id = row.getAttribute('data-id');
+                                const ficha = row.getAttribute('data-ficha');
+
+                                const filesToDelete = [];
+                                if (ficha) filesToDelete.push(`documentos/productos/${ficha}`);
+                                
+                                const formData = new FormData();
+                                formData.append('action', 'delete');
+                                formData.append('entity', entity);
+                                formData.append('id', id);
+                                formData.append('files', filesToDelete);
+                                
+                                const url = `/src/Api/index.php`;
+                                const response = await fetchCall(url, 'POST',formData);
+                                if (!response.isOk){
+                                    $(".preloader").fadeOut();
+                                    if (response.Content == 0) {
+                                        //Session
+                                        document.location.href = "./";
+                                    }
+                                    dialog(response.Message, response.Type);
+                                    return;
+                                }
+                                const botones = { ACEPTAR: { btnClass: 'btn-success', action: function(){ document.location.href="./?mod="+mod; } }};
+                                dialog(response.Message,response.Type,null,null,botones);
+                            } 
+                        },
+                        "No": { 
+                            btnClass: "btn-default", 
+                        }
+                    }
+                );
+            }
+        } catch (error) {
+            const mensaje = `Error al procesar la petición: ${error}`;
+            dialog(mensaje, 'error');
+        }
+    });
+</script>
+{% endblock %}

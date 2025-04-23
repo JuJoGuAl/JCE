@@ -36,6 +36,11 @@ if ($().dataTable) {
                     {
                         extend: 'excelHtml5',
                         text: '<i class="fas fa-file-excel"></i> Excel',
+                        exportOptions: {
+                            columns: function(idx, data, node) {
+                                return !$(node).hasClass('columna-acciones');
+                            }
+                        }
                     }
                 ]
             },
@@ -190,7 +195,7 @@ $.fn.setDatatable = function () {
                 $obj.find('thead').addClass("bg-primary text-white text-capitalize");
                 $obj.find("thead th").addClass("align-middle");
 
-                opciones_temp.order = [[0, 'des']];
+                opciones_temp.order = $obj.is("[data-dt_order]") ? $obj.data("dt_order") : [[0, 'des']];
                 opciones_temp.ordering = $obj.is("[data-dt_ordering]") ? $obj.data("dt_ordering") : true;
                 opciones_temp.pageLength = $obj.is("[data-dt_page_lenght]") ? $obj.data("dt_page_lenght") : 25;
                 opciones_temp.paging = $obj.is("[data-dt_paging]") ? $obj.data("dt_paging") : true;
@@ -479,7 +484,8 @@ $.fn.sendForm = async function (){
             const id = $obj.attr('id');
             if ($obj.valForm()) {
                 $(".preloader").fadeIn();
-                const mod = $obj.find('button[form]').attr('data-mod').toLowerCase();
+                const formId = $obj.attr('id');
+                const mod = $(`button[form="${formId}"]`).attr('data-mod').toLowerCase();
                 const form = document.getElementById(id); 
                 const formData = new FormData(form);
 

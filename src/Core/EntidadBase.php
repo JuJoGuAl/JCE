@@ -41,6 +41,27 @@ class EntidadBase {
     }
 
     /**
+     * Inicia una transacción.
+     */
+    public function beginTransaction(): void {
+        $this->db->beginTransaction();
+    }
+
+    /**
+     * Confirma la transacción.
+     */
+    public function commit(): void {
+        $this->db->commit();
+    }
+
+    /**
+     * Revierte la transacción.
+     */
+    public function rollBack(): void {
+        $this->db->rollBack();
+    }
+
+    /**
      * Obtener todos los registros de la tabla con filtros opcionales.
      * @param array $filters Opciones de filtrado (row, operator, value).
      * @return Array de registros.
@@ -97,11 +118,11 @@ class EntidadBase {
 
     /**
      * Actualizar un registro existente.
-     * @param mixed $id Valor de la clave primaria del registro a actualizar.
+     * @param int $id Valor de la clave primaria del registro a actualizar.
      * @param array $data Datos a actualizar en formato clave => valor.
      * @return Array de registros.
      */
-    public function update($id, array $data): array {
+    public function update(int $id, array $data): array {
         $filteredData = array_map(
             fn($value) => $value === "" ? null : $value,
             $data
@@ -114,7 +135,15 @@ class EntidadBase {
      * @param mixed $id Valor de la clave primaria del registro a eliminar.
      * @return Array de registros.
      */
-    public function remove($id): array {
+    public function remove(int $id): array {
         return $this->db->deleteRecord(null, $id);
+    }
+
+    /**
+     * Obtiene la instancia de la base de datos
+     * @return Database
+     */
+    protected function getDatabase(): Database {
+        return $this->db;
     }
 }

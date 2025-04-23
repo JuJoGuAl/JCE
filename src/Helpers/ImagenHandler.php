@@ -1,13 +1,15 @@
 <?php
 namespace App\Helpers;
 
+use App\Config\Settings;
 use Exception;
 use Intervention\Image\ImageManagerStatic as Image;
 
-class ImageHandler
-{
-    private array $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-    private int $maxFileSize = 5 * 1024 * 1024; // 5 MB
+class ImagenHandler {
+    private array $allowedTypes;
+    private int $maxSize;
+    private string $uploadPath;
+    private array $errors = [];
 
     // Propiedades configurables
     public ?array $file = null;
@@ -15,6 +17,20 @@ class ImageHandler
     public ?string $uniqueName = null;
     public ?array $resizeDimensions = null;
     public ?string $fileToDelete = null;
+
+    public function __construct() {
+        $settings = Settings::getInstance();
+        $config = $settings->get('uploads');
+        
+        $this->allowedTypes = $config['allowed_types']['image'];
+        $this->maxSize = $config['max_size']['image'];
+        $this->uploadPath = $_SERVER['DOCUMENT_ROOT'] . '/imagenes/productos/';
+        
+        // Asegurarse de que el directorio existe
+        if (!file_exists($this->uploadPath)) {
+            mkdir($this->uploadPath, 0777, true);
+        }
+    }
 
     /**
      * Sube y procesa una imagen, utilizando las propiedades configuradas.
@@ -68,18 +84,17 @@ class ImageHandler
     private function validateFile(array $file): void
     {
         if ($file['error'] !== UPLOAD_ERR_OK) {
-            throw new Exception("Error: " . $file['error']);
+            throw new Exception($this->getUploadErrorMessage($file['error']));
         }
 
-        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        if (!in_array(strtolower($extension), $this->allowedExtensions)) {
-            $extensiones = implode(', ', $this->allowedExtensions);
-            throw new Exception("El archivo: <b>{$file['name']}</b> posee una extensión inválida, extensión actual: <b>{$extension}</b>, permitidas: <b>{$extensiones}</b>");
+        if (!in_array($file['type'], $this->allowedTypes)) {
+            $tipos = implode(', ', $this->allowedTypes);
+            throw new Exception("El archivo: <b>{$file['name']}</b> posee un tipo inválido, tipo actual: <b>{$file['type']}</b>, permitidos: <b>{$tipos}</b>");
         }
 
-        if ($file['size'] > $this->maxFileSize) {
-            $size = round($file['size'] / 1024 / 1024,2);
-            $size_max = round($this->maxFileSize / 1024 / 1024,2);
+        if ($file['size'] > $this->maxSize) {
+            $size = round($file['size'] / 1024 / 1024, 2);
+            $size_max = round($this->maxSize / 1024 / 1024, 2);
             throw new Exception("El archivo: <b>{$file['name']}</b> excede el tamaño máximo permitido, tamaño actual: <b>{$size}MB</b>, permitido: <b>{$size_max}MB</b>");
         }
     }
@@ -104,24 +119,8 @@ class ImageHandler
     private function processAndSaveImage(string $sourcePath, string $destination, array $resizeDimensions): void
     {
         $image = Image::make($sourcePath);
-
-        // Redimensionar la imagen
         $image->fit($resizeDimensions['width'], $resizeDimensions['height']);
-
-        // Guardar la imagen redimensionada
         $image->save($destination);
-    }
-
-    /**
-     * Genera un nombre único para el archivo basado en un salt.
-     * @param string $salt Clave o string base para generar el hash único.
-     * @param string $extension Extensión del archivo.
-     * @return string Nombre único generado.
-     */
-    private function generateUniqueName(string $salt, string $extension): string
-    {
-        $hash = hash('sha256', uniqid($salt, true));
-        return "{$hash}.{$extension}";
     }
 
     /**
@@ -140,4 +139,30 @@ class ImageHandler
             }
         }
     }
-}
+
+    /**
+     * Obtiene los errores generados durante el procesamiento
+     * @return array Lista de errores
+     */
+    public function getErrors(): array {
+        return $this->errors;
+    }
+
+    /**
+     * Obtiene el mensaje de error según el código de error de subida
+     * @param int $errorCode Código de error de PHP
+     * @return string Mensaje de error
+     */
+    private function getUploadErrorMessage(int $errorCode): string {
+        return match($errorCode) {
+            UPLOAD_ERR_INI_SIZE => 'El archivo excede el tamaño máximo permitido por el servidor',
+            UPLOAD_ERR_FORM_SIZE => 'El archivo excede el tamaño máximo permitido por el formulario',
+            UPLOAD_ERR_PARTIAL => 'El archivo fue subido parcialmente',
+            UPLOAD_ERR_NO_FILE => 'No se subió ningún archivo',
+            UPLOAD_ERR_NO_TMP_DIR => 'No existe el directorio temporal',
+            UPLOAD_ERR_CANT_WRITE => 'No se pudo escribir el archivo en el disco',
+            UPLOAD_ERR_EXTENSION => 'La subida fue detenida por una extensión de PHP',
+            default => 'Error desconocido al subir el archivo'
+        };
+    }
+} 

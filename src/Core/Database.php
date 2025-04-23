@@ -11,8 +11,9 @@ class Database {
     public string $table;
     public string $primaryKey;
     public array $fields;
-    
+
     private PDO $conn;
+    private bool $transactionActive = false;
     private bool $isProduction;
     private string $user;
     private string $ipAddress;
@@ -317,7 +318,6 @@ class Database {
         } else {
             throw new \InvalidArgumentException("Debe proporcionar un ID o condiciones para el filtro.");
         }
-
         return $this->validateOperation($query, $values);
     }
 
@@ -422,6 +422,18 @@ class Database {
                 } elseif (preg_match('/^INSERT/i', $query)) {
                     // Es una consulta INSERT
                     $insertedId = $this->conn->lastInsertId();
+                } elseif (preg_match('/^CALL/i', $query)) {
+                    // Es un procedimiento almacenado
+                    // Intentar obtener el resultado del procedimiento
+                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    
+                    // Si el procedimiento devuelve un ID, lo obtenemos
+                    if (!empty($result) && isset($result[0]['id'])) {
+                        $insertedId = $result[0]['id'];
+                    } else {
+                        // Si no hay resultado, intentamos obtener el último ID insertado
+                        $insertedId = $this->conn->lastInsertId();
+                    }
                 }
             }
 
@@ -430,7 +442,7 @@ class Database {
                 'rowsAffected' => $rowsAffected,
                 'insertedId' => $insertedId,
                 'result' => $result,
-                'message' => $message, // Advertencia o mensaje informativo
+                'message' => $message,
                 'error' => null
             ];
         } catch (PDOException $e) {
@@ -439,13 +451,57 @@ class Database {
             if (!$this->isProduction) {
                 $errorMessage .= " | Query: $query";
             }
+
+            if ($this->transactionActive) {
+                $this->rollBack();
+            }
             
             throw new \RuntimeException($errorMessage);
         }
+    }
 
-        if (!$this->isProduction) {
-            $response->resultDetail = $response->resultDetail ?? null;
-            $response->query = $query;
+    /**
+     * Inicia una transacción.
+     */
+    public function beginTransaction(): void {
+        if (!$this->conn->inTransaction()) {
+            $this->conn->beginTransaction();
+            $this->transactionActive = true;
         }
+    }
+
+    /**
+     * Confirma la transacción.
+     */
+    public function commit(): void {
+        if ($this->conn->inTransaction() && $this->transactionActive) {
+            $this->conn->commit();
+            $this->transactionActive = false;
+        }
+    }
+
+    /**
+     * Revierte la transacción.
+     */
+    public function rollBack(): void {
+        if ($this->conn->inTransaction() && $this->transactionActive) {
+            $this->conn->rollBack();
+            $this->transactionActive = false;
+        }
+    }
+
+    /**
+     * Ejecuta un procedimiento almacenado
+     * @param string $procedureName Nombre del procedimiento
+     * @param array $params Parámetros del procedimiento
+     * @return array Resultado de la ejecución
+     */
+    public function executeProcedure(string $procedureName, array $params = []): array {
+        $paramNames = array_map(function($key) {
+            return ":$key";
+        }, array_keys($params));
+
+        $sql = "CALL $procedureName(" . implode(',', $paramNames) . ")";
+        return $this->validateOperation($sql, $params);
     }
 }

@@ -6,25 +6,31 @@
     const entity = 'Marcas';
 </script>
 <div class="card mb-4">
-    <div class="card-header">{{module_subtitulo}}</div>
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div>{{module_subtitulo}}</div>
+        {% if module == 'form' %}
+        <div class="btn-group">
+            <button id="btnGuardar" class="btn btn-primary" type="button" form="form_" data-mod="{{ mod }}"><i class="fas fa-save"></i> Guardar</button>
+            <a id="btnCancelar" class="btn btn-outline-secondary" href="?mod={{ mod }}"><i class="fas fa-times"></i> Cancelar</a>
+        </div>
+        {% endif %}
+    </div>
     <div class="card-body">
         {% if module == 'list' %}
         <div class="row mb-4">
             <div class="col-md-3 col-sm-6">
-                <div class="button-group">
-                    <a class="btn btn-outline-primary btn-sm" href="?mod={{mod}}&id=0" data-id="0"><span class="btn-label"><i class="fas fa-plus"></i></span> Nuevo</a>
-                </div>
+                <a class="btn btn-outline-primary btn-sm" href="?mod={{mod}}&id=0" data-id="0"><i class="fas fa-plus"></i> Nuevo</a>
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover datatables">
+            <table class="table table-hover datatables" data-dt_order='[[1,"asc"]]'>
                 <thead>
                     <tr>
-                        <th>CODIGO</th>
-                        <th>MARCA</th>
-                        <th>DESCRIPCION (ES)</th>
-                        <th>DESCRIPCION (EN)</th>
-                        <th>OPCIONES</th>
+                        <th style="width: 100px">Logo</th>
+                        <th>Marca</th>
+                        <th>Descripción (ES)</th>
+                        <th>Descripción (EN)</th>
+                        <th class="columna-acciones">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,14 +40,41 @@
                         data-foto="{{ data.foto }}" 
                         data-logo="{{ data.logo }}"
                     >
-                        <td>{{ data.codigo }}</td>
-                        <td>{{ data.nombre }}</td>
-                        <td>{{ data.descripcion_es }}</td>
-                        <td>{{ data.descripcion_en }}</td>
-                        <td class="text-center">
-                            <div class="btn-group" role="group">
-                                <a class="btn btn-outline-primary btn-circle btn-sm" href="?mod={{ mod }}&id={{ data.id }}" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-search"></i></a>
-                                <a class="btn btn-outline-primary btn-circle btn-sm btnEliminarRegistro" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fas fa-trash"></i></a>
+                        <td>
+                            {% if data.logo %}
+                            <img src="../{{ ruta_logo }}{{ data.logo }}" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                            {% else %}
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="fas fa-image text-muted"></i>
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="fw-bold">{{ data.nombre }}</div>
+                            <small class="text-muted">{{ data.codigo }}</small>
+                        </td>
+                        <td>
+                            {% if data.descripcion_es|length > 120 %}
+                                {{ data.descripcion_es[:120] }}...
+                            {% else %}
+                                {{ data.descripcion_es }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if data.descripcion_en|length > 120 %}
+                                {{ data.descripcion_en[:120] }}...
+                            {% else %}
+                                {{ data.descripcion_en }}
+                            {% endif %}
+                        </td>
+                        <td class="columna-acciones">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-primary" href="?mod={{ mod }}&id={{ data.id }}" title="Ver" data-toggle="tooltip" data-placement="top">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-danger btnEliminarRegistro" title="Eliminar" data-toggle="tooltip" data-placement="top">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -52,90 +85,105 @@
         {% elseif module == 'form' %}
         {% set data = Content[0] %}
         <form role="form" name="form_" id="form_" enctype="multipart/form-data" data-entity="Marcas">
-            <div class="row mb-3">
-                <div class="col-sm-8">
-                    <div class="form-floating mb-3 mb-md-0">
-                        <input type="text" class="form-control validar" id="nombre" name="nombre" maxlength="100" placeholder="Ingrese el Nombre de la Marca" value="{{ data.nombre }}">
-                        <label for="nombre" class="control-label col-form-label">Nombre de la Marca</label>
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Sección Principal -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información de la Marca</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input id="nombre" name="nombre" class="form-control validar" placeholder="Nombre de la Marca" value="{{ data.nombre }}">
+                                        <label for="nombre">Nombre de la Marca</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        <textarea id="descripcion_es" name="descripcion_es" class="form-control h-100 validar" rows="4" placeholder="Descripción en Español">{{ data.descripcion_es }}</textarea>
+                                        <label for="descripcion_es">Descripción (Español)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        <textarea id="descripcion_en" name="descripcion_en" class="form-control h-100 validar" rows="4" placeholder="Descripción en Inglés">{{ data.descripcion_en }}</textarea>
+                                        <label for="descripcion_en">Descripción (Inglés)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-12">
-                    <div class="form-floating mb-3">
-                        <textarea id="descripcion_es" name="descripcion_es" class="form-control h-100 validar" rows="4" placeholder="Ingrese la descricíon de la marca en Español">{{ data.descripcion_es }}</textarea>
-                        <label for="descripcion_es" class="control-label col-form-label">Descripcion (Español)</label>
+
+                <!-- Sidebar -->
+                <div class="col-md-4">
+                    <!-- Imágenes -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Imágenes</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="logo" class="form-label">Logo</label>
+                                <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
+                                {% if data.logo %}
+                                <div class="mt-2">
+                                    <img src="../{{ ruta_logo }}{{ data.logo }}" class="img-thumbnail" style="max-width: 200px;">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="foto" class="form-label">Foto</label>
+                                <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
+                                {% if data.foto %}
+                                <div class="mt-2">
+                                    <img src="../{{ ruta_fotos }}{{ data.foto }}" class="img-thumbnail" style="max-width: 200px;">
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-12">
-                    <div class="form-floating mb-3">
-                        <textarea id="descripcion_en" name="descripcion_en" class="form-control h-100 validar" rows="4" placeholder="Ingrese la descricíon de la marca en Ingles">{{ data.descripcion_en }}</textarea>
-                        <label for="descripcion_en" class="control-label col-form-label">Descripcion (Ingles)</label>
+
+                    <!-- Auditoría -->
+                    {% if showAudit %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Información de Auditoría</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="small text-muted">
+                                <div class="mb-2">
+                                    <strong>Creado por:</strong><br>
+                                    {{ data.creacion_usuario }}<br>
+                                    {{ data.creacion_fecha }}
+                                </div>
+                                <div>
+                                    <strong>Modificado por:</strong><br>
+                                    {{ data.actualizacion_usuario }}<br>
+                                    {{ data.actualizacion_fecha }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-6">
-                    <label for="logo" class="form-label">Logo</label>
-                    <input type="file" name="logo" id="logo" class="form-control" accept="image/*" value="{{ data.logo }}">
-                </div>
-                <div class="col-sm-6">
-                    <label for="foto" class="form-label">Foto</label>
-                    <input type="file" name="foto" id="foto" class="form-control" accept="image/*" value="{{ data.foto }}">
-                </div>
-            </div>
-            <div class="row my-5">
-                <div class="col-sm-6">
-                    <span class="form-label">Logo Actual</span>
-                    <input type="hidden" name="logo_actual" id="logo_actual" value="{{ data.logo }}" />
-                    {% if data.logo is not empty %}
-                    <img src="../{{ ruta_logo ~ data.logo }}" alt="Logo" class="img-fluid" style="max-width: 100px; max-height: 100px;">
-                    {% else %}
-                    <span class="text-muted">No hay logo cargado</span>
                     {% endif %}
                 </div>
-                <div class="col-sm-6">
-                    <span class="form-label">Foto Actual</span>
-                    <input type="hidden" name="foto_actual" id="foto_actual" value="{{ data.foto }}" />
-                    {% if data.foto is not empty %}
-                    <img src="../{{ ruta_fotos ~ data.foto }}" alt="Foto" class="img-fluid" style="max-width: 100px; max-height: 100px;">
-                    {% else %}
-                    <span class="text-muted">No hay logo cargado</span>
-                    {% endif %}
-                </div>
             </div>
-            
-            {% if showAudit %}
-            <div class="card-body">
-                <div class="row" style="font-size: 12px; text-align: justify;">
-                <div class="col-sm-3"><strong>CREADO POR: </strong>{{ data.creacion_usuario }}</div>
-                <div class="col-sm-3"><strong>FECHA: </strong>{{ data.creacion_fecha }}</div>
-                <div class="col-sm-3"><strong>MODIFICADO POR: </strong>{{ data.actualizacion_usuario }}</div>
-                <div class="col-sm-3"><strong>FECHA: </strong>{{ data.actualizacion_fecha }}</div>
-                </div>
-            </div>
-            <hr>
-            {% endif %}
-            <div class="card-body">
-                <div class="action-form">
-                    <div class="form-group mb-0 text-center">
-                        <input type="hidden" id="id" name="id" value="{{ data.id }}">
-                        <input type="hidden" id="logo_path" name="logo_path" value="{{ ruta_logo }}">
-                        <input type="hidden" id="foto_path" name="foto_path" value="{{ ruta_fotos }}">
-                        <button id="btnGuardar" class="btn btn-outline-primary" type="button" form="form_" data-mod="{{ mod }}"><span class="btn-label"><i class="fas fa-save"></i></span> Guardar</button>
-                        <a id="btnCancelar" class="btn btn-outline-primary" href="?mod={{ mod }}"><span class="btn-label"><i class="fas fa-sign-out-alt"></i></span> Cerrar</a>
-                    </div>
-                </div>
-            </div>
+
+            <input type="hidden" id="id" name="id" value="{{ data.id }}">
         </form>
         {% else %}
-        <div class="alert alert-warning"> Operación no válida: {{ module }} </div>
+        <div class="alert alert-warning">Operación no válida: {{ module }}</div>
         {% endif %}
     </div>
 </div>
 {% endblock %}
+
 {% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -143,18 +191,20 @@
             const btnGuardar = document.getElementById('btnGuardar');
             const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
 
-            btnEliminarRegistro.forEach(btn => {
-                btn.addEventListener('click', eliminaRegistro);
-            });
-            
             if(btnGuardar != null) {
                 btnGuardar.addEventListener('click', async function () { $('#form_').sendForm(); });
+            }
+
+            if (btnEliminarRegistro) {
+                btnEliminarRegistro.forEach(btn => {
+                    btn.addEventListener('click', eliminaRegistro);
+                });
             }
 
             async function eliminaRegistro(event) {
                 event.preventDefault();
                 dialog(
-                    "¿Está seguro?",
+                    "¿Está seguro que desea eliminar este registro?",
                     "WARNING",
                     null,
                     null,

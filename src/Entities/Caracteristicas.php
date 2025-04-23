@@ -7,6 +7,7 @@ class Caracteristicas extends EntidadBase {
     public function __construct() {
         parent::__construct('caracteristicas', 'id', [
             ['name' => 'id', 'type' => 'system', 'insert' => false, 'update' => false],
+            ['name' => 'id', 'type' => 'system', 'definition' => "LPAD(id, '6','0') AS codigo", 'insert' => false, 'update' => false],
             ['name' => 'nombre_es', 'type' => 'public', 'insert' => true, 'update' => true],
             ['name' => 'nombre_en', 'type' => 'public', 'insert' => true, 'update' => true],
             ['name' => 'descripcion_es', 'type' => 'public', 'insert' => true, 'update' => true],

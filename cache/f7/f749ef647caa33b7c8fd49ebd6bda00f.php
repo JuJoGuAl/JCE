@@ -64,69 +64,87 @@ class __TwigTemplate_a353f4d29bdeeda99700c5525b5eab53 extends Template
     const entity = 'Categorias';
 </script>
 <div class=\"card mb-4\">
-    <div class=\"card-header\">";
-        // line 9
+    <div class=\"card-header d-flex justify-content-between align-items-center\">
+        <div>";
+        // line 10
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module_subtitulo"] ?? null), "html", null, true);
         yield "</div>
-    <div class=\"card-body\">
         ";
         // line 11
-        if ((($context["module"] ?? null) == "list")) {
+        if ((($context["module"] ?? null) == "form")) {
             // line 12
+            yield "        <div class=\"btn-group\">
+            <button id=\"btnGuardar\" class=\"btn btn-primary\" type=\"button\" form=\"form_\" data-mod=\"";
+            // line 13
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
+            yield "\"><i class=\"fas fa-save\"></i> Guardar</button>
+            <a id=\"btnCancelar\" class=\"btn btn-outline-secondary\" href=\"?mod=";
+            // line 14
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
+            yield "\"><i class=\"fas fa-times\"></i> Cancelar</a>
+        </div>
+        ";
+        }
+        // line 17
+        yield "    </div>
+    <div class=\"card-body\">
+        ";
+        // line 19
+        if ((($context["module"] ?? null) == "list")) {
+            // line 20
             yield "        <div class=\"row mb-4\">
             <div class=\"col-md-3 col-sm-6\">
-                <div class=\"button-group\">
-                    <a class=\"btn btn-outline-primary btn-sm\" href=\"?mod=";
-            // line 15
+                <a class=\"btn btn-outline-primary btn-sm\" href=\"?mod=";
+            // line 22
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
-            yield "&id=0\" data-id=\"0\"><span class=\"btn-label\"><i class=\"fas fa-plus\"></i></span> Nuevo</a>
-                </div>
+            yield "&id=0\" data-id=\"0\"><i class=\"fas fa-plus\"></i> Nuevo</a>
             </div>
         </div>
         <div class=\"table-responsive\">
-            <table class=\"table table-bordered table-hover datatables\">
+            <table class=\"table table-hover datatables\">
                 <thead>
                     <tr>
-                        <th>CODIGO</th>
-                        <th>NOMBRE (ES)</th>
-                        <th>NOMBRE (EN)</th>
-                        <th>OPCIONES</th>
+                        <th>Categoría</th>
+                        <th>Nombre (ES)</th>
+                        <th>Nombre (EN)</th>
+                        <th class=\"columna-acciones\">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     ";
-            // line 30
+            // line 36
             $context['_parent'] = $context;
             $context['_seq'] = CoreExtension::ensureTraversable(($context["Content"] ?? null));
             foreach ($context['_seq'] as $context["_key"] => $context["data"]) {
-                // line 31
-                yield "                    <tr 
-                        data-id=\"";
-                // line 32
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "id", [], "any", false, false, false, 32), "html", null, true);
-                yield "\" 
-                    >
+                // line 37
+                yield "                    <tr data-id=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "id", [], "any", false, false, false, 37), "html", null, true);
+                yield "\">
                         <td>";
-                // line 34
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "codigo", [], "any", false, false, false, 34), "html", null, true);
+                // line 38
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "codigo", [], "any", false, false, false, 38), "html", null, true);
                 yield "</td>
                         <td>";
-                // line 35
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "nombre_es", [], "any", false, false, false, 35), "html", null, true);
-                yield "</td>
-                        <td>";
-                // line 36
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "nombre_en", [], "any", false, false, false, 36), "html", null, true);
-                yield "</td>
-                        <td class=\"text-center\">
-                            <div class=\"btn-group\" role=\"group\">
-                                <a class=\"btn btn-outline-primary btn-circle btn-sm\" href=\"?mod=";
                 // line 39
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "nombre_es", [], "any", false, false, false, 39), "html", null, true);
+                yield "</td>
+                        <td>";
+                // line 40
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "nombre_en", [], "any", false, false, false, 40), "html", null, true);
+                yield "</td>
+                        <td class=\"columna-acciones\">
+                            <div class=\"btn-group\">
+                                <a class=\"btn btn-sm btn-outline-primary\" href=\"?mod=";
+                // line 43
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
                 yield "&id=";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "id", [], "any", false, false, false, 39), "html", null, true);
-                yield "\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Ver\"><i class=\"fas fa-search\"></i></a>
-                                <a class=\"btn btn-outline-primary btn-circle btn-sm btnEliminarRegistro\" href=\"javascript:void(0)\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Eliminar\"><i class=\"fas fa-trash\"></i></a>
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "id", [], "any", false, false, false, 43), "html", null, true);
+                yield "\" title=\"Ver\" data-toggle=\"tooltip\" data-placement=\"top\">
+                                    <i class=\"fas fa-search\"></i>
+                                </a>
+                                <button class=\"btn btn-sm btn-outline-danger btnEliminarRegistro\" title=\"Eliminar\" data-toggle=\"tooltip\" data-placement=\"top\">
+                                    <i class=\"fas fa-trash\"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -135,134 +153,142 @@ class __TwigTemplate_a353f4d29bdeeda99700c5525b5eab53 extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['data'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 45
+            // line 53
             yield "                </tbody>
             </table>
         </div>
         ";
-        } elseif ((        // line 48
+        } elseif ((        // line 56
 ($context["module"] ?? null) == "form")) {
-            // line 49
+            // line 57
             yield "        ";
             $context["data"] = (($_v0 = ($context["Content"] ?? null)) && is_array($_v0) || $_v0 instanceof ArrayAccess ? ($_v0[0] ?? null) : null);
-            // line 50
-            yield "        <form role=\"form\" name=\"form_\" id=\"form_\" enctype=\"multipart/form-data\" data-entity=\"Categorias\">
-            <div class=\"row mb-3\">
-                <div class=\"col-sm-6\">
-                    <div class=\"form-floating mb-3\">
-                        <input id=\"nombre_es\" name=\"nombre_es\" class=\"form-control validar\" placeholder=\"Ingrese el nombre de la Categoria en Español\" value=\"";
-            // line 54
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "nombre_es", [], "any", false, false, false, 54), "html", null, true);
+            // line 58
+            yield "        <form role=\"form\" name=\"form_\" id=\"form_\" data-entity=\"Categorias\">
+            <div class=\"row\">
+                <div class=\"col-md-8\">
+                    <!-- Sección Principal -->
+                    <div class=\"card mb-4\">
+                        <div class=\"card-header\">
+                            <h5 class=\"card-title mb-0\">Información de la Categoría</h5>
+                        </div>
+                        <div class=\"card-body\">
+                            <div class=\"row mb-3\">
+                                <div class=\"col-12\">
+                                    <div class=\"form-floating mb-3\">
+                                        <input id=\"nombre_es\" name=\"nombre_es\" class=\"form-control validar\" placeholder=\"Ingrese el nombre de la Categoria en Español\" value=\"";
+            // line 70
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "nombre_es", [], "any", false, false, false, 70), "html", null, true);
             yield "\">
-                        <label for=\"nombre_es\" class=\"control-label col-form-label\">Nombre (Español)</label>
-                    </div>
-                </div>
-                <div class=\"col-sm-6\">
-                    <div class=\"form-floating mb-3\">
-                        <input id=\"nombre_en\" name=\"nombre_en\" class=\"form-control validar\" placeholder=\"Ingrese el nombre de la Categoria en Ingles\" value=\"";
-            // line 60
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "nombre_en", [], "any", false, false, false, 60), "html", null, true);
-            yield "\">
-                        <label for=\"nombre_en\" class=\"control-label col-form-label\">Nombre (Ingles)</label>
-                    </div>
-                </div>
-            </div>
-            ";
-            // line 65
-            if (($context["showAudit"] ?? null)) {
-                // line 66
-                yield "            <div class=\"card-body\">
-                <div class=\"row\" style=\"font-size: 12px; text-align: justify;\">
-                <div class=\"col-sm-3\"><strong>CREADO POR: </strong>";
-                // line 68
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_usuario", [], "any", false, false, false, 68), "html", null, true);
-                yield "</div>
-                <div class=\"col-sm-3\"><strong>FECHA: </strong>";
-                // line 69
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_fecha", [], "any", false, false, false, 69), "html", null, true);
-                yield "</div>
-                <div class=\"col-sm-3\"><strong>MODIFICADO POR: </strong>";
-                // line 70
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_usuario", [], "any", false, false, false, 70), "html", null, true);
-                yield "</div>
-                <div class=\"col-sm-3\"><strong>FECHA: </strong>";
-                // line 71
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_fecha", [], "any", false, false, false, 71), "html", null, true);
-                yield "</div>
-                </div>
-            </div>
-            <hr>
-            ";
-            }
+                                        <label for=\"nombre_es\" class=\"control-label col-form-label\">Nombre (Español)</label>
+                                    </div>
+                                </div>
+                                <div class=\"col-12\">
+                                    <div class=\"form-floating mb-3\">
+                                        <input id=\"nombre_en\" name=\"nombre_en\" class=\"form-control validar\" placeholder=\"Ingrese el nombre de la Categoria en Ingles\" value=\"";
             // line 76
-            yield "            <div class=\"card-body\">
-                <div class=\"action-form\">
-                    <div class=\"form-group mb-0 text-center\">
-                        <input type=\"hidden\" id=\"id\" name=\"id\" value=\"";
-            // line 79
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "id", [], "any", false, false, false, 79), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "nombre_en", [], "any", false, false, false, 76), "html", null, true);
             yield "\">
-                        <input type=\"hidden\" id=\"logo_path\" name=\"logo_path\" value=\"";
-            // line 80
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["ruta_logo"] ?? null), "html", null, true);
-            yield "\">
-                        <input type=\"hidden\" id=\"foto_path\" name=\"foto_path\" value=\"";
-            // line 81
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["ruta_fotos"] ?? null), "html", null, true);
-            yield "\">
-                        <button id=\"btnGuardar\" class=\"btn btn-outline-primary\" type=\"button\" form=\"form_\" data-mod=\"";
-            // line 82
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
-            yield "\"><span class=\"btn-label\"><i class=\"fas fa-save\"></i></span> Guardar</button>
-                        <a id=\"btnCancelar\" class=\"btn btn-outline-primary\" href=\"?mod=";
-            // line 83
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
-            yield "\"><span class=\"btn-label\"><i class=\"fas fa-sign-out-alt\"></i></span> Cerrar</a>
+                                        <label for=\"nombre_en\" class=\"control-label col-form-label\">Nombre (Ingles)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Sidebar -->
+                <div class=\"col-md-4\">
+                    <!-- Auditoría -->
+                    ";
+            // line 88
+            if (($context["showAudit"] ?? null)) {
+                // line 89
+                yield "                    <div class=\"card\">
+                        <div class=\"card-header\">
+                            <h5 class=\"card-title mb-0\">Información de Auditoría</h5>
+                        </div>
+                        <div class=\"card-body\">
+                            <div class=\"small text-muted\">
+                                <div class=\"mb-2\">
+                                    <strong>Creado por:</strong><br>
+                                    ";
+                // line 97
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_usuario", [], "any", false, false, false, 97), "html", null, true);
+                yield "<br>
+                                    ";
+                // line 98
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_fecha", [], "any", false, false, false, 98), "html", null, true);
+                yield "
+                                </div>
+                                <div>
+                                    <strong>Modificado por:</strong><br>
+                                    ";
+                // line 102
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_usuario", [], "any", false, false, false, 102), "html", null, true);
+                yield "<br>
+                                    ";
+                // line 103
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_fecha", [], "any", false, false, false, 103), "html", null, true);
+                yield "
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ";
+            }
+            // line 109
+            yield "                </div>
             </div>
+
+            <input type=\"hidden\" id=\"id\" name=\"id\" value=\"";
+            // line 112
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "id", [], "any", false, false, false, 112), "html", null, true);
+            yield "\">
         </form>
         ";
         } else {
-            // line 89
-            yield "        <div class=\"alert alert-warning\"> Operación no válida: ";
+            // line 115
+            yield "        <div class=\"alert alert-warning\">Operación no válida: ";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module"] ?? null), "html", null, true);
-            yield " </div>
+            yield "</div>
         ";
         }
-        // line 91
+        // line 117
         yield "    </div>
 </div>
 ";
         yield from [];
     }
 
-    // line 94
+    // line 121
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_scripts(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 95
+        // line 122
         yield "<script>
     document.addEventListener('DOMContentLoaded', function () {
         try {
             const btnGuardar = document.getElementById('btnGuardar');
             const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
 
-            btnEliminarRegistro.forEach(btn => {
-                btn.addEventListener('click', eliminaRegistro);
-            });
-            
             if(btnGuardar != null) {
                 btnGuardar.addEventListener('click', async function () { \$('#form_').sendForm(); });
+            }
+
+            if (btnEliminarRegistro) {
+                btnEliminarRegistro.forEach(btn => {
+                    btn.addEventListener('click', eliminaRegistro);
+                });
             }
 
             async function eliminaRegistro(event) {
                 event.preventDefault();
                 dialog(
-                    \"¿Está seguro?\",
+                    \"¿Está seguro que desea eliminar este registro?\",
                     \"WARNING\",
                     null,
                     null,
@@ -272,7 +298,7 @@ class __TwigTemplate_a353f4d29bdeeda99700c5525b5eab53 extends Template
                             action: async function () { 
                                 const row = event.target.closest('tr');
                                 const id = row.getAttribute('data-id');
-                                
+
                                 const formData = new FormData();
                                 formData.append('action', 'delete');
                                 formData.append('entity', entity);
@@ -330,7 +356,7 @@ class __TwigTemplate_a353f4d29bdeeda99700c5525b5eab53 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  248 => 95,  241 => 94,  234 => 91,  228 => 89,  219 => 83,  215 => 82,  211 => 81,  207 => 80,  203 => 79,  198 => 76,  190 => 71,  186 => 70,  182 => 69,  178 => 68,  174 => 66,  172 => 65,  164 => 60,  155 => 54,  149 => 50,  146 => 49,  144 => 48,  139 => 45,  125 => 39,  119 => 36,  115 => 35,  111 => 34,  106 => 32,  103 => 31,  99 => 30,  81 => 15,  76 => 12,  74 => 11,  69 => 9,  62 => 5,  59 => 4,  52 => 3,  41 => 1,);
+        return array (  272 => 122,  265 => 121,  258 => 117,  252 => 115,  246 => 112,  241 => 109,  232 => 103,  228 => 102,  221 => 98,  217 => 97,  207 => 89,  205 => 88,  190 => 76,  181 => 70,  167 => 58,  164 => 57,  162 => 56,  157 => 53,  139 => 43,  133 => 40,  129 => 39,  125 => 38,  120 => 37,  116 => 36,  99 => 22,  95 => 20,  93 => 19,  89 => 17,  83 => 14,  79 => 13,  76 => 12,  74 => 11,  70 => 10,  62 => 5,  59 => 4,  52 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -343,38 +369,46 @@ class __TwigTemplate_a353f4d29bdeeda99700c5525b5eab53 extends Template
     const entity = 'Categorias';
 </script>
 <div class=\"card mb-4\">
-    <div class=\"card-header\">{{module_subtitulo}}</div>
+    <div class=\"card-header d-flex justify-content-between align-items-center\">
+        <div>{{module_subtitulo}}</div>
+        {% if module == 'form' %}
+        <div class=\"btn-group\">
+            <button id=\"btnGuardar\" class=\"btn btn-primary\" type=\"button\" form=\"form_\" data-mod=\"{{ mod }}\"><i class=\"fas fa-save\"></i> Guardar</button>
+            <a id=\"btnCancelar\" class=\"btn btn-outline-secondary\" href=\"?mod={{ mod }}\"><i class=\"fas fa-times\"></i> Cancelar</a>
+        </div>
+        {% endif %}
+    </div>
     <div class=\"card-body\">
         {% if module == 'list' %}
         <div class=\"row mb-4\">
             <div class=\"col-md-3 col-sm-6\">
-                <div class=\"button-group\">
-                    <a class=\"btn btn-outline-primary btn-sm\" href=\"?mod={{mod}}&id=0\" data-id=\"0\"><span class=\"btn-label\"><i class=\"fas fa-plus\"></i></span> Nuevo</a>
-                </div>
+                <a class=\"btn btn-outline-primary btn-sm\" href=\"?mod={{mod}}&id=0\" data-id=\"0\"><i class=\"fas fa-plus\"></i> Nuevo</a>
             </div>
         </div>
         <div class=\"table-responsive\">
-            <table class=\"table table-bordered table-hover datatables\">
+            <table class=\"table table-hover datatables\">
                 <thead>
                     <tr>
-                        <th>CODIGO</th>
-                        <th>NOMBRE (ES)</th>
-                        <th>NOMBRE (EN)</th>
-                        <th>OPCIONES</th>
+                        <th>Categoría</th>
+                        <th>Nombre (ES)</th>
+                        <th>Nombre (EN)</th>
+                        <th class=\"columna-acciones\">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for data in Content %}
-                    <tr 
-                        data-id=\"{{ data.id }}\" 
-                    >
+                    <tr data-id=\"{{ data.id }}\">
                         <td>{{ data.codigo }}</td>
                         <td>{{ data.nombre_es }}</td>
                         <td>{{ data.nombre_en }}</td>
-                        <td class=\"text-center\">
-                            <div class=\"btn-group\" role=\"group\">
-                                <a class=\"btn btn-outline-primary btn-circle btn-sm\" href=\"?mod={{ mod }}&id={{ data.id }}\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Ver\"><i class=\"fas fa-search\"></i></a>
-                                <a class=\"btn btn-outline-primary btn-circle btn-sm btnEliminarRegistro\" href=\"javascript:void(0)\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Eliminar\"><i class=\"fas fa-trash\"></i></a>
+                        <td class=\"columna-acciones\">
+                            <div class=\"btn-group\">
+                                <a class=\"btn btn-sm btn-outline-primary\" href=\"?mod={{ mod }}&id={{ data.id }}\" title=\"Ver\" data-toggle=\"tooltip\" data-placement=\"top\">
+                                    <i class=\"fas fa-search\"></i>
+                                </a>
+                                <button class=\"btn btn-sm btn-outline-danger btnEliminarRegistro\" title=\"Eliminar\" data-toggle=\"tooltip\" data-placement=\"top\">
+                                    <i class=\"fas fa-trash\"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -384,50 +418,69 @@ class __TwigTemplate_a353f4d29bdeeda99700c5525b5eab53 extends Template
         </div>
         {% elseif module == 'form' %}
         {% set data = Content[0] %}
-        <form role=\"form\" name=\"form_\" id=\"form_\" enctype=\"multipart/form-data\" data-entity=\"Categorias\">
-            <div class=\"row mb-3\">
-                <div class=\"col-sm-6\">
-                    <div class=\"form-floating mb-3\">
-                        <input id=\"nombre_es\" name=\"nombre_es\" class=\"form-control validar\" placeholder=\"Ingrese el nombre de la Categoria en Español\" value=\"{{ data.nombre_es }}\">
-                        <label for=\"nombre_es\" class=\"control-label col-form-label\">Nombre (Español)</label>
+        <form role=\"form\" name=\"form_\" id=\"form_\" data-entity=\"Categorias\">
+            <div class=\"row\">
+                <div class=\"col-md-8\">
+                    <!-- Sección Principal -->
+                    <div class=\"card mb-4\">
+                        <div class=\"card-header\">
+                            <h5 class=\"card-title mb-0\">Información de la Categoría</h5>
+                        </div>
+                        <div class=\"card-body\">
+                            <div class=\"row mb-3\">
+                                <div class=\"col-12\">
+                                    <div class=\"form-floating mb-3\">
+                                        <input id=\"nombre_es\" name=\"nombre_es\" class=\"form-control validar\" placeholder=\"Ingrese el nombre de la Categoria en Español\" value=\"{{ data.nombre_es }}\">
+                                        <label for=\"nombre_es\" class=\"control-label col-form-label\">Nombre (Español)</label>
+                                    </div>
+                                </div>
+                                <div class=\"col-12\">
+                                    <div class=\"form-floating mb-3\">
+                                        <input id=\"nombre_en\" name=\"nombre_en\" class=\"form-control validar\" placeholder=\"Ingrese el nombre de la Categoria en Ingles\" value=\"{{ data.nombre_en }}\">
+                                        <label for=\"nombre_en\" class=\"control-label col-form-label\">Nombre (Ingles)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class=\"col-sm-6\">
-                    <div class=\"form-floating mb-3\">
-                        <input id=\"nombre_en\" name=\"nombre_en\" class=\"form-control validar\" placeholder=\"Ingrese el nombre de la Categoria en Ingles\" value=\"{{ data.nombre_en }}\">
-                        <label for=\"nombre_en\" class=\"control-label col-form-label\">Nombre (Ingles)</label>
+
+                <!-- Sidebar -->
+                <div class=\"col-md-4\">
+                    <!-- Auditoría -->
+                    {% if showAudit %}
+                    <div class=\"card\">
+                        <div class=\"card-header\">
+                            <h5 class=\"card-title mb-0\">Información de Auditoría</h5>
+                        </div>
+                        <div class=\"card-body\">
+                            <div class=\"small text-muted\">
+                                <div class=\"mb-2\">
+                                    <strong>Creado por:</strong><br>
+                                    {{ data.creacion_usuario }}<br>
+                                    {{ data.creacion_fecha }}
+                                </div>
+                                <div>
+                                    <strong>Modificado por:</strong><br>
+                                    {{ data.actualizacion_usuario }}<br>
+                                    {{ data.actualizacion_fecha }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
-            {% if showAudit %}
-            <div class=\"card-body\">
-                <div class=\"row\" style=\"font-size: 12px; text-align: justify;\">
-                <div class=\"col-sm-3\"><strong>CREADO POR: </strong>{{ data.creacion_usuario }}</div>
-                <div class=\"col-sm-3\"><strong>FECHA: </strong>{{ data.creacion_fecha }}</div>
-                <div class=\"col-sm-3\"><strong>MODIFICADO POR: </strong>{{ data.actualizacion_usuario }}</div>
-                <div class=\"col-sm-3\"><strong>FECHA: </strong>{{ data.actualizacion_fecha }}</div>
-                </div>
-            </div>
-            <hr>
-            {% endif %}
-            <div class=\"card-body\">
-                <div class=\"action-form\">
-                    <div class=\"form-group mb-0 text-center\">
-                        <input type=\"hidden\" id=\"id\" name=\"id\" value=\"{{ data.id }}\">
-                        <input type=\"hidden\" id=\"logo_path\" name=\"logo_path\" value=\"{{ ruta_logo }}\">
-                        <input type=\"hidden\" id=\"foto_path\" name=\"foto_path\" value=\"{{ ruta_fotos }}\">
-                        <button id=\"btnGuardar\" class=\"btn btn-outline-primary\" type=\"button\" form=\"form_\" data-mod=\"{{ mod }}\"><span class=\"btn-label\"><i class=\"fas fa-save\"></i></span> Guardar</button>
-                        <a id=\"btnCancelar\" class=\"btn btn-outline-primary\" href=\"?mod={{ mod }}\"><span class=\"btn-label\"><i class=\"fas fa-sign-out-alt\"></i></span> Cerrar</a>
-                    </div>
-                </div>
-            </div>
+
+            <input type=\"hidden\" id=\"id\" name=\"id\" value=\"{{ data.id }}\">
         </form>
         {% else %}
-        <div class=\"alert alert-warning\"> Operación no válida: {{ module }} </div>
+        <div class=\"alert alert-warning\">Operación no válida: {{ module }}</div>
         {% endif %}
     </div>
 </div>
 {% endblock %}
+
 {% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -435,18 +488,20 @@ class __TwigTemplate_a353f4d29bdeeda99700c5525b5eab53 extends Template
             const btnGuardar = document.getElementById('btnGuardar');
             const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
 
-            btnEliminarRegistro.forEach(btn => {
-                btn.addEventListener('click', eliminaRegistro);
-            });
-            
             if(btnGuardar != null) {
                 btnGuardar.addEventListener('click', async function () { \$('#form_').sendForm(); });
+            }
+
+            if (btnEliminarRegistro) {
+                btnEliminarRegistro.forEach(btn => {
+                    btn.addEventListener('click', eliminaRegistro);
+                });
             }
 
             async function eliminaRegistro(event) {
                 event.preventDefault();
                 dialog(
-                    \"¿Está seguro?\",
+                    \"¿Está seguro que desea eliminar este registro?\",
                     \"WARNING\",
                     null,
                     null,
@@ -456,7 +511,7 @@ class __TwigTemplate_a353f4d29bdeeda99700c5525b5eab53 extends Template
                             action: async function () { 
                                 const row = event.target.closest('tr');
                                 const id = row.getAttribute('data-id');
-                                
+
                                 const formData = new FormData();
                                 formData.append('action', 'delete');
                                 formData.append('entity', entity);

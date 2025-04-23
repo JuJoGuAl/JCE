@@ -3,7 +3,7 @@
 {% block content %}
 <script>
     const mod = '{{ mod }}';
-    const entity = 'Categorias';
+    const entity = 'Caracteristicas';
 </script>
 <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
@@ -26,7 +26,7 @@
             <table class="table table-hover datatables">
                 <thead>
                     <tr>
-                        <th>Categoría</th>
+                        <th>Característica</th>
                         <th>Nombre (ES)</th>
                         <th>Nombre (EN)</th>
                         <th class="columna-acciones">Acciones</th>
@@ -55,26 +55,42 @@
         </div>
         {% elseif module == 'form' %}
         {% set data = Content[0] %}
-        <form role="form" name="form_" id="form_" data-entity="Categorias">
+        <form role="form" name="form_" id="form_" data-entity="Caracteristicas">
             <div class="row">
                 <div class="col-md-8">
                     <!-- Sección Principal -->
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Información de la Categoría</h5>
+                            <h5 class="card-title mb-0">Información de la Característica</h5>
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
-                                <div class="col-12">
+                                <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input id="nombre_es" name="nombre_es" class="form-control validar" placeholder="Ingrese el nombre de la Categoria en Español" value="{{ data.nombre_es }}">
-                                        <label for="nombre_es" class="control-label col-form-label">Nombre (Español)</label>
+                                        <input id="nombre_es" name="nombre_es" class="form-control validar" placeholder="Nombre en Español" value="{{ data.nombre_es }}">
+                                        <label for="nombre_es">Nombre (Español)</label>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input id="nombre_en" name="nombre_en" class="form-control validar" placeholder="Nombre en Inglés" value="{{ data.nombre_en }}">
+                                        <label for="nombre_en">Nombre (Inglés)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <div class="col-12">
                                     <div class="form-floating mb-3">
-                                        <input id="nombre_en" name="nombre_en" class="form-control validar" placeholder="Ingrese el nombre de la Categoria en Ingles" value="{{ data.nombre_en }}">
-                                        <label for="nombre_en" class="control-label col-form-label">Nombre (Ingles)</label>
+                                        <textarea id="descripcion_es" name="descripcion_es" class="form-control h-100 validar" rows="4" placeholder="Descripción en Español">{{ data.descripcion_es }}</textarea>
+                                        <label for="descripcion_es">Descripción (Español)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div class="form-floating mb-3">
+                                        <textarea id="descripcion_en" name="descripcion_en" class="form-control h-100 validar" rows="4" placeholder="Descripción en Inglés">{{ data.descripcion_en }}</textarea>
+                                        <label for="descripcion_en">Descripción (Inglés)</label>
                                     </div>
                                 </div>
                             </div>
@@ -175,10 +191,11 @@
                     }
                 );
             }
+
         } catch (error) {
             const mensaje = `Error al procesar la petición: ${error}`;
             dialog(mensaje, 'error');
         }
     });
 </script>
-{% endblock %}
+{% endblock %} 

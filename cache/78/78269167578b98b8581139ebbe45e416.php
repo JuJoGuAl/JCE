@@ -111,6 +111,10 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
                             <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-list\"></i></div>
                             Categorias
                         </a>
+                        <a class=\"nav-link\" href=\"?mod=caracteristicas\" mod=\"CARACTERISTICAS\">
+                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-list\"></i></div>
+                            Caracteristicas
+                        </a>
                         <a class=\"nav-link\" href=\"?mod=productos\" mod=\"PRODUCTOS\">
                             <div class=\"sb-nav-link-icon\"><i class=\"fas fa-code-branch\"></i></div>
                             Productos
@@ -123,41 +127,41 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
             <main>
                 <div class=\"container-fluid px-4\">
                     <h1 class=\"my-4\">";
-        // line 73
+        // line 77
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module_titulo"] ?? null), "html", null, true);
         yield "</h1>
                     ";
-        // line 74
+        // line 78
         if (($context["Message"] ?? null)) {
-            // line 75
+            // line 79
             yield "                    <div class=\"alert alert-";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Type"] ?? null), "html", null, true);
             yield "\" role=\"alert\">
                         ";
-            // line 76
+            // line 80
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Message"] ?? null), "html", null, true);
             yield "
                     </div>
                     ";
         }
-        // line 79
+        // line 83
         yield "                    ";
         if ((array_key_exists("mod_descrip", $context) && ($context["mod_descrip"] ?? null))) {
-            // line 80
+            // line 84
             yield "                    <div class=\"card mb-4\">
                         <div class=\"card-body\">
                             ";
-            // line 82
+            // line 86
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod_descrip"] ?? null), "html", null, true);
             yield "
                         </div>
                     </div>
                     ";
         }
-        // line 86
+        // line 90
         yield "                    ";
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 87
+        // line 91
         yield "                </div>
             </main>
             <footer class=\"py-4 bg-light mt-auto\">
@@ -176,11 +180,11 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/DataTables/datatables.min.js\"></script>
     <script src=\"../js/vendor/tom-select/tom-select.complete.min.js\"></script>
     <script src=\"";
-        // line 104
+        // line 108
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["functions"] ?? null), "html", null, true);
         yield "\"></script>
     <script src=\"";
-        // line 105
+        // line 109
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["init"] ?? null), "html", null, true);
         yield "\"></script>
     <script>
@@ -210,16 +214,16 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     });
     </script>
     ";
-        // line 132
+        // line 136
         yield from $this->unwrap()->yieldBlock('scripts', $context, $blocks);
-        // line 133
+        // line 137
         yield "</body>
 
 </html>";
         yield from [];
     }
 
-    // line 86
+    // line 90
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -229,7 +233,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         yield from [];
     }
 
-    // line 132
+    // line 136
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -260,7 +264,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  233 => 132,  223 => 86,  216 => 133,  214 => 132,  184 => 105,  180 => 104,  161 => 87,  158 => 86,  151 => 82,  147 => 80,  144 => 79,  138 => 76,  133 => 75,  131 => 74,  127 => 73,  77 => 26,  66 => 18,  57 => 12,  44 => 1,);
+        return array (  237 => 136,  227 => 90,  220 => 137,  218 => 136,  188 => 109,  184 => 108,  165 => 91,  162 => 90,  155 => 86,  151 => 84,  148 => 83,  142 => 80,  137 => 79,  135 => 78,  131 => 77,  77 => 26,  66 => 18,  57 => 12,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -325,6 +329,10 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
                         <a class=\"nav-link\" href=\"?mod=categorias\" mod=\"CATEGORIAS\">
                             <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-list\"></i></div>
                             Categorias
+                        </a>
+                        <a class=\"nav-link\" href=\"?mod=caracteristicas\" mod=\"CARACTERISTICAS\">
+                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-list\"></i></div>
+                            Caracteristicas
                         </a>
                         <a class=\"nav-link\" href=\"?mod=productos\" mod=\"PRODUCTOS\">
                             <div class=\"sb-nav-link-icon\"><i class=\"fas fa-code-branch\"></i></div>

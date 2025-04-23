@@ -2,8 +2,7 @@
 declare(strict_types=1);
 session_start();
 
-define('PROJECT_ROOT', dirname(__DIR__));
-require_once PROJECT_ROOT . '/vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use App\Core\TwigEnvironment;
 use App\Helpers\GeneralFunctions;

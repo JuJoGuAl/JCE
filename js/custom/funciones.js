@@ -166,8 +166,6 @@ const fetchCall = async (endPoint, methodType = 'GET', data = null, customHeader
             fetchOptions.headers = customHeaders;
         }
 
-        // Usar la URL base global
-        console.log(`${BASE_URL}${endPoint}`);
         const response = await fetch(`${BASE_URL}${endPoint}`, fetchOptions);
 
         if (!response.ok) {

@@ -78,7 +78,7 @@
                     formData.append('password', pass);
                     formData.append('entity', 'Usuarios');
                     formData.append('action', 'val_log');
-                    const datas = await fetchCall(`/src/Api/Index.php`, 'POST', formData);
+                    const datas = await fetchCall(`/src/Api/index.php`, 'POST', formData);
                     if (!datas.isOk){
                         dialog(datas.Message, datas.Type);
                         return;

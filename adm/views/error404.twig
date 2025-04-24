@@ -1,17 +1,37 @@
 {% extends '@views/body.twig' %}
 {% block content %}
-<div class="container">
+<div class="container-fluid p-0">
     <div class="row justify-content-center">
-        <div class="col-lg-12">
-            <div class="text-center my-4">
-                <img class="mb-4 img-error" src="../../images/error-404-monochrome.svg" />
-                <p class="lead">El módulo que estas solicitando no se encuentra, intenta realizar la petición nuevamente</p>
-                <a href="./">
-                    <i class="fas fa-arrow-left me-1"></i>
-                    Regresar al Inicio
-                </a>
+        <div class="col-lg-6 text-center">
+            <div class="error-content">
+                <img class="img-error" src="../../images/error-404-monochrome.svg" style="max-width: 200px; height: auto;" />
+                <h1 class="display-6 fw-bold text-primary mb-3">¡Ups! Página no encontrada</h1>
+                <p class="lead text-muted mb-4">Lo sentimos, la página que estás buscando no existe o ha sido movida.</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="./" class="btn btn-primary btn-lg px-4 gap-3">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Volver al inicio
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Agregar animación de entrada
+        const errorContent = document.querySelector('.error-content');
+        errorContent.style.opacity = '0';
+        errorContent.style.transform = 'translateY(20px)';
+        errorContent.style.transition = 'all 0.5s ease-out';
+        
+        setTimeout(() => {
+            errorContent.style.opacity = '1';
+            errorContent.style.transform = 'translateY(0)';
+        }, 100);
+    });
+</script>
 {% endblock %}

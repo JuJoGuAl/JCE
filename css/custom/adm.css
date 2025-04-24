@@ -77,6 +77,11 @@
   --bs-link-hover-color: #0a58ca;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
+  --jce-primary: #008060;
+  --jce-secondary: #004C3F;
+  --jce-light: #F3FCF4;
+  --jce-gray: #6B7177;
+  --jce-border: #E1E3E5;
 }
 
 *,
@@ -594,7 +599,7 @@ progress {
   color: #6c757d;
 }
 .blockquote-footer::before {
-  content: "— ";
+  content: "— ";
 }
 
 .img-fluid {
@@ -2518,10 +2523,6 @@ textarea.form-control-lg {
 .input-group > .datatable-selector:focus,
 .input-group > .form-floating:focus-within {
   z-index: 5;
-}
-.input-group .btn {
-  position: relative;
-  z-index: 2;
 }
 .input-group .btn:focus {
   z-index: 5;
@@ -4636,112 +4637,55 @@ textarea.form-control-lg {
 }
 
 .alert {
-  --bs-alert-bg: transparent;
-  --bs-alert-padding-x: 1rem;
-  --bs-alert-padding-y: 1rem;
-  --bs-alert-margin-bottom: 1rem;
-  --bs-alert-color: inherit;
-  --bs-alert-border-color: transparent;
-  --bs-alert-border: 1px solid var(--bs-alert-border-color);
-  --bs-alert-border-radius: 0.375rem;
-  position: relative;
-  padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
-  margin-bottom: var(--bs-alert-margin-bottom);
-  color: var(--bs-alert-color);
-  background-color: var(--bs-alert-bg);
-  border: var(--bs-alert-border);
-  border-radius: var(--bs-alert-border-radius);
+  border-radius: 8px;
+  border: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.alert-heading {
-  color: inherit;
-}
-
-.alert-link {
-  font-weight: 700;
-}
-
-.alert-dismissible {
-  padding-right: 3rem;
-}
-.alert-dismissible .btn-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 2;
-  padding: 1.25rem 1rem;
-}
-
-.alert-primary {
-  --bs-alert-color: #084298;
-  --bs-alert-bg: #cfe2ff;
-  --bs-alert-border-color: #b6d4fe;
-}
-.alert-primary .alert-link {
-  color: #06357a;
-}
-
-.alert-secondary {
-  --bs-alert-color: #41464b;
-  --bs-alert-bg: #e2e3e5;
-  --bs-alert-border-color: #d3d6d8;
-}
-.alert-secondary .alert-link {
-  color: #34383c;
+.alert::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 1.25rem;
 }
 
 .alert-success {
-  --bs-alert-color: #0f5132;
-  --bs-alert-bg: #d1e7dd;
-  --bs-alert-border-color: #badbcc;
-}
-.alert-success .alert-link {
-  color: #0c4128;
+  background-color: var(--jce-light);
+  color: var(--jce-primary);
 }
 
-.alert-info {
-  --bs-alert-color: #055160;
-  --bs-alert-bg: #cff4fc;
-  --bs-alert-border-color: #b6effb;
-}
-.alert-info .alert-link {
-  color: #04414d;
+.alert-success::before {
+  content: "\f00c";
 }
 
 .alert-warning {
-  --bs-alert-color: #664d03;
-  --bs-alert-bg: #fff3cd;
-  --bs-alert-border-color: #ffecb5;
+  background-color: #fff3cd;
+  color: #856404;
 }
-.alert-warning .alert-link {
-  color: #523e02;
+
+.alert-warning::before {
+  content: "\f071";
 }
 
 .alert-danger {
-  --bs-alert-color: #842029;
-  --bs-alert-bg: #f8d7da;
-  --bs-alert-border-color: #f5c2c7;
-}
-.alert-danger .alert-link {
-  color: #6a1a21;
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
-.alert-light {
-  --bs-alert-color: #636464;
-  --bs-alert-bg: #fefefe;
-  --bs-alert-border-color: #fdfdfe;
-}
-.alert-light .alert-link {
-  color: #4f5050;
+.alert-danger::before {
+  content: "\f06a";
 }
 
-.alert-dark {
-  --bs-alert-color: #141619;
-  --bs-alert-bg: #d3d3d4;
-  --bs-alert-border-color: #bcbebf;
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
 }
-.alert-dark .alert-link {
-  color: #101214;
+
+.alert-info::before {
+  content: "\f05a";
 }
 
 @keyframes progress-bar-stripes {
@@ -5114,12 +5058,6 @@ textarea.form-control-lg {
   color: #842029;
   background-color: #dfc2c4;
 }
-.list-group-item-danger.list-group-item-action.active {
-  color: #fff;
-  background-color: #842029;
-  border-color: #842029;
-}
-
 .list-group-item-light {
   color: #636464;
   background-color: #fefefe;
@@ -11308,4 +11246,409 @@ body {
 }
 .ts-wrapper {
   position: relative;
+}
+
+:root {
+  --jce-primary: #008060;
+  --jce-secondary: #004C3F;
+  --jce-light: #F3FCF4;
+  --jce-gray: #6B7177;
+  --jce-border: #E1E3E5;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.sb-topnav {
+  background-color: var(--jce-primary) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sb-sidenav-dark {
+  background-color: #fff !important;
+  border-right: 1px solid var(--jce-border);
+}
+
+.sb-sidenav-dark .nav-link {
+  color: var(--jce-gray) !important;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin: 0.25rem 1rem;
+}
+
+.sb-sidenav-dark .nav-link:hover {
+  background-color: var(--jce-light);
+  color: var(--jce-primary) !important;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav .nav-link .sb-nav-link-icon {
+  color: var(--jce-primary) !important;
+  transition: color 0.2s ease;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav .nav-link:hover .sb-nav-link-icon {
+  color: var(--jce-secondary) !important;
+}
+
+.card {
+  border-radius: 8px;
+  border: 1px solid var(--jce-border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.alert {
+  border-radius: 8px;
+  border: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.alert::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 1.25rem;
+}
+
+.alert-success {
+  background-color: var(--jce-light);
+  color: var(--jce-primary);
+}
+
+.alert-success::before {
+  content: "\f00c";
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.alert-warning::before {
+  content: "\f071";
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-danger::before {
+  content: "\f06a";
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.alert-info::before {
+  content: "\f05a";
+}
+
+.navbar-brand {
+  font-weight: 600;
+  color: white !important;
+}
+
+.dropdown-menu {
+  border-radius: 8px;
+  border: 1px solid var(--jce-border);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-item:hover {
+  background-color: var(--jce-light);
+  color: var(--jce-primary);
+}
+
+h1 {
+  color: var(--jce-secondary);
+  font-weight: 600;
+}
+
+.container-fluid {
+  padding: 2rem;
+}
+
+footer {
+  background-color: #fff !important;
+  border-top: 1px solid var(--jce-border);
+}
+
+/* Estilos específicos para el módulo de marcas */
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table thead th {
+  background-color: var(--jce-light);
+  color: var(--jce-secondary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--jce-border);
+  padding: 1rem;
+}
+
+.table tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--jce-border);
+}
+
+.table tbody tr:hover {
+  background-color: var(--jce-light);
+}
+
+/* Estilos generales para botones */
+.btn:not(.btn-group > .btn) {
+  transition: all 0.2s ease !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+  padding: 0.375rem 0.75rem !important;
+}
+
+.btn:not(.btn-group > .btn):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn:not(.btn-group > .btn):active,
+.btn:not(.btn-group > .btn):focus-visible {
+  transform: translateY(0);
+  box-shadow: none !important;
+}
+
+/* Estilos para botones outline */
+.btn-outline {
+  background-color: transparent !important;
+}
+
+.btn-outline-primary {
+  color: var(--jce-primary);
+  border-color: var(--jce-primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--jce-primary);
+  border-color: var(--jce-primary);
+}
+
+.btn-outline-primary:active,
+.btn-outline-primary:focus-visible {
+  background-color: var(--jce-secondary) !important;
+  border-color: var(--jce-secondary) !important;
+}
+
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-outline-danger:active,
+.btn-outline-danger:focus-visible {
+  background-color: #bb2d3b !important;
+  border-color: #bb2d3b !important;
+}
+
+/* Estilos para botones no outline */
+.btn-primary {
+  background-color: var(--jce-primary);
+  border-color: var(--jce-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--jce-secondary);
+  border-color: var(--jce-secondary);
+}
+
+.btn-primary:active,
+.btn-primary:focus-visible {
+  background-color: var(--jce-secondary) !important;
+  border-color: var(--jce-secondary) !important;
+}
+
+.btn-secondary {
+  background-color: var(--jce-gray);
+  border-color: var(--jce-gray);
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+.btn-secondary:active,
+.btn-secondary:focus-visible {
+  background-color: #4e555b !important;
+  border-color: #4e555b !important;
+}
+
+/* Estilos para popups/dialogs */
+.jconfirm-box {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border: none !important;
+}
+
+.jconfirm-box .jconfirm-title-c {
+  color: var(--jce-secondary) !important;
+  font-weight: 600 !important;
+  font-size: 1.25rem !important;
+  padding: 0.5rem 1rem 0.25rem !important;
+}
+
+.jconfirm-box .jconfirm-content {
+  color: var(--jce-gray) !important;
+  font-size: 1rem !important;
+  padding: 0.25rem 1rem 0.5rem !important;
+}
+
+.jconfirm-box .jconfirm-buttons {
+  padding: 0.5rem 1rem !important;
+  gap: 0.5rem !important;
+}
+
+.jconfirm-box .jconfirm-buttons button {
+  border-radius: 6px !important;
+  padding: 0.375rem 0.75rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+.jconfirm-box .jconfirm-buttons button.btn-success {
+  background-color: var(--jce-primary) !important;
+  border-color: var(--jce-primary) !important;
+}
+
+.jconfirm-box .jconfirm-buttons button.btn-success:hover {
+  background-color: var(--jce-secondary) !important;
+  border-color: var(--jce-secondary) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.jconfirm-box .jconfirm-buttons button.btn-default {
+  background-color: var(--jce-gray) !important;
+  border-color: var(--jce-gray) !important;
+  color: white !important;
+}
+
+.jconfirm-box .jconfirm-buttons button.btn-default:hover {
+  background-color: #5a6268 !important;
+  border-color: #545b62 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.jconfirm-box .jconfirm-buttons button.btn-orange {
+  background-color: #fd7e14 !important;
+  border-color: #fd7e14 !important;
+  color: white !important;
+}
+
+.jconfirm-box .jconfirm-buttons button.btn-orange:hover {
+  background-color: #e56e0c !important;
+  border-color: #e56e0c !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Estilo para el placeholder de imagen */
+.bg-light.d-flex {
+  background-color: var(--jce-light) !important;
+  border-radius: 8px;
+  border: 1px dashed var(--jce-border);
+  transition: all 0.2s ease;
+}
+
+.bg-light.d-flex:hover {
+  background-color: var(--jce-light) !important;
+  border-color: var(--jce-primary);
+}
+
+.bg-light.d-flex i {
+  font-size: 1.5rem;
+  color: var(--jce-gray);
+}
+
+/* Estilo para tooltips */
+.tooltip {
+  font-size: 0.875rem;
+}
+
+.tooltip .tooltip-inner {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-width: 200px;
+}
+
+.tooltip .tooltip-arrow {
+  display: none;
+}
+
+.tooltip.show {
+  opacity: 1;
+}
+
+.tooltip.bs-tooltip-auto[x-placement^=top],
+.tooltip.bs-tooltip-top {
+  padding-bottom: 0.5rem;
+}
+
+.tooltip.bs-tooltip-auto[x-placement^=bottom],
+.tooltip.bs-tooltip-bottom {
+  padding-top: 0.5rem;
+}
+
+.tooltip.bs-tooltip-auto[x-placement^=left],
+.tooltip.bs-tooltip-left {
+  padding-right: 0.5rem;
+}
+
+.tooltip.bs-tooltip-auto[x-placement^=right],
+.tooltip.bs-tooltip-right {
+  padding-left: 0.5rem;
+}
+
+/* Estilo para descripciones truncadas */
+td small {
+  display: block;
+  color: var(--jce-gray);
+  margin-top: 0.25rem;
+}
+
+/* Mejoras en el formulario */
+.form-label {
+  color: var(--jce-secondary);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--jce-primary);
+  box-shadow: 0 0 0 0.2rem rgba(0, 128, 96, 0.15);
+}
+
+/* Estilo para la sección de auditoría */
+.card .small strong {
+  color: var(--jce-secondary);
 }

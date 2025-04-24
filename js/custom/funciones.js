@@ -3,8 +3,8 @@ const DEFAULT_HEADERS = {
     'Content-Type': 'application/json; charset=utf-8',
 };
 const getUrl = window.location;
-//const BASE_URL = `${getUrl.protocol}//${getUrl.host}/${getUrl.pathname.split('/')[1]}`;
-const BASE_URL = `${getUrl.protocol}//${getUrl.host}`;
+const BASE_URL = `${getUrl.protocol}//${getUrl.host}/${getUrl.pathname.split('/')[1]}`;
+//${getUrl.pathname.split('/')[1]};
 const $body = $('body');
 
 function accentsSupr(data) {
@@ -84,7 +84,7 @@ if ($().dataTable) {
         return accentsSupr(data);
     };
 
-    $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-primary';
+    $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-outline-primary';
 }
 
 const clear_log = function () {
@@ -166,6 +166,8 @@ const fetchCall = async (endPoint, methodType = 'GET', data = null, customHeader
             fetchOptions.headers = customHeaders;
         }
 
+        // Usar la URL base global
+        console.log(`${BASE_URL}${endPoint}`);
         const response = await fetch(`${BASE_URL}${endPoint}`, fetchOptions);
 
         if (!response.ok) {

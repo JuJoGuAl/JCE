@@ -52,13 +52,6 @@ try {
     ];
 
     try {
-        if ($modNav === 'home') {
-            echo $twig->render('@views/home.twig', [
-                'module_titulo' => 'Inicio',
-            ]);
-            exit;
-        }
-
         // Si el archivo del controlador existe, delega al controlador
         if (file_exists($controllerFile)) {
             require_once $controllerFile;
@@ -70,9 +63,7 @@ try {
                 $controllerData = $controller->onGet($_GET);
                 
                 $data = array_merge($data, get_object_vars($controllerData));
-                $data['Type'] =  $settings->get('messageTypes')[$controllerData->Type];
-
-                //print_r($data);
+                $data['Type'] = $settings->get('messageTypes')[$controllerData->Type];
             } else {
                 throw new \Exception("El controlador '{$controllerClass}' no existe.");
             }
@@ -84,14 +75,16 @@ try {
             // Si no existe ni el controlador ni la vista, muestra error404
             echo $twig->render('@views/error404.twig', [
                 'mod_name' => 'Error 404',
-                'mod_descrip' => 'La página solicitada no existe',
+                //'mod_descrip' => 'La página solicitada no existe',
             ]);
             exit;
         }
     } catch (Exception $e) {
         // Si ocurre una excepción en el controlador, captura el mensaje de error
         $data['Message'] = $e->getMessage();
+        $data['Type'] = 'danger';
     }
+    //print_r($data);
     echo $twig->render("@modules/{$modNav}.twig", $data);
 } catch (Exception $e) {
     echo "Ocurrió un error grave: " . $e->getMessage();

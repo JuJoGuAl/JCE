@@ -14,8 +14,8 @@ use Twig\Source;
 use Twig\Template;
 use Twig\TemplateWrapper;
 
-/* @views/home.twig */
-class __TwigTemplate_862b2559255cc7277a9e7bd0670934fa extends Template
+/* @modules/home/home.twig */
+class __TwigTemplate_424a0e24652cb2f550bcb30976521234 extends Template
 {
     private Source $source;
     /**
@@ -44,7 +44,7 @@ class __TwigTemplate_862b2559255cc7277a9e7bd0670934fa extends Template
     protected function doDisplay(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        $this->parent = $this->loadTemplate("@views/body.twig", "@views/home.twig", 1);
+        $this->parent = $this->loadTemplate("@views/body.twig", "@modules/home/home.twig", 1);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
     }
 
@@ -67,7 +67,10 @@ class __TwigTemplate_862b2559255cc7277a9e7bd0670934fa extends Template
                     </div>
                     <div class=\"flex-grow-1 ms-3\">
                         <div class=\"small fw-bold text-primary mb-1\">Productos</div>
-                        <div class=\"h4 mb-0\">0</div>
+                        <div class=\"h4 mb-0\">";
+        // line 14
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["stats"] ?? null), "productos", [], "any", false, false, false, 14), "html", null, true);
+        yield "</div>
                     </div>
                 </div>
             </div>
@@ -88,7 +91,10 @@ class __TwigTemplate_862b2559255cc7277a9e7bd0670934fa extends Template
                     </div>
                     <div class=\"flex-grow-1 ms-3\">
                         <div class=\"small fw-bold text-success mb-1\">Marcas</div>
-                        <div class=\"h4 mb-0\">0</div>
+                        <div class=\"h4 mb-0\">";
+        // line 35
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["stats"] ?? null), "marcas", [], "any", false, false, false, 35), "html", null, true);
+        yield "</div>
                     </div>
                 </div>
             </div>
@@ -109,7 +115,10 @@ class __TwigTemplate_862b2559255cc7277a9e7bd0670934fa extends Template
                     </div>
                     <div class=\"flex-grow-1 ms-3\">
                         <div class=\"small fw-bold text-warning mb-1\">Categorías</div>
-                        <div class=\"h4 mb-0\">0</div>
+                        <div class=\"h4 mb-0\">";
+        // line 56
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["stats"] ?? null), "categorias", [], "any", false, false, false, 56), "html", null, true);
+        yield "</div>
                     </div>
                 </div>
             </div>
@@ -130,7 +139,10 @@ class __TwigTemplate_862b2559255cc7277a9e7bd0670934fa extends Template
                     </div>
                     <div class=\"flex-grow-1 ms-3\">
                         <div class=\"small fw-bold text-info mb-1\">Características</div>
-                        <div class=\"h4 mb-0\">0</div>
+                        <div class=\"h4 mb-0\">";
+        // line 77
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["stats"] ?? null), "caracteristicas", [], "any", false, false, false, 77), "html", null, true);
+        yield "</div>
                     </div>
                 </div>
             </div>
@@ -202,10 +214,49 @@ class __TwigTemplate_862b2559255cc7277a9e7bd0670934fa extends Template
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan=\"4\" class=\"text-center\">No hay actividad reciente</td>
-                            </tr>
-                        </tbody>
+                            ";
+        // line 149
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, ($context["stats"] ?? null), "actividad_reciente", [], "any", false, false, false, 149)) > 0)) {
+            // line 150
+            yield "                                ";
+            $context['_parent'] = $context;
+            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, ($context["stats"] ?? null), "actividad_reciente", [], "any", false, false, false, 150));
+            foreach ($context['_seq'] as $context["_key"] => $context["actividad"]) {
+                // line 151
+                yield "                                    <tr>
+                                        <td>";
+                // line 152
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["actividad"], "fecha", [], "any", false, false, false, 152), "html", null, true);
+                yield "</td>
+                                        <td>";
+                // line 153
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["actividad"], "modulo", [], "any", false, false, false, 153), "html", null, true);
+                yield "</td>
+                                        <td>";
+                // line 154
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["actividad"], "accion", [], "any", false, false, false, 154), "html", null, true);
+                yield "</td>
+                                        <td>";
+                // line 155
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["actividad"], "usuario", [], "any", false, false, false, 155), "html", null, true);
+                yield "</td>
+                                    </tr>
+                                ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_key'], $context['actividad'], $context['_parent']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 158
+            yield "                            ";
+        } else {
+            // line 159
+            yield "                                <tr>
+                                    <td colspan=\"4\" class=\"text-center\">No hay actividad reciente</td>
+                                </tr>
+                            ";
+        }
+        // line 163
+        yield "                        </tbody>
                     </table>
                 </div>
             </div>
@@ -216,18 +267,18 @@ class __TwigTemplate_862b2559255cc7277a9e7bd0670934fa extends Template
         yield from [];
     }
 
-    // line 161
+    // line 172
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_scripts(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 162
+        // line 173
         yield "<script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Aquí podríamos agregar llamadas AJAX para obtener estadísticas reales
-    // y actualizar los contadores en las tarjetas
+    // Aquí podríamos agregar llamadas AJAX para actualizar los contadores en tiempo real
+    // si se desea implementar actualizaciones automáticas
 });
 </script>
 ";
@@ -239,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     public function getTemplateName(): string
     {
-        return "@views/home.twig";
+        return "@modules/home/home.twig";
     }
 
     /**
@@ -255,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     public function getDebugInfo(): array
     {
-        return array (  227 => 162,  220 => 161,  59 => 3,  52 => 2,  41 => 1,);
+        return array (  278 => 173,  271 => 172,  259 => 163,  253 => 159,  250 => 158,  241 => 155,  237 => 154,  233 => 153,  229 => 152,  226 => 151,  221 => 150,  219 => 149,  144 => 77,  120 => 56,  96 => 35,  72 => 14,  59 => 3,  52 => 2,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -273,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class=\"flex-grow-1 ms-3\">
                         <div class=\"small fw-bold text-primary mb-1\">Productos</div>
-                        <div class=\"h4 mb-0\">0</div>
+                        <div class=\"h4 mb-0\">{{ stats.productos }}</div>
                     </div>
                 </div>
             </div>
@@ -294,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class=\"flex-grow-1 ms-3\">
                         <div class=\"small fw-bold text-success mb-1\">Marcas</div>
-                        <div class=\"h4 mb-0\">0</div>
+                        <div class=\"h4 mb-0\">{{ stats.marcas }}</div>
                     </div>
                 </div>
             </div>
@@ -315,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class=\"flex-grow-1 ms-3\">
                         <div class=\"small fw-bold text-warning mb-1\">Categorías</div>
-                        <div class=\"h4 mb-0\">0</div>
+                        <div class=\"h4 mb-0\">{{ stats.categorias }}</div>
                     </div>
                 </div>
             </div>
@@ -336,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class=\"flex-grow-1 ms-3\">
                         <div class=\"small fw-bold text-info mb-1\">Características</div>
-                        <div class=\"h4 mb-0\">0</div>
+                        <div class=\"h4 mb-0\">{{ stats.caracteristicas }}</div>
                     </div>
                 </div>
             </div>
@@ -408,9 +459,20 @@ document.addEventListener('DOMContentLoaded', function() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan=\"4\" class=\"text-center\">No hay actividad reciente</td>
-                            </tr>
+                            {% if stats.actividad_reciente|length > 0 %}
+                                {% for actividad in stats.actividad_reciente %}
+                                    <tr>
+                                        <td>{{ actividad.fecha }}</td>
+                                        <td>{{ actividad.modulo }}</td>
+                                        <td>{{ actividad.accion }}</td>
+                                        <td>{{ actividad.usuario }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan=\"4\" class=\"text-center\">No hay actividad reciente</td>
+                                </tr>
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>
@@ -423,10 +485,10 @@ document.addEventListener('DOMContentLoaded', function() {
 {% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Aquí podríamos agregar llamadas AJAX para obtener estadísticas reales
-    // y actualizar los contadores en las tarjetas
+    // Aquí podríamos agregar llamadas AJAX para actualizar los contadores en tiempo real
+    // si se desea implementar actualizaciones automáticas
 });
 </script>
-{% endblock %}", "@views/home.twig", "C:\\laragon\\www\\jce\\adm\\views\\home.twig");
+{% endblock %} ", "@modules/home/home.twig", "C:\\laragon\\www\\jce\\adm\\modules\\views\\home\\home.twig");
     }
 }

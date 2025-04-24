@@ -7,8 +7,8 @@
     <meta name="robots" content="noindex,nofollow" />
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon.png" type="image/png">
     <title>{{ Sistema }}</title>
     <link href="../css/vendor/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
     <link href="../css/vendor/font-awesome/all.min.css" rel="stylesheet">
@@ -53,19 +53,19 @@
                             Inicio
                         </a>
                         <a class="nav-link" href="?mod=marcas" mod="MARCAS">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-handshake"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-trademark"></i></div>
                             Marcas
                         </a>
                         <a class="nav-link" href="?mod=categorias" mod="CATEGORIAS">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tags"></i></div>
                             Categorias
                         </a>
                         <a class="nav-link" href="?mod=caracteristicas" mod="CARACTERISTICAS">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-list-check"></i></div>
                             Caracteristicas
                         </a>
                         <a class="nav-link" href="?mod=productos" mod="PRODUCTOS">
-                            <div class="sb-nav-link-icon"><i class="fas fa-code-branch"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-box"></i></div>
                             Productos
                         </a>
                     </div>
@@ -75,7 +75,9 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
+                    {% if module_titulo %}
                     <h1 class="my-4">{{ module_titulo }}</h1>
+                    {% endif %}
                     {% if Message %}
                     <div class="alert alert-{{ Type }}" role="alert">
                         {{ Message }}

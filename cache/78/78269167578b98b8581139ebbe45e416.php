@@ -50,8 +50,8 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <meta name=\"robots\" content=\"noindex,nofollow\" />
     <meta name=\"description\" content=\"\">
     <meta name=\"author\" content=\"\">
-    <link rel=\"icon\" href=\"/favicon.ico\" type=\"image/x-icon\">
-    <link rel=\"icon\" href=\"/favicon.png\" type=\"image/png\">
+    <link rel=\"icon\" href=\"../favicon.ico\" type=\"image/x-icon\">
+    <link rel=\"icon\" href=\"../favicon.png\" type=\"image/png\">
     <title>";
         // line 12
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Sistema"] ?? null), "html", null, true);
@@ -105,19 +105,19 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
                             Inicio
                         </a>
                         <a class=\"nav-link\" href=\"?mod=marcas\" mod=\"MARCAS\">
-                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-handshake\"></i></div>
+                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-trademark\"></i></div>
                             Marcas
                         </a>
                         <a class=\"nav-link\" href=\"?mod=categorias\" mod=\"CATEGORIAS\">
-                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-list\"></i></div>
+                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-tags\"></i></div>
                             Categorias
                         </a>
                         <a class=\"nav-link\" href=\"?mod=caracteristicas\" mod=\"CARACTERISTICAS\">
-                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-list\"></i></div>
+                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-list-check\"></i></div>
                             Caracteristicas
                         </a>
                         <a class=\"nav-link\" href=\"?mod=productos\" mod=\"PRODUCTOS\">
-                            <div class=\"sb-nav-link-icon\"><i class=\"fas fa-code-branch\"></i></div>
+                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-box\"></i></div>
                             Productos
                         </a>
                     </div>
@@ -127,42 +127,47 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         <div id=\"layoutSidenav_content\">
             <main>
                 <div class=\"container-fluid px-4\">
-                    <h1 class=\"my-4\">";
-        // line 78
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module_titulo"] ?? null), "html", null, true);
-        yield "</h1>
                     ";
-        // line 79
+        // line 78
+        if (($context["module_titulo"] ?? null)) {
+            // line 79
+            yield "                    <h1 class=\"my-4\">";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module_titulo"] ?? null), "html", null, true);
+            yield "</h1>
+                    ";
+        }
+        // line 81
+        yield "                    ";
         if (($context["Message"] ?? null)) {
-            // line 80
+            // line 82
             yield "                    <div class=\"alert alert-";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Type"] ?? null), "html", null, true);
             yield "\" role=\"alert\">
                         ";
-            // line 81
+            // line 83
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Message"] ?? null), "html", null, true);
             yield "
                     </div>
                     ";
         }
-        // line 84
+        // line 86
         yield "                    ";
         if ((array_key_exists("mod_descrip", $context) && ($context["mod_descrip"] ?? null))) {
-            // line 85
+            // line 87
             yield "                    <div class=\"card mb-4\">
                         <div class=\"card-body\">
                             ";
-            // line 87
+            // line 89
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod_descrip"] ?? null), "html", null, true);
             yield "
                         </div>
                     </div>
                     ";
         }
-        // line 91
+        // line 93
         yield "                    ";
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 92
+        // line 94
         yield "                </div>
             </main>
             <footer class=\"py-4 bg-light mt-auto\">
@@ -182,11 +187,11 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/tom-select/tom-select.complete.min.js\"></script>
     <script src=\"../js/vendor/dropzone/dropzone.min.js\"></script>
     <script src=\"";
-        // line 110
+        // line 112
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["functions"] ?? null), "html", null, true);
         yield "\"></script>
     <script src=\"";
-        // line 111
+        // line 113
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["init"] ?? null), "html", null, true);
         yield "\"></script>
     <script>
@@ -216,16 +221,16 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     });
     </script>
     ";
-        // line 138
+        // line 140
         yield from $this->unwrap()->yieldBlock('scripts', $context, $blocks);
-        // line 139
+        // line 141
         yield "</body>
 
 </html>";
         yield from [];
     }
 
-    // line 91
+    // line 93
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -235,7 +240,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         yield from [];
     }
 
-    // line 138
+    // line 140
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -266,7 +271,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  239 => 138,  229 => 91,  222 => 139,  220 => 138,  190 => 111,  186 => 110,  166 => 92,  163 => 91,  156 => 87,  152 => 85,  149 => 84,  143 => 81,  138 => 80,  136 => 79,  132 => 78,  78 => 27,  67 => 19,  57 => 12,  44 => 1,);
+        return array (  244 => 140,  234 => 93,  227 => 141,  225 => 140,  195 => 113,  191 => 112,  171 => 94,  168 => 93,  161 => 89,  157 => 87,  154 => 86,  148 => 83,  143 => 82,  140 => 81,  134 => 79,  132 => 78,  78 => 27,  67 => 19,  57 => 12,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -280,8 +285,8 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <meta name=\"robots\" content=\"noindex,nofollow\" />
     <meta name=\"description\" content=\"\">
     <meta name=\"author\" content=\"\">
-    <link rel=\"icon\" href=\"/favicon.ico\" type=\"image/x-icon\">
-    <link rel=\"icon\" href=\"/favicon.png\" type=\"image/png\">
+    <link rel=\"icon\" href=\"../favicon.ico\" type=\"image/x-icon\">
+    <link rel=\"icon\" href=\"../favicon.png\" type=\"image/png\">
     <title>{{ Sistema }}</title>
     <link href=\"../css/vendor/jquery-confirm/jquery-confirm.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/font-awesome/all.min.css\" rel=\"stylesheet\">
@@ -326,19 +331,19 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
                             Inicio
                         </a>
                         <a class=\"nav-link\" href=\"?mod=marcas\" mod=\"MARCAS\">
-                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-handshake\"></i></div>
+                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-trademark\"></i></div>
                             Marcas
                         </a>
                         <a class=\"nav-link\" href=\"?mod=categorias\" mod=\"CATEGORIAS\">
-                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-list\"></i></div>
+                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-tags\"></i></div>
                             Categorias
                         </a>
                         <a class=\"nav-link\" href=\"?mod=caracteristicas\" mod=\"CARACTERISTICAS\">
-                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-list\"></i></div>
+                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-list-check\"></i></div>
                             Caracteristicas
                         </a>
                         <a class=\"nav-link\" href=\"?mod=productos\" mod=\"PRODUCTOS\">
-                            <div class=\"sb-nav-link-icon\"><i class=\"fas fa-code-branch\"></i></div>
+                            <div class=\"sb-nav-link-icon\"><i class=\"fa-solid fa-box\"></i></div>
                             Productos
                         </a>
                     </div>
@@ -348,7 +353,9 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         <div id=\"layoutSidenav_content\">
             <main>
                 <div class=\"container-fluid px-4\">
+                    {% if module_titulo %}
                     <h1 class=\"my-4\">{{ module_titulo }}</h1>
+                    {% endif %}
                     {% if Message %}
                     <div class=\"alert alert-{{ Type }}\" role=\"alert\">
                         {{ Message }}

@@ -48,8 +48,8 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
     <meta name=\"robots\" content=\"noindex,nofollow\" />
     <meta name=\"description\" content=\"\">
     <meta name=\"author\" content=\"\">
-    <link rel=\"icon\" href=\"/favicon.ico\" type=\"image/x-icon\">
-    <link rel=\"icon\" href=\"/favicon.png\" type=\"image/png\">
+    <link rel=\"icon\" href=\"../favicon.ico\" type=\"image/x-icon\">
+    <link rel=\"icon\" href=\"../favicon.png\" type=\"image/png\">
     <title>Login - ";
         // line 12
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Sistema"] ?? null), "html", null, true);
@@ -128,12 +128,6 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
                     formData.append('password', pass);
                     formData.append('entity', 'Usuarios');
                     formData.append('action', 'val_log');
-                    const requestData = {
-                        username: username,
-                        password: pass,
-                        entity: 'Usuarios',
-                        action: 'val_log'
-                    };
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', formData);
                     if (!datas.isOk){
                         dialog(datas.Message, datas.Type);
@@ -189,8 +183,8 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
     <meta name=\"robots\" content=\"noindex,nofollow\" />
     <meta name=\"description\" content=\"\">
     <meta name=\"author\" content=\"\">
-    <link rel=\"icon\" href=\"/favicon.ico\" type=\"image/x-icon\">
-    <link rel=\"icon\" href=\"/favicon.png\" type=\"image/png\">
+    <link rel=\"icon\" href=\"../favicon.ico\" type=\"image/x-icon\">
+    <link rel=\"icon\" href=\"../favicon.png\" type=\"image/png\">
     <title>Login - {{ Sistema }}</title>
     <link href=\"../css/vendor/jquery-confirm/jquery-confirm.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/font-awesome/all.min.css\" rel=\"stylesheet\">
@@ -260,12 +254,6 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
                     formData.append('password', pass);
                     formData.append('entity', 'Usuarios');
                     formData.append('action', 'val_log');
-                    const requestData = {
-                        username: username,
-                        password: pass,
-                        entity: 'Usuarios',
-                        action: 'val_log'
-                    };
                     const datas = await fetchCall(`/src/Api/Index.php`, 'POST', formData);
                     if (!datas.isOk){
                         dialog(datas.Message, datas.Type);

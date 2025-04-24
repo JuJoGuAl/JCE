@@ -8,22 +8,11 @@ class Conection {
     private PDO $connection;
     
     public function __construct() {
-        $url = "/" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-        preg_match('/(representacionesjce)/mi', $url, $coin, PREG_OFFSET_CAPTURE);
-        
-        if (!empty($coin)) {
-            $bd_host = "localhost";
-            $bd_user = "propie33_user";
-            $bd_pass = "S2k(268UnleW.U";
-            $bd_dtb  = "propie33_web";
-            $bd_pro  = true;
-        } else {
-            $bd_host = "localhost";
-            $bd_user = "root";
-            $bd_pass = "";
-            $bd_dtb  = "jce";
-            $bd_pro  = false;
-        }
+        $bd_host = "localhost";
+        $bd_user = "root";
+        $bd_pass = "";
+        $bd_dtb  = "jce";
+        $bd_pro  = false;
 
         try {
             $this->connection = new PDO(

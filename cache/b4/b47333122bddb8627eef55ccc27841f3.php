@@ -297,6 +297,7 @@ class __TwigTemplate_1f5df5c342bf26b79c06393ff6e59596 extends Template
         // line 180
         yield "<script>
     document.addEventListener('DOMContentLoaded', function() {
+        \$('.preloader').fadeOut();
         function formatDate(dateString) {
             const date = new Date(dateString);
             return new Intl.DateTimeFormat(navigator.language, {
@@ -527,6 +528,7 @@ class __TwigTemplate_1f5df5c342bf26b79c06393ff6e59596 extends Template
 {% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        \$('.preloader').fadeOut();
         function formatDate(dateString) {
             const date = new Date(dateString);
             return new Intl.DateTimeFormat(navigator.language, {

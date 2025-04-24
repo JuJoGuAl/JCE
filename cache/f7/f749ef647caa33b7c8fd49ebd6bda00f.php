@@ -272,6 +272,8 @@ class __TwigTemplate_a353f4d29bdeeda99700c5525b5eab53 extends Template
         yield "<script>
     document.addEventListener('DOMContentLoaded', function () {
         try {
+            \$('.preloader').fadeOut();
+            
             const btnGuardar = document.getElementById('btnGuardar');
             const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
 
@@ -485,6 +487,8 @@ class __TwigTemplate_a353f4d29bdeeda99700c5525b5eab53 extends Template
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         try {
+            \$('.preloader').fadeOut();
+            
             const btnGuardar = document.getElementById('btnGuardar');
             const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
 

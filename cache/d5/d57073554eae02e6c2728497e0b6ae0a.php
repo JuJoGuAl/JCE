@@ -768,15 +768,17 @@ class __TwigTemplate_fe2eeed4f11e0a5959d56031319a67fb extends Template
 
     document.addEventListener('DOMContentLoaded', function () {
         try {
+            \$('.preloader').fadeOut();
+            
             const btnGuardar = document.getElementById('btnGuardar');
             const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
             const tablaCaracteristicas = document.getElementById('tablaCaracteristicas');
             const btnAgregarCaracteristica = document.getElementById('agregarCaracteristica');
             const dropzone = document.getElementById('dropzone');
             let contadorFilas = ";
-        // line 428
-        if ( !Twig\Extension\CoreExtension::testEmpty(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "caracteristicas", [], "any", false, false, false, 428))) {
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "caracteristicas", [], "any", false, false, false, 428)), "html", null, true);
+        // line 430
+        if ( !Twig\Extension\CoreExtension::testEmpty(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "caracteristicas", [], "any", false, false, false, 430))) {
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "caracteristicas", [], "any", false, false, false, 430)), "html", null, true);
         } else {
             yield "0";
         }
@@ -791,22 +793,22 @@ class __TwigTemplate_fe2eeed4f11e0a5959d56031319a67fb extends Template
                         <select class=\"form-control form-select caracteristica-select\" name=\"caracteristicas[\${contadorFilas}][id]\">
                             <option value=\"\">Seleccione una característica</option>
                             ";
-        // line 438
+        // line 440
         $context['_parent'] = $context;
         $context['_seq'] = CoreExtension::ensureTraversable(($context["Caracteristicas"] ?? null));
         foreach ($context['_seq'] as $context["_key"] => $context["carac"]) {
-            // line 439
+            // line 441
             yield "                                <option value=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["carac"], "id", [], "any", false, false, false, 439), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["carac"], "id", [], "any", false, false, false, 441), "html", null, true);
             yield "\">";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["carac"], "nombre_es", [], "any", false, false, false, 439), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["carac"], "nombre_es", [], "any", false, false, false, 441), "html", null, true);
             yield "</option>
                             ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['carac'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 441
+        // line 443
         yield "                        </select>
                     </td>
                     <td>
@@ -942,7 +944,7 @@ class __TwigTemplate_fe2eeed4f11e0a5959d56031319a67fb extends Template
                     dictDefaultMessage: \"Arrastra y suelta imágenes aquí o haz clic para seleccionar\",
                     dictRemoveFile: `<i class=\"fas fa-times\"></i>`,
                     dictFileTooBig: `La imagen es demasiado grande (";
-        // line 575
+        // line 577
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["filesize"] ?? null), "html", null, true);
         yield "MB). Tamaño máximo: \${configImagenes.maxSize}MB.`,
                     dictInvalidFileType: \"No puedes subir archivos de este tipo.\",
@@ -1090,7 +1092,7 @@ class __TwigTemplate_fe2eeed4f11e0a5959d56031319a67fb extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  946 => 575,  810 => 441,  799 => 439,  795 => 438,  778 => 428,  765 => 418,  761 => 417,  757 => 416,  749 => 410,  742 => 409,  735 => 405,  729 => 403,  723 => 400,  701 => 380,  697 => 378,  684 => 371,  680 => 370,  675 => 368,  671 => 366,  667 => 365,  663 => 363,  661 => 362,  649 => 352,  640 => 346,  636 => 345,  629 => 341,  625 => 340,  615 => 332,  613 => 331,  607 => 327,  599 => 322,  596 => 321,  594 => 320,  590 => 319,  586 => 318,  582 => 317,  567 => 304,  558 => 301,  549 => 300,  545 => 299,  521 => 277,  518 => 276,  493 => 267,  488 => 264,  479 => 261,  470 => 260,  466 => 259,  461 => 257,  455 => 255,  437 => 254,  435 => 253,  408 => 229,  397 => 221,  387 => 213,  372 => 211,  368 => 210,  357 => 202,  346 => 194,  337 => 188,  323 => 176,  320 => 175,  318 => 174,  313 => 171,  295 => 161,  289 => 157,  283 => 155,  277 => 153,  275 => 152,  271 => 150,  265 => 148,  259 => 146,  257 => 145,  251 => 142,  246 => 140,  242 => 139,  237 => 137,  234 => 136,  228 => 132,  222 => 130,  220 => 129,  214 => 126,  210 => 125,  207 => 124,  203 => 123,  184 => 107,  180 => 105,  178 => 104,  174 => 102,  168 => 99,  164 => 98,  161 => 97,  159 => 96,  155 => 95,  147 => 90,  59 => 4,  52 => 3,  41 => 1,);
+        return array (  948 => 577,  812 => 443,  801 => 441,  797 => 440,  780 => 430,  765 => 418,  761 => 417,  757 => 416,  749 => 410,  742 => 409,  735 => 405,  729 => 403,  723 => 400,  701 => 380,  697 => 378,  684 => 371,  680 => 370,  675 => 368,  671 => 366,  667 => 365,  663 => 363,  661 => 362,  649 => 352,  640 => 346,  636 => 345,  629 => 341,  625 => 340,  615 => 332,  613 => 331,  607 => 327,  599 => 322,  596 => 321,  594 => 320,  590 => 319,  586 => 318,  582 => 317,  567 => 304,  558 => 301,  549 => 300,  545 => 299,  521 => 277,  518 => 276,  493 => 267,  488 => 264,  479 => 261,  470 => 260,  466 => 259,  461 => 257,  455 => 255,  437 => 254,  435 => 253,  408 => 229,  397 => 221,  387 => 213,  372 => 211,  368 => 210,  357 => 202,  346 => 194,  337 => 188,  323 => 176,  320 => 175,  318 => 174,  313 => 171,  295 => 161,  289 => 157,  283 => 155,  277 => 153,  275 => 152,  271 => 150,  265 => 148,  259 => 146,  257 => 145,  251 => 142,  246 => 140,  242 => 139,  237 => 137,  234 => 136,  228 => 132,  222 => 130,  220 => 129,  214 => 126,  210 => 125,  207 => 124,  203 => 123,  184 => 107,  180 => 105,  178 => 104,  174 => 102,  168 => 99,  164 => 98,  161 => 97,  159 => 96,  155 => 95,  147 => 90,  59 => 4,  52 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -1517,6 +1519,8 @@ class __TwigTemplate_fe2eeed4f11e0a5959d56031319a67fb extends Template
 
     document.addEventListener('DOMContentLoaded', function () {
         try {
+            \$('.preloader').fadeOut();
+            
             const btnGuardar = document.getElementById('btnGuardar');
             const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
             const tablaCaracteristicas = document.getElementById('tablaCaracteristicas');

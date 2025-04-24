@@ -60,143 +60,6 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
         // line 15
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["style"] ?? null), "html", null, true);
         yield "\" rel=\"stylesheet\">
-    <style>
-        .auth-wrapper {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--jce-primary) 0%, var(--jce-secondary) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .auth-wrapper::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            transform: rotate(30deg);
-            animation: gradientMove 20s linear infinite;
-        }
-        .auth-wrapper::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\");
-            opacity: 0.1;
-        }
-        @keyframes gradientMove {
-            0% { transform: rotate(30deg); }
-            100% { transform: rotate(390deg); }
-        }
-        .auth-wrapper .auth-box {
-            background: rgba(255, 255, 255, 0.95) !important;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            padding: 2.5rem;
-            width: 100%;
-            max-width: 400px;
-            margin: 1rem;
-            position: relative;
-            z-index: 1;
-            backdrop-filter: blur(10px) !important;
-            -webkit-backdrop-filter: blur(10px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        }
-        .auth-wrapper .auth-box .logo {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-        .auth-wrapper .auth-box .logo img {
-            max-width: 200px;
-            height: auto;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-        }
-        .auth-wrapper .auth-box h4 {
-            color: var(--jce-gray);
-            font-weight: 500;
-            margin-top: 1rem;
-            position: relative;
-        }
-        .auth-wrapper .auth-box h4::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: var(--jce-primary);
-            margin: 0.5rem auto;
-            border-radius: 3px;
-        }
-        .form-control {
-            height: 48px;
-            border: 1px solid var(--jce-border);
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-            background: rgba(255, 255, 255, 0.9) !important;
-        }
-        .form-control:focus {
-            border-color: var(--jce-primary);
-            box-shadow: 0 0 0 3px rgba(0, 128, 96, 0.1);
-            background: white !important;
-        }
-        .form-control.is-invalid {
-            border-color: #dc3545;
-        }
-        .btn-login {
-            background-color: var(--jce-primary);
-            color: white;
-            height: 48px;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 8px;
-            border: none;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 4px rgba(0, 128, 96, 0.2);
-        }
-        .btn-login:hover {
-            background-color: var(--jce-secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 128, 96, 0.3);
-        }
-        .input-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-        .input-group .form-control {
-            padding: 0.75rem 1rem;
-            position: relative;
-        }
-        .preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .loader {
-            width: 48px;
-            height: 48px;
-            border: 4px solid var(--jce-light);
-            border-top-color: var(--jce-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    </style>
 </head>
 
 <body>
@@ -235,12 +98,12 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
     <script src=\"../js/vendor/popper/popper.min.js\"></script>
     <script src=\"../js/vendor/bootstrap/bootstrap.bundle.min.js\"></script>
     <script src=\"";
-        // line 190
+        // line 53
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["functions"] ?? null), "html", null, true);
         yield "\"></script>
     <script>
         \$(document).ready(function () {
-            jQuery('.preloader').fadeOut();
+            \$('.preloader').fadeOut();
         });
         jQuery(\"#loginform\").submit(async function (event) {
             try {
@@ -302,7 +165,7 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  239 => 190,  61 => 15,  55 => 12,  42 => 1,);
+        return array (  102 => 53,  61 => 15,  55 => 12,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -322,143 +185,6 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
     <link href=\"../css/vendor/jquery-confirm/jquery-confirm.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/font-awesome/all.min.css\" rel=\"stylesheet\">
     <link href=\"{{ style }}\" rel=\"stylesheet\">
-    <style>
-        .auth-wrapper {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--jce-primary) 0%, var(--jce-secondary) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .auth-wrapper::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            transform: rotate(30deg);
-            animation: gradientMove 20s linear infinite;
-        }
-        .auth-wrapper::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\");
-            opacity: 0.1;
-        }
-        @keyframes gradientMove {
-            0% { transform: rotate(30deg); }
-            100% { transform: rotate(390deg); }
-        }
-        .auth-wrapper .auth-box {
-            background: rgba(255, 255, 255, 0.95) !important;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            padding: 2.5rem;
-            width: 100%;
-            max-width: 400px;
-            margin: 1rem;
-            position: relative;
-            z-index: 1;
-            backdrop-filter: blur(10px) !important;
-            -webkit-backdrop-filter: blur(10px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        }
-        .auth-wrapper .auth-box .logo {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-        .auth-wrapper .auth-box .logo img {
-            max-width: 200px;
-            height: auto;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-        }
-        .auth-wrapper .auth-box h4 {
-            color: var(--jce-gray);
-            font-weight: 500;
-            margin-top: 1rem;
-            position: relative;
-        }
-        .auth-wrapper .auth-box h4::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: var(--jce-primary);
-            margin: 0.5rem auto;
-            border-radius: 3px;
-        }
-        .form-control {
-            height: 48px;
-            border: 1px solid var(--jce-border);
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-            background: rgba(255, 255, 255, 0.9) !important;
-        }
-        .form-control:focus {
-            border-color: var(--jce-primary);
-            box-shadow: 0 0 0 3px rgba(0, 128, 96, 0.1);
-            background: white !important;
-        }
-        .form-control.is-invalid {
-            border-color: #dc3545;
-        }
-        .btn-login {
-            background-color: var(--jce-primary);
-            color: white;
-            height: 48px;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 8px;
-            border: none;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 4px rgba(0, 128, 96, 0.2);
-        }
-        .btn-login:hover {
-            background-color: var(--jce-secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 128, 96, 0.3);
-        }
-        .input-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-        .input-group .form-control {
-            padding: 0.75rem 1rem;
-            position: relative;
-        }
-        .preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .loader {
-            width: 48px;
-            height: 48px;
-            border: 4px solid var(--jce-light);
-            border-top-color: var(--jce-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    </style>
 </head>
 
 <body>
@@ -499,7 +225,7 @@ class __TwigTemplate_a0017f07eca9fa786cc81cf8f0e5abb0 extends Template
     <script src=\"{{ functions }}\"></script>
     <script>
         \$(document).ready(function () {
-            jQuery('.preloader').fadeOut();
+            \$('.preloader').fadeOut();
         });
         jQuery(\"#loginform\").submit(async function (event) {
             try {

@@ -179,6 +179,7 @@
 {% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        $('.preloader').fadeOut();
         function formatDate(dateString) {
             const date = new Date(dateString);
             return new Intl.DateTimeFormat(navigator.language, {

@@ -1,5 +1,5 @@
 {
-    "name": "jujogual/jce",
+    "name": "jce/adm",
     "description": "Sistema Administrativo para JCE",
     "license": "proprietary",
     "autoload": {

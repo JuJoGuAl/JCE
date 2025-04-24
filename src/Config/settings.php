@@ -53,6 +53,7 @@ class Settings {
                     ],
                     'image' => [
                         'image/jpeg',
+                        'image/jpg',
                         'image/png',
                         'image/gif'
                     ]

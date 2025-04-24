@@ -61,8 +61,9 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <link href=\"../css/vendor/DataTables/datatables.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/tom-select/tom-select.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/tom-select/tom-select.bootstrap5.min.css\" rel=\"stylesheet\">
+    <link href=\"../css/vendor/dropzone/dropzone.min.css\" rel=\"stylesheet\">
     <link href=\"";
-        // line 18
+        // line 19
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["style"] ?? null), "html", null, true);
         yield "\" rel=\"stylesheet\">
 </head>
@@ -73,7 +74,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     </div>
     <nav class=\"sb-topnav navbar navbar-expand navbar-dark bg-dark\">
         <a class=\"navbar-brand ps-3\" href=\"./\">";
-        // line 26
+        // line 27
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Sistema"] ?? null), "html", null, true);
         yield "</a>
         <button class=\"btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0\" id=\"sidebarToggle\" href=\"#!\"><i
@@ -127,41 +128,41 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
             <main>
                 <div class=\"container-fluid px-4\">
                     <h1 class=\"my-4\">";
-        // line 77
+        // line 78
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module_titulo"] ?? null), "html", null, true);
         yield "</h1>
                     ";
-        // line 78
+        // line 79
         if (($context["Message"] ?? null)) {
-            // line 79
+            // line 80
             yield "                    <div class=\"alert alert-";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Type"] ?? null), "html", null, true);
             yield "\" role=\"alert\">
                         ";
-            // line 80
+            // line 81
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Message"] ?? null), "html", null, true);
             yield "
                     </div>
                     ";
         }
-        // line 83
+        // line 84
         yield "                    ";
         if ((array_key_exists("mod_descrip", $context) && ($context["mod_descrip"] ?? null))) {
-            // line 84
+            // line 85
             yield "                    <div class=\"card mb-4\">
                         <div class=\"card-body\">
                             ";
-            // line 86
+            // line 87
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod_descrip"] ?? null), "html", null, true);
             yield "
                         </div>
                     </div>
                     ";
         }
-        // line 90
+        // line 91
         yield "                    ";
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 91
+        // line 92
         yield "                </div>
             </main>
             <footer class=\"py-4 bg-light mt-auto\">
@@ -179,12 +180,13 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/jquery-confirm/jquery-confirm.min.js\"></script>
     <script src=\"../js/vendor/DataTables/datatables.min.js\"></script>
     <script src=\"../js/vendor/tom-select/tom-select.complete.min.js\"></script>
+    <script src=\"../js/vendor/dropzone/dropzone.min.js\"></script>
     <script src=\"";
-        // line 108
+        // line 110
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["functions"] ?? null), "html", null, true);
         yield "\"></script>
     <script src=\"";
-        // line 109
+        // line 111
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["init"] ?? null), "html", null, true);
         yield "\"></script>
     <script>
@@ -214,16 +216,16 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     });
     </script>
     ";
-        // line 136
+        // line 138
         yield from $this->unwrap()->yieldBlock('scripts', $context, $blocks);
-        // line 137
+        // line 139
         yield "</body>
 
 </html>";
         yield from [];
     }
 
-    // line 90
+    // line 91
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -233,7 +235,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         yield from [];
     }
 
-    // line 136
+    // line 138
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -264,7 +266,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  237 => 136,  227 => 90,  220 => 137,  218 => 136,  188 => 109,  184 => 108,  165 => 91,  162 => 90,  155 => 86,  151 => 84,  148 => 83,  142 => 80,  137 => 79,  135 => 78,  131 => 77,  77 => 26,  66 => 18,  57 => 12,  44 => 1,);
+        return array (  239 => 138,  229 => 91,  222 => 139,  220 => 138,  190 => 111,  186 => 110,  166 => 92,  163 => 91,  156 => 87,  152 => 85,  149 => 84,  143 => 81,  138 => 80,  136 => 79,  132 => 78,  78 => 27,  67 => 19,  57 => 12,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -286,6 +288,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <link href=\"../css/vendor/DataTables/datatables.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/tom-select/tom-select.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/tom-select/tom-select.bootstrap5.min.css\" rel=\"stylesheet\">
+    <link href=\"../css/vendor/dropzone/dropzone.min.css\" rel=\"stylesheet\">
     <link href=\"{{ style }}\" rel=\"stylesheet\">
 </head>
 
@@ -376,6 +379,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/jquery-confirm/jquery-confirm.min.js\"></script>
     <script src=\"../js/vendor/DataTables/datatables.min.js\"></script>
     <script src=\"../js/vendor/tom-select/tom-select.complete.min.js\"></script>
+    <script src=\"../js/vendor/dropzone/dropzone.min.js\"></script>
     <script src=\"{{ functions }}\"></script>
     <script src=\"{{ init }}\"></script>
     <script>

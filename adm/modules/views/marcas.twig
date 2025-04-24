@@ -131,7 +131,9 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="logo" class="form-label">Logo</label>
-                                <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
+                                <input type="file" class="form-control" id="logo" name="logo" accept="image/*" value="{{ data.logo }}">
+                                <input type="hidden" name="logo_actual" id="logo_actual" value="{{ data.logo }}" />
+                                <input type="hidden" id="logo_path" name="logo_path" value="{{ ruta_logo }}">
                                 {% if data.logo %}
                                 <div class="mt-2">
                                     <img src="../{{ ruta_logo }}{{ data.logo }}" class="img-thumbnail" style="max-width: 200px;">
@@ -140,7 +142,9 @@
                             </div>
                             <div class="mb-3">
                                 <label for="foto" class="form-label">Foto</label>
-                                <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
+                                <input type="file" class="form-control" id="foto" name="foto" accept="image/*" value="{{ data.foto }}">
+                                <input type="hidden" name="foto_actual" id="foto_actual" value="{{ data.foto }}" />
+                                <input type="hidden" id="foto_path" name="foto_path" value="{{ ruta_fotos }}">
                                 {% if data.foto %}
                                 <div class="mt-2">
                                     <img src="../{{ ruta_fotos }}{{ data.foto }}" class="img-thumbnail" style="max-width: 200px;">

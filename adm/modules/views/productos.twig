@@ -8,6 +8,82 @@
         min-height: 100px;
         overflow: visible;
     }
+
+    /* Estilos para Dropzone */
+    .dropzone {
+        border: 2px dashed #0087F7;
+        border-radius: 5px;
+        background: white;
+        min-height: 150px;
+        padding: 20px;
+    }
+
+    .dropzone .dz-preview {
+        margin: 10px;
+        position: relative;
+        display: inline-block;
+        width: 200px;
+        height: 200px;
+    }
+
+    .dropzone .dz-preview .dz-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .dropzone .dz-preview .dz-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .dropzone .dz-preview .dz-details {
+        display: none;
+    }
+
+    .dropzone .dz-preview .dz-progress {
+        display: none;
+    }
+
+    .dropzone .dz-preview .dz-remove {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 999;
+        background: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0.9;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+    }
+
+    .dropzone .dz-preview .dz-remove:hover {
+        background: #c82333;
+        opacity: 1;
+        transform: scale(1.1);
+        text-decoration: none;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .dropzone .dz-preview:hover .dz-remove {
+        opacity: 1;
+    }
+
+    .dropzone .dz-preview .dz-remove i {
+        font-size: 12px;
+    }
 </style>
 
 <script>
@@ -51,7 +127,7 @@
                     >
                         <td>
                             {% if data.imagen %}
-                            <img src="{{ data.imagen }}" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                            <img src="../{{ data.imagen }}" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
                             {% else %}
                             <div class="bg-light d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
                                 <i class="fas fa-image text-muted"></i>
@@ -276,6 +352,51 @@
                 </div>
             </div>
 
+            <!-- Imágenes -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Imágenes del Producto</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Sección de imágenes existentes -->
+                    {% if data.imagenes is not empty %}
+                    <div class="row mb-4">
+                        <h6 class="mb-3">Imágenes existentes:</h6>
+                        {% for imagen in data.imagenes %}
+                        <div class="col-md-3 col-sm-6 mb-3">
+                            <div class="position-relative">
+                                <img src="../{{ imagen.ruta }}" class="img-thumbnail" style="width: 100%; height: 200px; object-fit: cover;">
+                                <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 eliminar-imagen" 
+                                        data-id="{{ imagen.id }}" 
+                                        data-ruta="{{ imagen.ruta }}"
+                                        title="Eliminar imagen">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div id="dropzone" class="dropzone">
+                        <div class="dz-message">
+                            Arrastra y suelta imágenes aquí o haz clic para seleccionar
+                        </div>
+                    </div>
+                    <div id="preview-template" style="display: none;">
+                        <div class="dz-preview dz-file-preview">
+                            <div class="dz-image">
+                                <img data-dz-thumbnail />
+                            </div>
+                            <div class="dz-details">
+                                <div class="dz-size"><span data-dz-size></span></div>
+                                <div class="dz-filename"><span data-dz-name></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <input type="hidden" id="id" name="id" value="{{ data.id }}">
         </form>
         {% else %}
@@ -287,12 +408,23 @@
 
 {% block scripts %}
 <script>
+    // Desactivar la inicialización automática de Dropzone
+    Dropzone.autoDiscover = false;
+
+    // Obtener configuración de imágenes
+    const configImagenes = {
+        maxSize: {{ max_size_image }}, // Convertir a MB
+        allowedTypes: {{ allowed_types_image|json_encode|raw }},
+        imagenesExistentes: {{ data.imagenes|default([])|json_encode|raw }}
+    };
+
     document.addEventListener('DOMContentLoaded', function () {
         try {
             const btnGuardar = document.getElementById('btnGuardar');
             const btnEliminarRegistro = document.querySelectorAll('.btnEliminarRegistro');
             const tablaCaracteristicas = document.getElementById('tablaCaracteristicas');
             const btnAgregarCaracteristica = document.getElementById('agregarCaracteristica');
+            const dropzone = document.getElementById('dropzone');
             let contadorFilas = {% if data.caracteristicas is not empty %}{{ data.caracteristicas|length }}{% else %}0{% endif %};
 
             // Función para agregar nueva fila de característica
@@ -388,8 +520,67 @@
                     btn.addEventListener('click', eliminaRegistro);
                 });
             }
-            
+
+            // Función para eliminar imagen existente
+            document.querySelectorAll('.eliminar-imagen').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const id = this.dataset.id;
+                    const ruta = this.dataset.ruta;
+                    
+                    dialog(
+                        "¿Está seguro que desea eliminar esta imagen?",
+                        "WARNING",
+                        null,
+                        null,
+                        {
+                            "Sí": { 
+                                btnClass: "btn-orange", 
+                                action: async function () {
+                                    const formData = new FormData();
+                                    formData.append('action', 'delete_image');
+                                    formData.append('entity', entity);
+                                    formData.append('id', id);
+                                    formData.append('ruta', ruta);
+                                    
+                                    const url = `/src/Api/index.php`;
+                                    const response = await fetchCall(url, 'POST', formData);
+                                    
+                                    if (!response.isOk) {
+                                        dialog(response.Message, response.Type);
+                                        return;
+                                    }
+                                    
+                                    // Recargar la página para mostrar los cambios
+                                    location.reload();
+                                } 
+                            },
+                            "No": { 
+                                btnClass: "btn-default", 
+                            }
+                        }
+                    );
+                });
+            });
+
             if (btnGuardar) {
+                const myDropzone = new Dropzone("#dropzone", {
+                    url: "#", // No subir inmediatamente
+                    paramName: "imagenes[]",
+                    maxFilesize: configImagenes.maxSize, // Tamaño máximo en MB
+                    acceptedFiles: configImagenes.allowedTypes.map(type => `.${type.split('/')[1]}`).join(','), // Convertir MIME types a extensiones
+                    addRemoveLinks: true,
+                    autoProcessQueue: false, // No procesar automáticamente
+                    dictDefaultMessage: "Arrastra y suelta imágenes aquí o haz clic para seleccionar",
+                    dictRemoveFile: `<i class="fas fa-times"></i>`,
+                    dictFileTooBig: `La imagen es demasiado grande ({{filesize}}MB). Tamaño máximo: ${configImagenes.maxSize}MB.`,
+                    dictInvalidFileType: "No puedes subir archivos de este tipo.",
+                    dictResponseError: "Error al subir el archivo.",
+                    dictCancelUpload: "Cancelar subida",
+                    dictUploadCanceled: "Subida cancelada",
+                    dictCancelUploadConfirmation: "¿Estás seguro de que quieres cancelar esta subida?",
+                    dictMaxFilesExceeded: "No puedes subir más archivos."
+                });
+
                 btnGuardar.addEventListener('click', async function () { 
                     // Validar que no haya características duplicadas antes de enviar
                     const selects = document.querySelectorAll('select.caracteristica-select');
@@ -417,7 +608,37 @@
                         return;
                     }
 
-                    $('#form_').sendForm(); 
+                    // Crear inputs file para las imágenes de Dropzone
+                    const form = document.getElementById('form_');
+                    const imagenesContainer = document.createElement('div');
+                    imagenesContainer.style.display = 'none';
+
+                    // Agregar input para la ruta de las imágenes
+                    const rutaInput = document.createElement('input');
+                    rutaInput.type = 'hidden';
+                    rutaInput.name = 'imagenes_path';
+                    rutaInput.value = 'images/productos/'; // Ruta base
+                    imagenesContainer.appendChild(rutaInput);
+
+                    myDropzone.files.forEach((file, index) => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.name = 'imagenes[]';
+                        
+                        // Crear un nuevo DataTransfer para cada archivo
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        input.files = dataTransfer.files;
+                        
+                        imagenesContainer.appendChild(input);
+                    });
+
+                    form.appendChild(imagenesContainer);
+
+                    // Enviar el formulario
+                    $('#form_').sendForm();
+
+                    imagenesContainer.remove();
                 });
             }
 

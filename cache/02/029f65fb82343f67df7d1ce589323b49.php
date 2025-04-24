@@ -285,48 +285,70 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                         <div class=\"card-body\">
                             <div class=\"mb-3\">
                                 <label for=\"logo\" class=\"form-label\">Logo</label>
-                                <input type=\"file\" class=\"form-control\" id=\"logo\" name=\"logo\" accept=\"image/*\">
-                                ";
+                                <input type=\"file\" class=\"form-control\" id=\"logo\" name=\"logo\" accept=\"image/*\" value=\"";
+            // line 134
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "logo", [], "any", false, false, false, 134), "html", null, true);
+            yield "\">
+                                <input type=\"hidden\" name=\"logo_actual\" id=\"logo_actual\" value=\"";
             // line 135
-            if (CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "logo", [], "any", false, false, false, 135)) {
-                // line 136
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "logo", [], "any", false, false, false, 135), "html", null, true);
+            yield "\" />
+                                <input type=\"hidden\" id=\"logo_path\" name=\"logo_path\" value=\"";
+            // line 136
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["ruta_logo"] ?? null), "html", null, true);
+            yield "\">
+                                ";
+            // line 137
+            if (CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "logo", [], "any", false, false, false, 137)) {
+                // line 138
                 yield "                                <div class=\"mt-2\">
                                     <img src=\"../";
-                // line 137
+                // line 139
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["ruta_logo"] ?? null), "html", null, true);
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "logo", [], "any", false, false, false, 137), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "logo", [], "any", false, false, false, 139), "html", null, true);
                 yield "\" class=\"img-thumbnail\" style=\"max-width: 200px;\">
                                 </div>
                                 ";
             }
-            // line 140
+            // line 142
             yield "                            </div>
                             <div class=\"mb-3\">
                                 <label for=\"foto\" class=\"form-label\">Foto</label>
-                                <input type=\"file\" class=\"form-control\" id=\"foto\" name=\"foto\" accept=\"image/*\">
+                                <input type=\"file\" class=\"form-control\" id=\"foto\" name=\"foto\" accept=\"image/*\" value=\"";
+            // line 145
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "foto", [], "any", false, false, false, 145), "html", null, true);
+            yield "\">
+                                <input type=\"hidden\" name=\"foto_actual\" id=\"foto_actual\" value=\"";
+            // line 146
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "foto", [], "any", false, false, false, 146), "html", null, true);
+            yield "\" />
+                                <input type=\"hidden\" id=\"foto_path\" name=\"foto_path\" value=\"";
+            // line 147
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["ruta_fotos"] ?? null), "html", null, true);
+            yield "\">
                                 ";
-            // line 144
-            if (CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "foto", [], "any", false, false, false, 144)) {
-                // line 145
+            // line 148
+            if (CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "foto", [], "any", false, false, false, 148)) {
+                // line 149
                 yield "                                <div class=\"mt-2\">
                                     <img src=\"../";
-                // line 146
+                // line 150
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["ruta_fotos"] ?? null), "html", null, true);
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "foto", [], "any", false, false, false, 146), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "foto", [], "any", false, false, false, 150), "html", null, true);
                 yield "\" class=\"img-thumbnail\" style=\"max-width: 200px;\">
                                 </div>
                                 ";
             }
-            // line 149
+            // line 153
             yield "                            </div>
                         </div>
                     </div>
 
                     <!-- Auditoría -->
                     ";
-            // line 154
+            // line 158
             if (($context["showAudit"] ?? null)) {
-                // line 155
+                // line 159
                 yield "                    <div class=\"card\">
                         <div class=\"card-header\">
                             <h5 class=\"card-title mb-0\">Información de Auditoría</h5>
@@ -336,23 +358,23 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                                 <div class=\"mb-2\">
                                     <strong>Creado por:</strong><br>
                                     ";
-                // line 163
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_usuario", [], "any", false, false, false, 163), "html", null, true);
+                // line 167
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_usuario", [], "any", false, false, false, 167), "html", null, true);
                 yield "<br>
                                     ";
-                // line 164
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_fecha", [], "any", false, false, false, 164), "html", null, true);
+                // line 168
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_fecha", [], "any", false, false, false, 168), "html", null, true);
                 yield "
                                 </div>
                                 <div>
                                     <strong>Modificado por:</strong><br>
                                     ";
-                // line 168
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_usuario", [], "any", false, false, false, 168), "html", null, true);
+                // line 172
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_usuario", [], "any", false, false, false, 172), "html", null, true);
                 yield "<br>
                                     ";
-                // line 169
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_fecha", [], "any", false, false, false, 169), "html", null, true);
+                // line 173
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_fecha", [], "any", false, false, false, 173), "html", null, true);
                 yield "
                                 </div>
                             </div>
@@ -360,38 +382,38 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                     </div>
                     ";
             }
-            // line 175
+            // line 179
             yield "                </div>
             </div>
 
             <input type=\"hidden\" id=\"id\" name=\"id\" value=\"";
-            // line 178
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "id", [], "any", false, false, false, 178), "html", null, true);
+            // line 182
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "id", [], "any", false, false, false, 182), "html", null, true);
             yield "\">
         </form>
         ";
         } else {
-            // line 181
+            // line 185
             yield "        <div class=\"alert alert-warning\">Operación no válida: ";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module"] ?? null), "html", null, true);
             yield "</div>
         ";
         }
-        // line 183
+        // line 187
         yield "    </div>
 </div>
 ";
         yield from [];
     }
 
-    // line 187
+    // line 191
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_scripts(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 188
+        // line 192
         yield "<script>
     document.addEventListener('DOMContentLoaded', function () {
         try {
@@ -486,7 +508,7 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  395 => 188,  388 => 187,  381 => 183,  375 => 181,  369 => 178,  364 => 175,  355 => 169,  351 => 168,  344 => 164,  340 => 163,  330 => 155,  328 => 154,  321 => 149,  314 => 146,  311 => 145,  309 => 144,  303 => 140,  296 => 137,  293 => 136,  291 => 135,  268 => 115,  257 => 107,  246 => 99,  232 => 87,  229 => 86,  227 => 85,  222 => 82,  204 => 72,  199 => 69,  193 => 67,  187 => 65,  185 => 64,  181 => 62,  175 => 60,  169 => 58,  167 => 57,  161 => 54,  157 => 53,  153 => 51,  147 => 47,  140 => 45,  138 => 44,  132 => 41,  128 => 40,  124 => 39,  121 => 38,  117 => 37,  99 => 22,  95 => 20,  93 => 19,  89 => 17,  83 => 14,  79 => 13,  76 => 12,  74 => 11,  70 => 10,  62 => 5,  59 => 4,  52 => 3,  41 => 1,);
+        return array (  417 => 192,  410 => 191,  403 => 187,  397 => 185,  391 => 182,  386 => 179,  377 => 173,  373 => 172,  366 => 168,  362 => 167,  352 => 159,  350 => 158,  343 => 153,  336 => 150,  333 => 149,  331 => 148,  327 => 147,  323 => 146,  319 => 145,  314 => 142,  307 => 139,  304 => 138,  302 => 137,  298 => 136,  294 => 135,  290 => 134,  268 => 115,  257 => 107,  246 => 99,  232 => 87,  229 => 86,  227 => 85,  222 => 82,  204 => 72,  199 => 69,  193 => 67,  187 => 65,  185 => 64,  181 => 62,  175 => 60,  169 => 58,  167 => 57,  161 => 54,  157 => 53,  153 => 51,  147 => 47,  140 => 45,  138 => 44,  132 => 41,  128 => 40,  124 => 39,  121 => 38,  117 => 37,  99 => 22,  95 => 20,  93 => 19,  89 => 17,  83 => 14,  79 => 13,  76 => 12,  74 => 11,  70 => 10,  62 => 5,  59 => 4,  52 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -624,7 +646,9 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                         <div class=\"card-body\">
                             <div class=\"mb-3\">
                                 <label for=\"logo\" class=\"form-label\">Logo</label>
-                                <input type=\"file\" class=\"form-control\" id=\"logo\" name=\"logo\" accept=\"image/*\">
+                                <input type=\"file\" class=\"form-control\" id=\"logo\" name=\"logo\" accept=\"image/*\" value=\"{{ data.logo }}\">
+                                <input type=\"hidden\" name=\"logo_actual\" id=\"logo_actual\" value=\"{{ data.logo }}\" />
+                                <input type=\"hidden\" id=\"logo_path\" name=\"logo_path\" value=\"{{ ruta_logo }}\">
                                 {% if data.logo %}
                                 <div class=\"mt-2\">
                                     <img src=\"../{{ ruta_logo }}{{ data.logo }}\" class=\"img-thumbnail\" style=\"max-width: 200px;\">
@@ -633,7 +657,9 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                             </div>
                             <div class=\"mb-3\">
                                 <label for=\"foto\" class=\"form-label\">Foto</label>
-                                <input type=\"file\" class=\"form-control\" id=\"foto\" name=\"foto\" accept=\"image/*\">
+                                <input type=\"file\" class=\"form-control\" id=\"foto\" name=\"foto\" accept=\"image/*\" value=\"{{ data.foto }}\">
+                                <input type=\"hidden\" name=\"foto_actual\" id=\"foto_actual\" value=\"{{ data.foto }}\" />
+                                <input type=\"hidden\" id=\"foto_path\" name=\"foto_path\" value=\"{{ ruta_fotos }}\">
                                 {% if data.foto %}
                                 <div class=\"mt-2\">
                                     <img src=\"../{{ ruta_fotos }}{{ data.foto }}\" class=\"img-thumbnail\" style=\"max-width: 200px;\">

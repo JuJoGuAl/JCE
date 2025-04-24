@@ -1,6 +1,7 @@
 <?php
 namespace Adm\Modules\Controllers;
 
+use App\Config\Settings;
 use App\Entities\Marcas;
 use App\Entities\Categorias;
 use App\Entities\Caracteristicas;
@@ -14,9 +15,11 @@ class ProductosController
     private $categorias;
     private $caracteristicas;
     private $response;
+    private $settings;
 
     public function __construct()
     {
+        $this->settings = Settings::getInstance();
         $this->entidad = new Productos();
         $this->marcas = new Marcas();
         $this->categorias = new Categorias();
@@ -63,12 +66,28 @@ class ProductosController
             $this->response->Caracteristicas = $result_caracteristicas;
             $this->response->ruta_fotos = $this->ruta_fotos;
             $this->response->ruta_ficha = $this->ruta_fichas;
+            $this->response->max_size_image = $this->settings->get('uploads.max_size.image');
+            $this->response->allowed_types_image = $this->settings->get('uploads.allowed_types.image');
 
             if ($id === null) {
                 // Listar
                 $this->response->module = 'list';
                 $data = $this->entidad->findAllFull();
                 if (count($data['result']) > 0){
+                    // Buscar primera imagen para cada producto
+                    foreach ($data['result'] as &$producto) {
+                        $ruta_producto = 'images/productos/' . $producto['id'] . '/';
+                        $imagenes = glob($_SERVER['DOCUMENT_ROOT'] . '/' . $ruta_producto . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+                        
+                        if (!empty($imagenes)) {
+                            // Tomar la primera imagen encontrada
+                            $primera_imagen = basename($imagenes[0]);
+                            $producto['imagen'] = $ruta_producto . $primera_imagen;
+                        } else {
+                            $producto['imagen'] = null;
+                        }
+                    }
+                    
                     $this->response->Content = $data['result'];
                     $this->response->Rows = count($data['result']);
                 } else {
@@ -86,6 +105,27 @@ class ProductosController
                 if (!$data){
                     throw new \Exception("El producto con ID {$id} no existe.");
                 }
+
+                // Obtener imágenes del producto
+                $rutaProducto = PROJECT_ROOT . '/' . $this->ruta_fotos . $id . '/';
+                $imagenes = [];
+                
+                if (is_dir($rutaProducto)) {
+                    $archivos = scandir($rutaProducto);
+                    foreach ($archivos as $archivo) {
+                        if ($archivo != '.' && $archivo != '..' && is_file($rutaProducto . $archivo)) {
+                            $extension = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
+                            if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                                $imagenes[] = [
+                                    'id' => $id,
+                                    'ruta' => $this->ruta_fotos . $id . '/' . $archivo
+                                ];
+                            }
+                        }
+                    }
+                }
+                
+                $data[0]['imagenes'] = $imagenes;
                 $this->response->Content = $data;
                 $this->response->Rows = 1;
                 $this->response->showAudit = true;

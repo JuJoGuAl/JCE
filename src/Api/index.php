@@ -4,15 +4,16 @@ session_start();
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use App\Helpers\GeneralFunctions;
-use App\Responses\ResponseObject;
 use App\Config\Settings;
+use App\Helpers\GeneralFunctions;
 use App\Helpers\DocumentHandler;
 use App\Helpers\ImagenHandler;
+use App\Responses\ResponseObject;
 
 header('Content-Type: application/json');
 $response = new ResponseObject();
 $GeneralFunctions = new GeneralFunctions();
+$settings = Settings::getInstance();
 
 /**
  * Procesa y devuelve los datos de la solicitud según el método HTTP.
@@ -115,10 +116,58 @@ function sendResponse(ResponseObject $response): void
     exit();
 }
 
+/**
+ * Procesa un archivo de imagen individual
+ * @param array $file Archivo a procesar
+ * @param string $relativePath Ruta base donde se guardará el archivo
+ * @param string $hashString String único para generar el nombre del archivo
+ * @param ?string $actualFile Archivo actual a reemplazar (opcional)
+ * @return string Nombre del archivo procesado
+ */
+function processImage(array $file, string $relativePath, string $hashString, ?string $actualFile = null): string {
+    global $GeneralFunctions;
+    
+    // Determinar si es para productos
+    $isProductImages = strpos($relativePath, 'productos') !== false;
+    if ($isProductImages) {
+        $relativePath = $relativePath . $hashString . '/';
+    }
+    
+    $uniqueName = $GeneralFunctions->generateUniqueName($hashString);
+    
+    $handler = new ImagenHandler();
+    $handler->file = $file;
+    $handler->relativePath = $relativePath;
+    $handler->uniqueName = $uniqueName;
+    $handler->fileToDelete = $actualFile;
+    
+    return $handler->upload();
+}
+
+/**
+ * Procesa archivos de documento (individuales)
+ * @param array $file Archivo a procesar
+ * @param string $relativePath Ruta base donde se guardará el archivo
+ * @param string $hashString String único para generar el nombre del archivo
+ * @param ?string $actualFile Archivo actual a reemplazar (opcional)
+ * @return string Nombre del archivo procesado
+ */
+function processDocument(array $file, string $relativePath, string $hashString, ?string $actualFile = null): string {
+    global $GeneralFunctions;
+    $uniqueName = $GeneralFunctions->generateUniqueName($hashString);
+    
+    $handler = new DocumentHandler();
+    $handler->file = $file;
+    $handler->relativePath = $relativePath;
+    $handler->uniqueName = $uniqueName;
+    $handler->fileToDelete = $actualFile;
+    
+    return $handler->upload();
+}
+
 try {
     $requestMethod = $_SERVER['REQUEST_METHOD'];
     $requestData = getRequestData($requestMethod);
-    //$uploadedFiles = handleUploadedFiles();
     $action = $requestData['action'] ?? null;
     $entityName = $requestData['entity'] ?? null;
 
@@ -171,7 +220,7 @@ try {
         throw new Exception('No tienes una sesión activa.');
     }
 
-    if ($action === 'insert') {
+    if ($action === 'insert' || $action === 'update') {
         if ($requestMethod !== 'POST') {
             throw new Exception('Método no permitido para esta acción.');
         }
@@ -179,53 +228,75 @@ try {
         $data = $requestData ?? null;
         
         if (!$data) {
-            throw new Exception('Los datos son requeridos para insertar.');
+            throw new Exception('Los datos son requeridos para ' . ($action === 'insert' ? 'insertar' : 'actualizar') . '.');
         }
 
-        // Primero intentar la inserción en la base de datos
-        $result = $entity->create($data);
-        
-        // Si la inserción fue exitosa, procesar los archivos
+        // Primero intentar la operación en la base de datos
+        $result = $action === 'insert' ? $entity->create($data) : $entity->update((int)$data['id'], $data);
+    
+        // Procesar los archivos
+    
         foreach ($_FILES as $key => $file) {
-            if ($file['error'] === UPLOAD_ERR_OK) {
-                if (!empty($file['tmp_name'])) {
-                    $relativePath = $data[$key . '_path'];
-                    $actualPicture = $relativePath . $data[$key . '_actual'];
-                    
-                    // Usar el ID de la inserción para el hash, asegurando que sea string
-                    $uniqueName = $GeneralFunctions->generateUniqueName((string)$result['insertedId']);
-                    
-                    // Obtener la configuración de tipos permitidos
-                    $settings = Settings::getInstance();
-                    $allowedTypes = $settings->get('uploads.allowed_types');
-                    
-                    // Determinar si es documento o imagen
-                    $isDocument = in_array($file['type'], $allowedTypes['document']);
-                    $isImage = in_array($file['type'], $allowedTypes['image']);
-                    
-                    if ($isDocument) {
-                        $handler = new DocumentHandler();
-                        $handler->file = $file;
-                        $handler->relativePath = $relativePath;
-                        $handler->uniqueName = $uniqueName;
-                    } elseif ($isImage) {
-                        $handler = new ImagenHandler();
-                        $handler->file = $file;
-                        $handler->relativePath = $relativePath;
-                        $handler->uniqueName = $uniqueName;
-                    } else {
-                        throw new Exception("Tipo de archivo no permitido: " . $file['type']);
+            // Normalizar el array de archivos
+            if (!isset($file['tmp_name'][0]) || !is_array($file['tmp_name'])) {
+                $file = [
+                    'name' => [$file['name']],
+                    'type' => [$file['type']],
+                    'tmp_name' => [$file['tmp_name']],
+                    'error' => [$file['error']],
+                    'size' => [$file['size']]
+                ];
+            }
+
+            // Procesar cada archivo
+            foreach ($file['tmp_name'] as $i => $tmpName) {
+                if ($file['error'][$i] === UPLOAD_ERR_OK && !empty($tmpName)) {
+                    $relativePath = $data[$key . '_path'] ?? null;
+                    $actualFile = null;
+                    if($action === 'update' && isset($data[$key . '_actual']) && !empty($data[$key . '_actual'])){
+                        $actualFile = $relativePath . $data[$key . '_actual'];
                     }
 
-                    $uploadedFileName = $handler->upload();
-                    
-                    // Actualizar el registro con el nombre del archivo
-                    $updateData = [
-                        'id' => (int)$result['insertedId'],
-                        $key => $uploadedFileName
+                    $id = $action === 'insert' ? (int)$result['insertedId'] : (int)$data['id'];
+
+                    if (!$relativePath) {
+                        continue;
+                    }
+
+                    // Determinar el tipo de archivo
+                    $allowedTypes = $settings->get('uploads.allowed_types');
+                    $isDocument = in_array($file['type'][$i], $allowedTypes['document']);
+                    $isImage = in_array($file['type'][$i], $allowedTypes['image']);
+
+                    // Crear array temporal con el archivo actual
+                    $currentFile = [
+                        'name' => $file['name'][$i],
+                        'type' => $file['type'][$i],
+                        'tmp_name' => $tmpName,
+                        'error' => $file['error'][$i],
+                        'size' => $file['size'][$i]
                     ];
+
+                    if ($isDocument) {
+                        $uploadedFileName = processDocument($currentFile, $relativePath, (string)$id, $actualFile);
+                        $updateData = [
+                            'id' => $id,
+                            $key => $uploadedFileName
+                        ];
+                    } elseif ($isImage) {
+                        $uploadedFileName = processImage($currentFile, $relativePath, (string)$id, $actualFile);
+                        $updateData = [
+                            'id' => $id,
+                            $key => $uploadedFileName
+                        ];
+                    } else {
+                        throw new Exception("Tipo de archivo no permitido: " . $file['type'][$i]);
+                    }
+
                     if ($entityName === 'Productos') {
-                        $entity->updateSimple((int)$result['insertedId'], $updateData);
+                        if (str_contains($relativePath, 'documentos/productos/')) {
+                            $entity->updateSimple((int)$result['insertedId'], $updateData);
+                        }
                     } else {
                         $entity->update((int)$result['insertedId'], $updateData);
                     }
@@ -234,78 +305,7 @@ try {
         }
 
         $response->setSuccess(
-            Message: 'El Registro fue creado con exito!',
-            Content: ['processed_data' => $data]
-        );
-        sendResponse($response);
-    }
-
-    if ($action === 'update') {
-        if ($requestMethod !== 'POST') {
-            throw new Exception('Método no permitido para esta acción.');
-        }
-
-        $data = $requestData ?? null;
-        
-        if (!$data) {
-            throw new Exception('Los datos son requeridos para actualizar.');
-        }
-
-        // Primero intentar la actualización en la base de datos
-        $result = $entity->update((int)$data['id'], $data);
-        
-        // Procesar los archivos
-        foreach ($_FILES as $key => $file) {
-            if ($file['error'] === UPLOAD_ERR_OK) {
-                if (!empty($file['tmp_name'])) {
-                    $relativePath = $data[$key . '_path'];
-                    $actualPicture = $relativePath . $data[$key . '_actual'];
-                    
-                    // Usar el ID del registro para el hash
-                    $uniqueName = $GeneralFunctions->generateUniqueName((string)$data['id']);
-                    
-                    // Obtener la configuración de tipos permitidos
-                    $settings = Settings::getInstance();
-                    $allowedTypes = $settings->get('uploads.allowed_types');
-                    
-                    // Determinar si es documento o imagen
-                    $isDocument = in_array($file['type'], $allowedTypes['document']);
-                    $isImage = in_array($file['type'], $allowedTypes['image']);
-                    
-                    if ($isDocument) {
-                        $handler = new DocumentHandler();
-                        $handler->file = $file;
-                        $handler->relativePath = $relativePath;
-                        $handler->uniqueName = $uniqueName;
-                        $handler->fileToDelete = $actualPicture;
-                    } elseif ($isImage) {
-                        $handler = new ImagenHandler();
-                        $handler->file = $file;
-                        $handler->relativePath = $relativePath;
-                        $handler->uniqueName = $uniqueName;
-                        $handler->fileToDelete = $actualPicture;
-                    } else {
-                        throw new Exception("Tipo de archivo no permitido: " . $file['type']);
-                    }
-
-                    $uploadedFileName = $handler->upload();
-                    
-                    // Actualizar el registro con el nombre del archivo
-                    $updateData = [
-                        'id' => (int)$data['id'],
-                        $key => $uploadedFileName
-                    ];
-                    if ($entityName === 'Productos') {
-                        $entity->updateSimple((int)$data['id'], $updateData);
-                    } else {
-                        $entity->update((int)$data['id'], $updateData);
-                    }
-                }
-            }
-        }
-
-        $response->setSuccess(
-            Message: 'El Registro fue actualizado con exito!',
+            Message: 'El Registro fue ' . ($action === 'insert' ? 'creado' : 'actualizado') . ' con éxito!',
             Content: ['processed_data' => $data]
         );
         sendResponse($response);
@@ -358,6 +358,38 @@ try {
 
         $response->setSuccess(
             Message: 'El Registro fue eliminado con éxito!',
+            Content: ['processed_data' => $id]
+        );
+        sendResponse($response);
+    }
+
+    if ($action === 'delete_image') {
+        if ($requestMethod !== 'POST') {
+            throw new Exception('Método no permitido para esta acción.');
+        }
+
+        $id = $requestData['id'] ?? null;
+        $ruta = $requestData['ruta'] ?? null;
+
+        if (!$id || !$ruta) {
+            throw new Exception('El ID y la ruta son requeridos para eliminar la imagen.');
+        }
+
+        // Construir la ruta completa del archivo
+        $filePath = $_SERVER['DOCUMENT_ROOT'] . '/' . ltrim($ruta, '/');
+
+        // Verificar si el archivo existe
+        if (!file_exists($filePath)) {
+            throw new Exception("La imagen no existe en la ruta especificada.");
+        }
+
+        // Intentar eliminar el archivo
+        if (!unlink($filePath)) {
+            throw new Exception("No se pudo eliminar la imagen.");
+        }
+
+        $response->setSuccess(
+            Message: 'La imagen fue eliminada con éxito!',
             Content: ['processed_data' => $id]
         );
         sendResponse($response);

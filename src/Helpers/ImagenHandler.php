@@ -24,12 +24,6 @@ class ImagenHandler {
         
         $this->allowedTypes = $config['allowed_types']['image'];
         $this->maxSize = $config['max_size']['image'];
-        $this->uploadPath = $_SERVER['DOCUMENT_ROOT'] . '/imagenes/productos/';
-        
-        // Asegurarse de que el directorio existe
-        if (!file_exists($this->uploadPath)) {
-            mkdir($this->uploadPath, 0777, true);
-        }
     }
 
     /**

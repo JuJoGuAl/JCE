@@ -22,7 +22,7 @@ class DocumentHandler {
         
         $this->allowedTypes = $config['allowed_types']['document'];
         $this->maxSize = $config['max_size']['document'];
-        $this->uploadPath = $_SERVER['DOCUMENT_ROOT'] . '/documentos/productos/';
+        $this->uploadPath = dirname(dirname(__DIR__)) . '/documentos/productos/';
         
         // Asegurarse de que el directorio existe
         if (!file_exists($this->uploadPath)) {
@@ -100,6 +100,7 @@ class DocumentHandler {
     private function getAbsolutePath(string $relativePath): string
     {
         $rootPath = $_SERVER['DOCUMENT_ROOT'];
+        $rootPath = dirname(dirname(__DIR__));
         return rtrim($rootPath, '/') . '/' . ltrim($relativePath, '/');
     }
 
@@ -111,6 +112,7 @@ class DocumentHandler {
     private function deleteExistingFile(string $filePath): void
     {
         $rootPath = $_SERVER['DOCUMENT_ROOT'];
+        $rootPath = dirname(dirname(__DIR__));
         $file = rtrim($rootPath, '/') . '/' . ltrim($filePath, '/');
 
         if (file_exists($file)) {

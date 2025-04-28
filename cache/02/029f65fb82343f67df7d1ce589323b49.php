@@ -158,7 +158,7 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                     yield "                                <img src=\"../";
                     yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["ruta_logo"] ?? null), "html", null, true);
                     yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "logo", [], "any", false, false, false, 54), "html", null, true);
-                    yield "\" class=\"img-thumbnail position-absolute\" style=\"width: calc(100% - 10px); height: 25px; object-fit: contain; bottom: 0; left: 5px; right: 5px; z-index: 2; background: rgba(255,255,255,0.4); padding: 2px;\">
+                    yield "\" class=\"img-thumbnail position-absolute\" style=\"width: calc(100% - 10px); height: 25px; object-fit: contain; bottom: 0; left: 5px; right: 5px; z-index: 2; background: none; border: none; padding: 2px;\">
                                 ";
                 }
                 // line 56
@@ -581,7 +581,7 @@ class __TwigTemplate_59c16321c857b68d67f0a757bb123442 extends Template
                                 </div>
                                 {% endif %}
                                 {% if data.logo %}
-                                <img src=\"../{{ ruta_logo }}{{ data.logo }}\" class=\"img-thumbnail position-absolute\" style=\"width: calc(100% - 10px); height: 25px; object-fit: contain; bottom: 0; left: 5px; right: 5px; z-index: 2; background: rgba(255,255,255,0.4); padding: 2px;\">
+                                <img src=\"../{{ ruta_logo }}{{ data.logo }}\" class=\"img-thumbnail position-absolute\" style=\"width: calc(100% - 10px); height: 25px; object-fit: contain; bottom: 0; left: 5px; right: 5px; z-index: 2; background: none; border: none; padding: 2px;\">
                                 {% endif %}
                             </div>
                         </td>

@@ -1,5 +1,6 @@
 <script src="./js/vendor/jquery/jquery-3.7.1.min.js"></script>
 <script src="./js/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="./js/vendor/fontawesome/all.min.js"></script>
 <script src="./js/vendor/gsap/gsap.min.js"></script>
 <script src="./js/vendor/gsap/SplitText.min.js"></script>
 <script src="./js/vendor/gsap/ScrollTrigger.js"></script>

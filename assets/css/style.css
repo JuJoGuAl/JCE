@@ -1,0 +1,42 @@
+.main-header-overlay {
+    background-image: url('../images/bg/bg_03.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.main-header-overlay .background-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+}
+
+/* Estilos específicos para la página de productos */
+.page-productos .main-header-overlay {
+    background-image: url('../images/bg/bg_03.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.page-productos .main-header-overlay .background-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+}
+
+/* Estilos específicos para elementos del header en productos */
+.page-productos .navbar-brand,
+.page-productos .link-white,
+.page-productos .text-white {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.page-productos .border-white-10 {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.page-productos .ld-fancy-heading {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border: none !important;
+}
+
+.page-productos .ld-fh-element {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+} 

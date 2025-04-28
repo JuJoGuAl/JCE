@@ -295,10 +295,10 @@ try {
 
                     if ($entityName === 'Productos') {
                         if (str_contains($relativePath, 'documentos/productos/')) {
-                            $entity->updateSimple((int)$result['insertedId'], $updateData);
+                            $entity->updateSimple((int)$id, $updateData);
                         }
                     } else {
-                        $entity->update((int)$result['insertedId'], $updateData);
+                        $entity->update((int)$id, $updateData);
                     }
                 }
             }
@@ -338,7 +338,7 @@ try {
         // Solo si la eliminación en BD fue exitosa, proceder con los archivos
         if (!empty($filesToDelete)) {
             foreach ($filesToDelete as $file) {
-                $filePath = $_SERVER['DOCUMENT_ROOT'] . '/' . ltrim($file, '/');
+                $filePath = dirname(dirname(__DIR__)) . '/' . ltrim($file, '/');
                 if (file_exists($filePath)) {
                     if (!unlink($filePath)) {
                         throw new Exception("No se pudo eliminar el archivo: $file");

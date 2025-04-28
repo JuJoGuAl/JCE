@@ -101,6 +101,7 @@ class ImagenHandler {
     private function getAbsolutePath(string $relativePath): string
     {
         $rootPath = $_SERVER['DOCUMENT_ROOT'];
+        $rootPath = dirname(dirname(__DIR__));
         return rtrim($rootPath, '/') . '/' . ltrim($relativePath, '/');
     }
 
@@ -125,6 +126,7 @@ class ImagenHandler {
     private function deleteExistingFile(string $filePath): void
     {
         $rootPath = $_SERVER['DOCUMENT_ROOT'];
+        $rootPath = dirname(dirname(__DIR__));
         $file = rtrim($rootPath, '/') . '/' . ltrim($filePath, '/');
 
         if (file_exists($file)) {

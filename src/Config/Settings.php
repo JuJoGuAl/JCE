@@ -60,7 +60,7 @@ class Settings {
                 ],
                 'max_size' => [
                     'document' => 5 * 1024 * 1024, // 5MB
-                    'image' => 2 * 1024 * 1024    // 2MB
+                    'image' => 5 * 1024 * 1024    // 2MB
                 ]
             ]
         ];

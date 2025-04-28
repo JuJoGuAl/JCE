@@ -1,8 +1,10 @@
 <?php
 $translations = [
     'es' => [
+        'title' => 'Representaciones JCE',
         'descripcion' => 'Líderes en todos los mercados y segmentos en los que participamos al ofrecer a nuestros distribuidores y clientes una experiencia de compra inolvidable y un nivel de post venta superior.',
         'menuLangChange' => 'ENGLISH',
+        'menuLangProductos' => 'PRODUCTOS',
         'menuLangChangeURL' => '?lang=en',
         'menuAcceso' => 'ACCESO DISTRIBUIDORES',
         'menuAccesoOrdenCompra' => 'ORDEN DE COMPRA',
@@ -22,10 +24,23 @@ $translations = [
         'StickText2' => 'para la apertura, distribución y posicionamiento en el mercado nacional.',
         'StickText3' => 'Colaboramos de manera cercana y planificada ',
         'StickText4' => 'para expandir tu presencia comercial. ',
+        'products' => 'Productos',
+        'filtros' => 'Filtros',
+        'marcas' => 'Marcas',
+        'categorias' => 'Categorías',
+        'order_name' => 'Nombre',
+        'order_price' => 'Precio',
+        'order_marca' => 'Marca',
+        'product_btn_details' => 'Ver Detalles',
+        'no_products_found' => 'No se encontraron productos que coincidan con los filtros seleccionados',
+        'try_other_filters' => 'Intenta con otros filtros',
+        'reset_filters' => 'Reiniciar filtros',
     ],
     'en' => [
+        'title' => 'Representaciones JCE',
         'descripcion' => 'Leaders in all markets and segments we participate in by offering our distributors and customers an unforgettable shopping experience and superior after-sales service.',
         'menuLangChange' => 'ESPAÑOL',
+        'menuLangProductos' => 'PRODUCTS',
         'menuLangChangeURL' => './',
         'menuAcceso' => 'DISTRIBUTOR ACCESS',
         'menuAccesoOrdenCompra' => 'PURCHASE ORDER',
@@ -45,6 +60,27 @@ $translations = [
         'StickText2' => 'for market entry, distribution, and positioning in the national market.',
         'StickText3' => 'We collaborate closely and strategically ',
         'StickText4' => 'to expand your commercial presence. ',
+        'products' => 'Products',
+        'filtros' => 'Filters',
+        'marcas' => 'Brands',
+        'categorias' => 'Categories',
+        'order_name' => 'Name',
+        'order_price' => 'Price',
+        'order_marca' => 'Brand',
+        'product_btn_details' => 'View Details',
+        'no_products_found' => 'No products found that match the selected filters',
+        'try_other_filters' => 'Try other filters',
+        'reset_filters' => 'Reset filters',
     ],
 ];
-?>
+
+if (isset($_GET['lang']) && array_key_exists($_GET['lang'], $translations)) {
+    $_SESSION['lang'] = $_GET['lang'];
+    $lang = $_GET['lang'];
+}
+if (!isset($_GET['lang'])) {
+    $_SESSION['lang'] = 'es';
+    $lang = 'es';
+}
+$lang = $_SESSION['lang'] ?? 'es';
+$traduccion = $translations[$lang];

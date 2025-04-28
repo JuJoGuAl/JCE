@@ -45,6 +45,7 @@ class ProductosController
             $data_marcas = $this->marcas->findAll();
             if (count($data_marcas['result']) > 0){
                 $result_marcas = $data_marcas['result'];
+                $this->response->Marcas = $result_marcas;
             } else {
                 $this->response->setWarning('No se encontraron marcas disponibles en la base de datos.');	
             }
@@ -52,18 +53,17 @@ class ProductosController
             $data_categorias = $this->categorias->findAll();
             if (count($data_categorias['result']) > 0){
                 $result_categorias = $data_categorias['result'];
+                $this->response->Categorias = $result_categorias;
             } else {
                 $this->response->setWarning('No se encontraron categorias disponibles en la base de datos.');	
             }
             $data_caracteristicas = $this->caracteristicas->findAll();
             if (count($data_caracteristicas['result']) > 0){
                 $result_caracteristicas = $data_caracteristicas['result'];
+                $this->response->Caracteristicas = $result_caracteristicas;
             } else {
                 $this->response->setWarning('No se encontraron caracteristicas disponibles en la base de datos.');	
             }
-            $this->response->Categorias = $result_categorias;
-            $this->response->Marcas = $result_marcas;
-            $this->response->Caracteristicas = $result_caracteristicas;
             $this->response->ruta_fotos = $this->ruta_fotos;
             $this->response->ruta_ficha = $this->ruta_fichas;
             $this->response->max_size_image = $this->settings->get('uploads.max_size.image');
@@ -77,7 +77,7 @@ class ProductosController
                     // Buscar primera imagen para cada producto
                     foreach ($data['result'] as &$producto) {
                         $ruta_producto = 'images/productos/' . $producto['id'] . '/';
-                        $imagenes = glob($_SERVER['DOCUMENT_ROOT'] . '/' . $ruta_producto . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+                        $imagenes = glob(dirname(dirname(dirname(__DIR__))) . '/' . $ruta_producto . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
                         
                         if (!empty($imagenes)) {
                             // Tomar la primera imagen encontrada

@@ -57,7 +57,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["Sistema"] ?? null), "html", null, true);
         yield "</title>
     <link href=\"../css/vendor/jquery-confirm/jquery-confirm.min.css\" rel=\"stylesheet\">
-    <link href=\"../css/vendor/font-awesome/all.min.css\" rel=\"stylesheet\">
+    <link href=\"../css/vendor/fontawesome/all.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/DataTables/datatables.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/tom-select/tom-select.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/tom-select/tom-select.bootstrap5.min.css\" rel=\"stylesheet\">
@@ -182,16 +182,17 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/jquery/jquery-3.7.1.min.js\"></script>
     <script src=\"../js/vendor/bootstrap/bootstrap.bundle.min.js\"></script>
     <script src=\"../js/vendor/popper/popper.min.js\"></script>
+    <script src=\"../js/vendor/fontawesome/all.min.js\"></script>
     <script src=\"../js/vendor/jquery-confirm/jquery-confirm.min.js\"></script>
     <script src=\"../js/vendor/DataTables/datatables.min.js\"></script>
     <script src=\"../js/vendor/tom-select/tom-select.complete.min.js\"></script>
     <script src=\"../js/vendor/dropzone/dropzone.min.js\"></script>
     <script src=\"";
-        // line 112
+        // line 113
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["functions"] ?? null), "html", null, true);
         yield "\"></script>
     <script src=\"";
-        // line 113
+        // line 114
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["init"] ?? null), "html", null, true);
         yield "\"></script>
     <script>
@@ -221,9 +222,9 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     });
     </script>
     ";
-        // line 140
-        yield from $this->unwrap()->yieldBlock('scripts', $context, $blocks);
         // line 141
+        yield from $this->unwrap()->yieldBlock('scripts', $context, $blocks);
+        // line 142
         yield "</body>
 
 </html>";
@@ -240,7 +241,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
         yield from [];
     }
 
-    // line 140
+    // line 141
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -271,7 +272,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  244 => 140,  234 => 93,  227 => 141,  225 => 140,  195 => 113,  191 => 112,  171 => 94,  168 => 93,  161 => 89,  157 => 87,  154 => 86,  148 => 83,  143 => 82,  140 => 81,  134 => 79,  132 => 78,  78 => 27,  67 => 19,  57 => 12,  44 => 1,);
+        return array (  245 => 141,  235 => 93,  228 => 142,  226 => 141,  196 => 114,  192 => 113,  171 => 94,  168 => 93,  161 => 89,  157 => 87,  154 => 86,  148 => 83,  143 => 82,  140 => 81,  134 => 79,  132 => 78,  78 => 27,  67 => 19,  57 => 12,  44 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -289,7 +290,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <link rel=\"icon\" href=\"../favicon.png\" type=\"image/png\">
     <title>{{ Sistema }}</title>
     <link href=\"../css/vendor/jquery-confirm/jquery-confirm.min.css\" rel=\"stylesheet\">
-    <link href=\"../css/vendor/font-awesome/all.min.css\" rel=\"stylesheet\">
+    <link href=\"../css/vendor/fontawesome/all.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/DataTables/datatables.min.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/tom-select/tom-select.css\" rel=\"stylesheet\">
     <link href=\"../css/vendor/tom-select/tom-select.bootstrap5.min.css\" rel=\"stylesheet\">
@@ -383,6 +384,7 @@ class __TwigTemplate_2408d236505900f40f91f92d2b44dc77 extends Template
     <script src=\"../js/vendor/jquery/jquery-3.7.1.min.js\"></script>
     <script src=\"../js/vendor/bootstrap/bootstrap.bundle.min.js\"></script>
     <script src=\"../js/vendor/popper/popper.min.js\"></script>
+    <script src=\"../js/vendor/fontawesome/all.min.js\"></script>
     <script src=\"../js/vendor/jquery-confirm/jquery-confirm.min.js\"></script>
     <script src=\"../js/vendor/DataTables/datatables.min.js\"></script>
     <script src=\"../js/vendor/tom-select/tom-select.complete.min.js\"></script>

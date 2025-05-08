@@ -1,4 +1,10 @@
 <?php
+/**
+ * CSS para el cuadro
+ * 0092ff
+ * background-color: rgb(0 146 255 / 87%);
+ * border-radius: 20px;
+ */
 $file_css="./css/custom/styles.css";
 $filemtime_css = filemtime($file_css);
 $final_css = $file_css."?".$filemtime_css;

@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             elements: {
                 brandImage: null,
                 brandLogo: null,
+                brandLogoWhite: null,
                 brandDescription: null,
                 thumbnails: null,
                 prevButton: null,
@@ -71,10 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
             init() {
                 this.elements = {
-                    brandImage: document.querySelector('.brand-image img'),
-                    brandLogo: document.querySelector('.brand-logo-overlay img'),
-                    brandDescription: document.querySelector('.brand-description'),
-                    brandProductsLink: document.querySelector('.brand-products-link'),
+                    brandImage: document.getElementById('brand-image'),
+                    brandLogo: document.getElementById('brand-logo'),
+                    brandDescription: document.getElementById('brand-description'),
+                    brandProductsLink: document.getElementById('brand-link'),
                     thumbnails: document.querySelectorAll('.brands-thumbnails'),
                     prevButton: document.querySelector('.slider-nav.prev'),
                     nextButton: document.querySelector('.slider-nav.next'),
@@ -90,8 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!thumbnail) return;
     
                 this.elements.brandImage.src = thumbnail.getAttribute('data-image');
+                this.elements.brandImage.alt = thumbnail.getAttribute('data-marca-nombre');
                 this.elements.brandLogo.src = thumbnail.getAttribute('data-logo');
-                this.elements.brandDescription.textContent = thumbnail.getAttribute('data-texto');
+                this.elements.brandLogo.alt = thumbnail.getAttribute('data-marca-nombre');
+                this.elements.brandDescription.textContent = thumbnail.getAttribute('data-texto') + thumbnail.getAttribute('data-texto');
                 this.elements.brandProductsLink.setAttribute('data-marca-id', thumbnail.getAttribute('data-marca-id'));
     
                 this.elements.thumbnails.forEach(thumb => thumb.classList.remove('active'));

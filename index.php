@@ -70,31 +70,13 @@ include_once './translations.php';
                         </div>
                     </section>
                     <!-- End Banner -->
-                    <!-- Start Thin Fixed BG -->
-                    <section class="lqd-section py-100 thin-fixed-bg bg-center bg-cover relative transition-all" style="background-image: url('./images/bg/bg_03.jpg')">
-                        <div class="background-overlay transition-all bg-secondary opacity-90"></div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col col-lg-12" data-custom-animations="true" data-ca-options='{"animationTarget": ".animation-element", "duration" : 800 , "delay" : 100 , "ease": "power4.out", "initValues": {"opacity" : 0} , "animations": {"opacity" : 1}}'>
-                                    <div class="ld-fancy-heading relative text-center">
-                                        <h2 class="ld-fh-element text-50 mb-0/5em inline-block relative animation-element" style="font-size: 30px; width: 80%;">
-                                            <span class="text-primary"><?php echo $traduccion['StickText1']; ?></span>
-                                            <span class="text-white"><?php echo $traduccion['StickText2']; ?></span>
-                                            <span class="text-primary"><?php echo $traduccion['StickText3']; ?></span>
-                                            <span class="text-white"><?php echo $traduccion['StickText4']; ?></span>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- End Thin Fixed BG -->
                     <div style="height: 60px;" ></div>
                     <!-- Start Services -->
                     <section class="lqd-section services bg-white rounded-10 mb-90">
                         <div class="container" id="inicio">
                             <div class="row">
                                 <div class="col col-12 pt-55 pb-70 px-10 module-col" data-custom-animations="true" data-ca-options='{"animationTarget": ".animation-element", "ease": "back.out", "direction": "backward", "initValues": {"y": "100px", "opacity" : 0} , "animations": {"y": "0px", "opacity" : 1}}'>
+                                    <h2 class="accordion-title animation-element" style="font-size: 25px; color: rgb(43, 43, 43); padding: 5px 15px;">Que los datos hablen por si solos</h2>
                                     <div class="accordion accordion-title-underlined accordion-sm animation-element" id="accordion-services" role="tablist" aria-multiselectable="true">
                                         <div class="accordion-item panel active">
                                             <div class="accordion-heading" role="tab" id="heading-item-one">
@@ -126,11 +108,6 @@ include_once './translations.php';
                                                                     <h4>Qué ofrecemos al mercado: </h4>
                                                                     <p><strong>∙Excelencia en Calidad del Producto:</strong> Asegurándonos de mantener altos estándares de calidad en productos y marcas distribuidas. </p>
                                                                     <p><strong>∙Innovación Continua:</strong> Permanecer a la vanguardia de la innovación en la industria. Introduciendo nuevas características, tecnologías o diseños que nos diferencian de la competencia. </p>
-                                                                    <p><strong>∙Marketing Localizado:</strong> Personalizando las estrategias de marketing para adaptarse a las necesidades y preferencias específicas del mercado local.  </p>
-                                                                    <p>Hoy hemos acumulado un conocimiento profundo del sector, otorgándonos una comprensión sólida de las necesidades y tendencias del mercado, así como una red de contactos establecida en la industria.
-                                                                        También podemos incluir habilidades en la gestión de inventario, la negociación con proveedores y clientes, el desarrollo de estrategias de marketing y ventas específicas para los productos y marcas representadas, además la capacidad para identificar oportunidades de negocio.
-                                                                        Esta experiencia es invaluable para establecer relaciones sólidas con los fabricantes, distribuidores y minoristas en la industria, así como para adaptarte a los cambios en el mercado y anticipar nuevas oportunidades de negocio.
-                                                                    </p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -138,11 +115,17 @@ include_once './translations.php';
                                                             <div class="lqd-imggrp-single block relative">
                                                                 <div class="lqd-imggrp-img-container inline-flex relative items-center justify-center mb-30">
                                                                     <figure class="w-full relative" >
-                                                                        <img style="border-radius: 12px;" width="500px" height="auto" src=".\images\servicios\servicios1.jpg" alt="services">
+                                                                        <img style="border-radius: 12px; width: 100%; height: 100%; object-fit: cover;" src=".\images\servicios\servicios1.jpg" alt="services">
                                                                     </figure>
                                                                 </div>
-                                                                <!-- <p><strong>∙Monitoreo de la Competencia:</strong> Siempre al tanto de las actividades de la competencia para brindar una oportunidad de diferenciarse. </p> -->
+                                                                <p><strong>∙Marketing Localizado:</strong> Personalizando las estrategias de marketing para adaptarse a las necesidades y preferencias específicas del mercado local.  </p>
                                                             </div>
+                                                        </div>
+                                                        <div class="w-full flex flex-wrap align-content-end items-end gap-0 pr-50 sm:w-full module-content animation-element">
+                                                            <p>Hoy hemos acumulado un conocimiento profundo del sector, otorgándonos una comprensión sólida de las necesidades y tendencias del mercado, así como una red de contactos establecida en la industria.
+                                                                También podemos incluir habilidades en la gestión de inventario, la negociación con proveedores y clientes, el desarrollo de estrategias de marketing y ventas específicas para los productos y marcas representadas, además la capacidad para identificar oportunidades de negocio.
+                                                                Esta experiencia es invaluable para establecer relaciones sólidas con los fabricantes, distribuidores y minoristas en la industria, así como para adaptarte a los cambios en el mercado y anticipar nuevas oportunidades de negocio.
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -186,7 +169,7 @@ include_once './translations.php';
                                                             <div class="lqd-imggrp-single block relative">
                                                                 <div class="lqd-imggrp-img-container inline-flex relative items-center justify-center mb-30">
                                                                     <figure class="w-full relative">
-                                                                        <img  style="border-radius: 12px;" width="500px" height="auto" src=".\images\servicios\servicios2.jpg" alt="services">
+                                                                        <img style="border-radius: 12px; width: 100%; height: 100%; object-fit: cover;" src=".\images\servicios\servicios2.jpg" alt="services">
                                                                     </figure>
                                                                 </div>
                                                                 <p><strong>∙Venta a Empresas y Profesionales del Sector:</strong> Apoyamos a nuestra red de distribución con la venta directa a empresas y profesionales del sector, como paisajistas, empresas de mantenimiento de jardines y agricultores.</p>
@@ -227,19 +210,21 @@ include_once './translations.php';
                                                                     multidisciplinario sólido y comprometido se convierte en el pilar fundamental sobre el cual se construyen 
                                                                     los cimientos del éxito. Representaciones JCE, con su colectivo de más de 60 individuos apasionados y 
                                                                     expertos, emerge como un faro de innovación y excelencia en el panorama de las marcas chilenas. </p>
-                                                                    <p class="ld-fh-element mb-0/5em inline-block relative">Cada miembro de este equipo aporta su propia chispa de creatividad y conocimiento, entrelazando tecnología de vanguardia con una rica trayectoria de experiencia, permitiendo abordar problemas complejos desde diversas perspectivas y encontrar soluciones más completas y efectivas. Es esta fusión de talentos permite no solo competir, sino destacarse en un mercado saturado y exigente. </p>
-                                                                    <p class="ld-fh-element mb-0/5em inline-block relative">En resumen, Representaciones JCE personifica el poder del trabajo en equipo y la dedicación inquebrantable hacia la excelencia. Su compromiso con la calidad establecen un estándar elevado para el resto del mercado, inspirando a todos aquellos que tienen el privilegio de colaborar con ellos.</p>
                                                             </div>
                                                         </div>
                                                         <div class="w-40percent sm:w-full " style="text-align: top; align-self: baseline;">
                                                             <div class="lqd-imggrp-single block relative mb-30">
                                                                 <div class="lqd-imggrp-img-container inline-flex relative items-center justify-center">
                                                                     <figure class="w-full relative">
-                                                                        <img style="border-radius: 12px;" width="500px" height="auto" src=".\images\servicios\servicios3.jpg" alt="services">
+                                                                        <img style="border-radius: 12px; width: 100%; height: 100%; object-fit: cover;" src=".\images\servicios\servicios3.jpg" alt="services">
                                                                     </figure>
                                                                 </div>
                                                             </div>
                                                             <p class="ld-fh-element mb-0/5em inline-block relative"> ¡Qué hermoso es ver florecer un jardín donde la diversidad de talentos se entrelaza para crear un paisaje de éxitos compartidos y metas alcanzadas!</p>
+                                                        </div>
+                                                        <div class="w-full flex flex-wrap align-content-end items-end gap-0 pr-50 sm:w-full module-content animation-element">
+                                                        <p class="ld-fh-element mb-0/5em inline-block relative">Cada miembro de este equipo aporta su propia chispa de creatividad y conocimiento, entrelazando tecnología de vanguardia con una rica trayectoria de experiencia, permitiendo abordar problemas complejos desde diversas perspectivas y encontrar soluciones más completas y efectivas. Es esta fusión de talentos permite no solo competir, sino destacarse en un mercado saturado y exigente. </p>
+                                                        <p class="ld-fh-element mb-0/5em inline-block relative">En resumen, Representaciones JCE personifica el poder del trabajo en equipo y la dedicación inquebrantable hacia la excelencia. Su compromiso con la calidad establecen un estándar elevado para el resto del mercado, inspirando a todos aquellos que tienen el privilegio de colaborar con ellos.</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -284,7 +269,7 @@ include_once './translations.php';
                                                             <div class="lqd-imggrp-single block relative">
                                                                 <div class="lqd-imggrp-img-container inline-flex relative items-center justify-center mb-30">
                                                                     <figure class="w-full relative">
-                                                                        <img style="border-radius: 12px;" width="500px" height="auto" src=".\images\servicios\servicios2.jpg" alt="services">
+                                                                        <img style="border-radius: 12px; width: 100%; height: 100%; object-fit: cover;" src=".\images\servicios\servicios2.jpg" alt="services">
                                                                     </figure>
                                                                 </div>
                                                                 <p><strong>∙Red de Centros de Servicios Autorizados:</strong> contamos con una red de centros de servicio autorizados en áreas estratégicas. Estos proporcionan servicios de reparación y mantenimiento con personal capacitado y certificado.  </p>
@@ -356,11 +341,13 @@ include_once './translations.php';
                                             </div>
                                         </div>
                                         <div data-parallax="true" class="z-2 w-auto -mr-15percent">
-                                            <div class="lqd-imggrp-single block relative">
-                                                <div class="lqd-imggrp-img-container inline-flex relative items-center justify-center">
-                                                    <figure class="w-full relative">
-                                                        <img style="border-radius: 12px;" width="1650" height="972" src='.\images\slides\slide5.jpg' alt="testimonials">
-                                                    </figure>
+                                            <div class="z-2 w-full" data-parallax="true">
+                                                <div class="lqd-imggrp-single block relative">
+                                                    <div class="lqd-imggrp-img-container inline-flex relative items-center justify-center">
+                                                        <figure class="w-full relative">
+                                                            <img style="border-radius: 12px; width: 100%; height: 100%; object-fit: cover;" src='.\images\slides\slide5.jpg' alt="testimonials">
+                                                        </figure>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -379,11 +366,30 @@ include_once './translations.php';
                         </div>
                     </section>
                     <!-- End Testimonials -->
+                    <!-- Start Thin Fixed BG -->
                     <div style="height: 60px;" ></div>
-                    <!-- Start Marcas -->
+                    <section class="lqd-section bg-center bg-cover relative transition-all" style="background-image: url('./images/bg/bg_02.png'); min-height: 600px; background-size: auto 600px; background-repeat: no-repeat; display: flex; align-items: center;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col col-lg-12" data-custom-animations="true" data-ca-options='{"animationTarget": ".animation-element", "duration" : 800 , "delay" : 100 , "ease": "power4.out", "initValues": {"opacity" : 0} , "animations": {"opacity" : 1}}'>
+                                    <div class="ld-fancy-heading relative text-center">
+                                        <h2 class="ld-fh-element text-50 mb-0/5em inline-block relative animation-element" style="font-size: 30px; width: 80%;">
+                                            <span class="text-primary"><?php echo $traduccion['StickText1']; ?></span>
+                                            <span class="text-white"><?php echo $traduccion['StickText2']; ?></span>
+                                            <span class="text-primary"><?php echo $traduccion['StickText3']; ?></span>
+                                            <span class="text-white"><?php echo $traduccion['StickText4']; ?></span>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End Thin Fixed BG -->
+                    <div style="height: 60px;" ></div>
                     <?php
                     if (isset($datas['marcas']) && count($datas['marcas']) > 0) {
                     ?>
+                    <!-- Start Marcas -->
                     <section class="lqd-section consultation pt-80" id="marcas">
                         <div class="container">
                             <div class="row">
@@ -393,46 +399,108 @@ include_once './translations.php';
                                             <h2 class="ld-fh-element mb-0/5em inline-block relative">Principales Marcas</h2>
                                         </div>
                                     </div>
-                                    <div class="w-full"></div>
-                                    <div class="brands-slider">
-                                        <div class="brand-main-display">
-                                            <div class="brand-image">
-                                                <img src="" alt="">
-                                                <div class="brand-logo-overlay">
-                                                    <img src="" alt="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-12 col-xl-6" style="height: 650px;">
+                                    <div class="flex align-content-center items-center relative w-full h-full">
+                                        <div class="z-2 w-full h-full" data-parallax="true">
+                                            <div class="lqd-imggrp-single block relative w-full h-full">
+                                                <div class="lqd-imggrp-img-container inline-flex relative items-center justify-center w-full h-full">
+                                                    <figure class="w-full h-full relative">
+                                                        <img id="brand-image"
+                                                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;"
+                                                            src=""
+                                                            alt="">
+                                                    </figure>
                                                 </div>
                                             </div>
-                                            <div class="brand-info">
-                                                <p class="brand-description"></p>
-                                                <a href="javascript:void(0)" class="brand-products-link" onclick="irAProductos(this)">Ver productos de la marca</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-12 col-xl-6" style="height: 650px;">
+                                    <div class="w-full h-full flex flex-col items-start text-start lg:items-center lg:text-center" style="padding-left: 20px;" data-custom-animations="true" data-ca-options='{"animationTarget": ".animation-element", "delay" : 100, "ease": "power4.out", "initValues": {"y": "35px", "opacity" : 0} , "animations": {"y": "0px", "opacity" : 1}}'>
+                                        <div class="w-full flex justify-center mb-30" style="height: 120px;">
+                                            <img id="brand-logo"
+                                                src=""
+                                                alt=""
+                                                style="width: 300px; height: 100%; object-fit: contain;">
+                                        </div>
+                                        <div class="w-full relative" style="display: flex; flex-direction: column; height: calc(100% - 150px);">
+                                            <div class="text-24 leading-1/6em relative w-full" style="height: 400px; overflow-y: auto;">
+                                                <p id="brand-description" class="mb-1/5em"></p>
+                                            </div>
+                                            <div style="margin-top: auto; padding: 30px 0;">
+                                                <a id="brand-link" href="javascript:void(0);" onclick="irAProductos(this)" data-marca-id="6" class="btn btn-naked btn-sm font-medium whitespace-nowrap text-15 btn-icon-right btn-hover-swp btn-has-label" style="color: #2b2b2b;">
+                                                    <span class="btn-txt" data-text="Ver Productos">Ver Productos</span>
+                                                    <span class="btn-icon"><i aria-hidden="true" class="lqd-icn-ess icon-ion-ios-arrow-forward"></i></span>
+                                                    <span class="btn-icon"><i aria-hidden="true" class="lqd-icn-ess icon-ion-ios-arrow-forward"></i></span>
+                                                </a>
                                             </div>
                                         </div>
-                                        <div class="brands-thumbnails-wrapper">
-                                            <button class="slider-nav prev">❮</button>
-                                            <div class="brands-thumbnails-container">
-                                                <?php
-                                                foreach ($datas['marcas'] as $marca) {
-                                                    echo '
-                                                        <div class="brands-thumbnails" data-image="'.'./images/marcas/fotos/'.$marca['foto'].'" data-logo="'.'./images/marcas/logos/'.$marca['logo'].'" data-texto="'.''.$marca['descripcion_es'].'" data-marca-id="'.$marca['id'].'" data-marca-nombre="'.$marca['nombre'].'" style="background-image: url(\'./images/marcas/fotos/'.$marca['foto'].'\')">
-                                                            <div class="brand-logo-overlay">
-                                                                <img src="'.'./images/marcas/logos/'.$marca['logo'].'" alt="'.$marca['nombre'].'">
-                                                            </div>
-                                                        </div>
-                                                    ';
-                                                }
-                                                ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-12 flex flex-row flex-wrap justify-center">
+                                    <div class="brands-thumbnails-wrapper">
+                                        <button class="slider-nav prev">❮</button>
+                                        <div class="brands-thumbnails-container">
+                                            <?php
+                                            foreach ($datas['marcas'] as $marca) {
+                                                echo '
+                                                    <div class="brands-thumbnails"
+                                                        data-image="'.'./images/marcas/fotos/'.$marca['foto'].'"
+                                                        data-logo-white="'.'./images/marcas/logos/'.$marca['logo'].'"
+                                                        data-logo="'.'./images/marcas/logos/'.$marca['logo'].'"
+                                                        data-texto="'.''.$marca['descripcion_es'].'"
+                                                        data-marca-id="'.$marca['id'].'"
+                                                        data-marca-nombre="'.$marca['nombre'].'"
+                                                        style="background-image: url(\'./images/marcas/fotos/'.$marca['foto'].'\')"></div>
+                                                ';
+                                            }
+                                            ?>
+                                        </div>
+                                        <button class="slider-nav next">❯</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End Marcas -->
+                    <div style="height: 50px;" ></div>
+                    <!-- Start Clients -->
+                    <section class="lqd-section clients pt-40 pb-55 bg-gray-100">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col col-lg-12">
+                                    <div class="w-full block pt-50">
+                                        <div class="carousel-container relative carousel-nav-shaped">
+                                            <div class="carousel-items relative lqd-fade-sides" data-lqd-flickity='{"marquee": true, "equalHeightCells": true, "middleAlignContent": true, "pauseAutoPlayOnHover": true}'>
+                                                <div class="flickity-viewport relative w-full overflow-hidden">
+                                                    <div class="flickity-slider text-center flex w-full h-full relative">
+                                                        <?php
+                                                        foreach ($datas['marcas'] as $marca) {
+                                                            echo '
+                                                                <div class="col col-4 col-md-3 w-25percent carousel-item flex flex-col justify-center items-center">
+                                                                    <img src="'.'./images/marcas/logos/'.$marca['logo'].'" alt="'.$marca['nombre'].'" width="200" height="auto" style="margin-top: -10px;">
+                                                                </div>
+                                                            ';
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <button class="slider-nav next">❯</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
+                    <!-- End Clients -->
                     <?php
                     }
                     ?>
-                    <!-- End Marcas -->
                     <div style="height: 50px;" ></div>
                     <!-- Start Select Projects -->
                     <section class="lqd-section select-projects pb-30" data-custom-animations="true" data-ca-options='{"animationTarget": ".animation-element" ,  "duration" : 500, "startDelay" : 500, "ease": "expo.inOut" ,  "initValues": {"scaleX" : 0.75, "scaleY" : 0.75, "opacity" : 0} , "animations": {"scaleX" : 1, "scaleY" : 1, "opacity" : 1}}'>
@@ -627,21 +695,6 @@ include_once './translations.php';
                 
                 window.location.href = url;
             }
-
-            document.addEventListener('DOMContentLoaded', function() {
-                const brandThumbnails = document.querySelectorAll('.brands-thumbnails');
-                const brandDescription = document.querySelector('.brand-description');
-                const brandProductsLink = document.querySelector('.brand-products-link');
-                
-                brandThumbnails.forEach(thumbnail => {
-                    thumbnail.addEventListener('click', function() {
-                        const marcaId = this.getAttribute('data-marca-id');
-                        const marcaNombre = this.getAttribute('data-marca-nombre');
-                        brandProductsLink.setAttribute('data-marca-id', marcaId);
-                        brandProductsLink.textContent = `Ver productos de ${marcaNombre}`;
-                    });
-                });
-            });
         </script>
     </body>
 </html>

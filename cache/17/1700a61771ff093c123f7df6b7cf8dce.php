@@ -104,7 +104,8 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
             <table class=\"table table-hover datatables\">
                 <thead>
                     <tr>
-                        <th>Característica</th>
+                        <th style=\"width: 100px\">Foto</th>
+                        <th style=\"width: 100px\">Característica</th>
                         <th>Nombre (ES)</th>
                         <th>Nombre (EN)</th>
                         <th class=\"columna-acciones\">Acciones</th>
@@ -112,33 +113,56 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
                 </thead>
                 <tbody>
                     ";
-            // line 36
+            // line 37
             $context['_parent'] = $context;
             $context['_seq'] = CoreExtension::ensureTraversable(($context["Content"] ?? null));
             foreach ($context['_seq'] as $context["_key"] => $context["data"]) {
-                // line 37
-                yield "                    <tr data-id=\"";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "id", [], "any", false, false, false, 37), "html", null, true);
-                yield "\">
-                        <td>";
                 // line 38
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "codigo", [], "any", false, false, false, 38), "html", null, true);
+                yield "                    <tr data-id=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "id", [], "any", false, false, false, 38), "html", null, true);
+                yield "\" data-foto=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "foto", [], "any", false, false, false, 38), "html", null, true);
+                yield "\">
+                        <td>
+                            <div class=\"position-relative\" style=\"width: 80px; height: 80px;\">
+                                ";
+                // line 41
+                if (CoreExtension::getAttribute($this->env, $this->source, $context["data"], "foto", [], "any", false, false, false, 41)) {
+                    // line 42
+                    yield "                                <img src=\"../";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["ruta_fotos"] ?? null), "html", null, true);
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "foto", [], "any", false, false, false, 42), "html", null, true);
+                    yield "\" class=\"img-thumbnail position-absolute\" style=\"width: 100%; height: 100%; object-fit: cover; z-index: 1;\">
+                                ";
+                } else {
+                    // line 44
+                    yield "                                <div class=\"bg-light d-flex align-items-center justify-content-center position-absolute\" style=\"width: 100%; height: 100%; z-index: 1;\">
+                                    <i class=\"fas fa-image text-muted\"></i>
+                                </div>
+                                ";
+                }
+                // line 48
+                yield "                            </div>
+                        </td>
+                        <td>";
+                // line 50
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "codigo", [], "any", false, false, false, 50), "html", null, true);
                 yield "</td>
                         <td>";
-                // line 39
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "nombre_es", [], "any", false, false, false, 39), "html", null, true);
+                // line 51
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "nombre_es", [], "any", false, false, false, 51), "html", null, true);
                 yield "</td>
                         <td>";
-                // line 40
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "nombre_en", [], "any", false, false, false, 40), "html", null, true);
+                // line 52
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "nombre_en", [], "any", false, false, false, 52), "html", null, true);
                 yield "</td>
                         <td class=\"columna-acciones\">
                             <div class=\"btn-group\">
                                 <a class=\"btn btn-sm btn-outline-primary\" href=\"?mod=";
-                // line 43
+                // line 55
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["mod"] ?? null), "html", null, true);
                 yield "&id=";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "id", [], "any", false, false, false, 43), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "id", [], "any", false, false, false, 55), "html", null, true);
                 yield "\" title=\"Ver\" data-toggle=\"tooltip\" data-placement=\"top\">
                                     <i class=\"fas fa-search\"></i>
                                 </a>
@@ -153,17 +177,17 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['data'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 53
+            // line 65
             yield "                </tbody>
             </table>
         </div>
         ";
-        } elseif ((        // line 56
+        } elseif ((        // line 68
 ($context["module"] ?? null) == "form")) {
-            // line 57
+            // line 69
             yield "        ";
             $context["data"] = (($_v0 = ($context["Content"] ?? null)) && is_array($_v0) || $_v0 instanceof ArrayAccess ? ($_v0[0] ?? null) : null);
-            // line 58
+            // line 70
             yield "        <form role=\"form\" name=\"form_\" id=\"form_\" data-entity=\"Caracteristicas\">
             <div class=\"row\">
                 <div class=\"col-md-8\">
@@ -177,8 +201,8 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
                                 <div class=\"col-md-6\">
                                     <div class=\"form-floating mb-3\">
                                         <input id=\"nombre_es\" name=\"nombre_es\" class=\"form-control validar\" placeholder=\"Nombre en Español\" value=\"";
-            // line 70
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "nombre_es", [], "any", false, false, false, 70), "html", null, true);
+            // line 82
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "nombre_es", [], "any", false, false, false, 82), "html", null, true);
             yield "\">
                                         <label for=\"nombre_es\">Nombre (Español)</label>
                                     </div>
@@ -186,8 +210,8 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
                                 <div class=\"col-md-6\">
                                     <div class=\"form-floating mb-3\">
                                         <input id=\"nombre_en\" name=\"nombre_en\" class=\"form-control validar\" placeholder=\"Nombre en Inglés\" value=\"";
-            // line 76
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "nombre_en", [], "any", false, false, false, 76), "html", null, true);
+            // line 88
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "nombre_en", [], "any", false, false, false, 88), "html", null, true);
             yield "\">
                                         <label for=\"nombre_en\">Nombre (Inglés)</label>
                                     </div>
@@ -197,8 +221,8 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
                                 <div class=\"col-12\">
                                     <div class=\"form-floating mb-3\">
                                         <textarea id=\"descripcion_es\" name=\"descripcion_es\" class=\"form-control h-100 validar\" rows=\"4\" placeholder=\"Descripción en Español\">";
-            // line 84
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "descripcion_es", [], "any", false, false, false, 84), "html", null, true);
+            // line 96
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "descripcion_es", [], "any", false, false, false, 96), "html", null, true);
             yield "</textarea>
                                         <label for=\"descripcion_es\">Descripción (Español)</label>
                                     </div>
@@ -208,8 +232,8 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
                                 <div class=\"col-12\">
                                     <div class=\"form-floating mb-3\">
                                         <textarea id=\"descripcion_en\" name=\"descripcion_en\" class=\"form-control h-100 validar\" rows=\"4\" placeholder=\"Descripción en Inglés\">";
-            // line 92
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "descripcion_en", [], "any", false, false, false, 92), "html", null, true);
+            // line 104
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "descripcion_en", [], "any", false, false, false, 104), "html", null, true);
             yield "</textarea>
                                         <label for=\"descripcion_en\">Descripción (Inglés)</label>
                                     </div>
@@ -221,11 +245,48 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
 
                 <!-- Sidebar -->
                 <div class=\"col-md-4\">
+                    <!-- Imágenes -->
+                    <div class=\"card mb-4\">
+                        <div class=\"card-header\">
+                            <h5 class=\"card-title mb-0\">Imágenes</h5>
+                        </div>
+                        <div class=\"card-body\">
+                            <div class=\"mb-3\">
+                                <label for=\"foto\" class=\"form-label\">Foto</label>
+                                <input type=\"file\" class=\"form-control\" id=\"foto\" name=\"foto\" accept=\"image/*\" value=\"";
+            // line 123
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "foto", [], "any", false, false, false, 123), "html", null, true);
+            yield "\">
+                                <input type=\"hidden\" name=\"foto_actual\" id=\"foto_actual\" value=\"";
+            // line 124
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "foto", [], "any", false, false, false, 124), "html", null, true);
+            yield "\" />
+                                <input type=\"hidden\" id=\"foto_path\" name=\"foto_path\" value=\"";
+            // line 125
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["ruta_fotos"] ?? null), "html", null, true);
+            yield "\">
+                                ";
+            // line 126
+            if (CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "foto", [], "any", false, false, false, 126)) {
+                // line 127
+                yield "                                <div class=\"mt-2 text-center\">
+                                    <img src=\"../";
+                // line 128
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["ruta_fotos"] ?? null), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "foto", [], "any", false, false, false, 128), "html", null, true);
+                yield "\" class=\"img-thumbnail\" style=\"max-width: 200px;\">
+                                </div>
+                                ";
+            }
+            // line 131
+            yield "                            </div>
+                        </div>
+                    </div>
                     <!-- Auditoría -->
                     ";
-            // line 104
+            // line 135
             if (($context["showAudit"] ?? null)) {
-                // line 105
+                // line 136
                 yield "                    <div class=\"card\">
                         <div class=\"card-header\">
                             <h5 class=\"card-title mb-0\">Información de Auditoría</h5>
@@ -235,23 +296,23 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
                                 <div class=\"mb-2\">
                                     <strong>Creado por:</strong><br>
                                     ";
-                // line 113
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_usuario", [], "any", false, false, false, 113), "html", null, true);
+                // line 144
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_usuario", [], "any", false, false, false, 144), "html", null, true);
                 yield "<br>
                                     ";
-                // line 114
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_fecha", [], "any", false, false, false, 114), "html", null, true);
+                // line 145
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "creacion_fecha", [], "any", false, false, false, 145), "html", null, true);
                 yield "
                                 </div>
                                 <div>
                                     <strong>Modificado por:</strong><br>
                                     ";
-                // line 118
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_usuario", [], "any", false, false, false, 118), "html", null, true);
+                // line 149
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_usuario", [], "any", false, false, false, 149), "html", null, true);
                 yield "<br>
                                     ";
-                // line 119
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_fecha", [], "any", false, false, false, 119), "html", null, true);
+                // line 150
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "actualizacion_fecha", [], "any", false, false, false, 150), "html", null, true);
                 yield "
                                 </div>
                             </div>
@@ -259,38 +320,38 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
                     </div>
                     ";
             }
-            // line 125
+            // line 156
             yield "                </div>
             </div>
 
             <input type=\"hidden\" id=\"id\" name=\"id\" value=\"";
-            // line 128
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "id", [], "any", false, false, false, 128), "html", null, true);
+            // line 159
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, ($context["data"] ?? null), "id", [], "any", false, false, false, 159), "html", null, true);
             yield "\">
         </form>
         ";
         } else {
-            // line 131
+            // line 162
             yield "        <div class=\"alert alert-warning\">Operación no válida: ";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["module"] ?? null), "html", null, true);
             yield "</div>
         ";
         }
-        // line 133
+        // line 164
         yield "    </div>
 </div>
 ";
         yield from [];
     }
 
-    // line 137
+    // line 168
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_scripts(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 138
+        // line 169
         yield "<script>
     document.addEventListener('DOMContentLoaded', function () {
         try {
@@ -322,11 +383,16 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
                             action: async function () { 
                                 const row = event.target.closest('tr');
                                 const id = row.getAttribute('data-id');
+                                const foto = row.getAttribute('data-foto');
+
+                                const filesToDelete = [];
+                                if (foto) filesToDelete.push(`images/caracteristicas/\${foto}`);
 
                                 const formData = new FormData();
                                 formData.append('action', 'delete');
                                 formData.append('entity', entity);
                                 formData.append('id', id);
+                                formData.append('files', filesToDelete);
                                 
                                 const url = `/src/Api/index.php`;
                                 const response = await fetchCall(url, 'POST',formData);
@@ -381,7 +447,7 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  294 => 138,  287 => 137,  280 => 133,  274 => 131,  268 => 128,  263 => 125,  254 => 119,  250 => 118,  243 => 114,  239 => 113,  229 => 105,  227 => 104,  212 => 92,  201 => 84,  190 => 76,  181 => 70,  167 => 58,  164 => 57,  162 => 56,  157 => 53,  139 => 43,  133 => 40,  129 => 39,  125 => 38,  120 => 37,  116 => 36,  99 => 22,  95 => 20,  93 => 19,  89 => 17,  83 => 14,  79 => 13,  76 => 12,  74 => 11,  70 => 10,  62 => 5,  59 => 4,  52 => 3,  41 => 1,);
+        return array (  355 => 169,  348 => 168,  341 => 164,  335 => 162,  329 => 159,  324 => 156,  315 => 150,  311 => 149,  304 => 145,  300 => 144,  290 => 136,  288 => 135,  282 => 131,  275 => 128,  272 => 127,  270 => 126,  266 => 125,  262 => 124,  258 => 123,  236 => 104,  225 => 96,  214 => 88,  205 => 82,  191 => 70,  188 => 69,  186 => 68,  181 => 65,  163 => 55,  157 => 52,  153 => 51,  149 => 50,  145 => 48,  139 => 44,  132 => 42,  130 => 41,  121 => 38,  117 => 37,  99 => 22,  95 => 20,  93 => 19,  89 => 17,  83 => 14,  79 => 13,  76 => 12,  74 => 11,  70 => 10,  62 => 5,  59 => 4,  52 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -414,7 +480,8 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
             <table class=\"table table-hover datatables\">
                 <thead>
                     <tr>
-                        <th>Característica</th>
+                        <th style=\"width: 100px\">Foto</th>
+                        <th style=\"width: 100px\">Característica</th>
                         <th>Nombre (ES)</th>
                         <th>Nombre (EN)</th>
                         <th class=\"columna-acciones\">Acciones</th>
@@ -422,7 +489,18 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
                 </thead>
                 <tbody>
                     {% for data in Content %}
-                    <tr data-id=\"{{ data.id }}\">
+                    <tr data-id=\"{{ data.id }}\" data-foto=\"{{ data.foto }}\">
+                        <td>
+                            <div class=\"position-relative\" style=\"width: 80px; height: 80px;\">
+                                {% if data.foto %}
+                                <img src=\"../{{ ruta_fotos }}{{ data.foto }}\" class=\"img-thumbnail position-absolute\" style=\"width: 100%; height: 100%; object-fit: cover; z-index: 1;\">
+                                {% else %}
+                                <div class=\"bg-light d-flex align-items-center justify-content-center position-absolute\" style=\"width: 100%; height: 100%; z-index: 1;\">
+                                    <i class=\"fas fa-image text-muted\"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </td>
                         <td>{{ data.codigo }}</td>
                         <td>{{ data.nombre_es }}</td>
                         <td>{{ data.nombre_en }}</td>
@@ -488,6 +566,25 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
 
                 <!-- Sidebar -->
                 <div class=\"col-md-4\">
+                    <!-- Imágenes -->
+                    <div class=\"card mb-4\">
+                        <div class=\"card-header\">
+                            <h5 class=\"card-title mb-0\">Imágenes</h5>
+                        </div>
+                        <div class=\"card-body\">
+                            <div class=\"mb-3\">
+                                <label for=\"foto\" class=\"form-label\">Foto</label>
+                                <input type=\"file\" class=\"form-control\" id=\"foto\" name=\"foto\" accept=\"image/*\" value=\"{{ data.foto }}\">
+                                <input type=\"hidden\" name=\"foto_actual\" id=\"foto_actual\" value=\"{{ data.foto }}\" />
+                                <input type=\"hidden\" id=\"foto_path\" name=\"foto_path\" value=\"{{ ruta_fotos }}\">
+                                {% if data.foto %}
+                                <div class=\"mt-2 text-center\">
+                                    <img src=\"../{{ ruta_fotos }}{{ data.foto }}\" class=\"img-thumbnail\" style=\"max-width: 200px;\">
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                     <!-- Auditoría -->
                     {% if showAudit %}
                     <div class=\"card\">
@@ -554,11 +651,16 @@ class __TwigTemplate_86e42380c2d63a2eec733293485db7c4 extends Template
                             action: async function () { 
                                 const row = event.target.closest('tr');
                                 const id = row.getAttribute('data-id');
+                                const foto = row.getAttribute('data-foto');
+
+                                const filesToDelete = [];
+                                if (foto) filesToDelete.push(`images/caracteristicas/\${foto}`);
 
                                 const formData = new FormData();
                                 formData.append('action', 'delete');
                                 formData.append('entity', entity);
                                 formData.append('id', id);
+                                formData.append('files', filesToDelete);
                                 
                                 const url = `/src/Api/index.php`;
                                 const response = await fetchCall(url, 'POST',formData);

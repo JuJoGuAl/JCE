@@ -77,6 +77,10 @@ class EntidadBase {
         if ($groupBy != '') {
             $options->groupBy = $groupBy;
         }
+        
+        if ($limit != '') {
+            $options->limit = $limit;
+        }
 
         // Agregar orden
         if ($orderBy != '') {

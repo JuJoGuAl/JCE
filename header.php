@@ -1,10 +1,4 @@
 <?php
-/**
- * CSS para el cuadro
- * 0092ff
- * background-color: rgb(0 146 255 / 87%);
- * border-radius: 20px;
- */
 $file_css="./css/custom/styles.css";
 $filemtime_css = filemtime($file_css);
 $final_css = $file_css."?".$filemtime_css;
@@ -17,9 +11,7 @@ $final_js = $file_js."?".$filemtime_js;
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="">
 <meta name="author" content="">
-<meta name="description" content="<?php echo $traduccion['descripcion'] ?>">
-<meta property="og:title" content="Representaciones JCE">
-<meta property="og:description" content="<?php echo $traduccion['descripcion'] ?>">
+<meta name="description" content="Líderes en todos los mercados y segmentos en los que participamos al ofrecer a nuestros distribuidores y clientes una experiencia de compra inolvidable y un nivel de post venta superior."><meta property="og:title" content="Representaciones JCE"><meta property="og:description" content="Líderes en todos los mercados y segmentos en los que participamos al ofrecer a nuestros distribuidores y clientes una experiencia de compra inolvidable y un nivel de post venta superior.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="./images/og-image.jpg">
 <meta property="og:image" content="./images/og-image.jpg.png<?php echo "?".$filemtime_css; ?>">

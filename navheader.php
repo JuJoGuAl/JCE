@@ -14,29 +14,29 @@
             <div class="dropdown">
                 <button class="btn btn-naked leading-16 dropdown-toggle" id="dropdownMenuButton">
                     <div class="ld-fancy-heading relative mr-10 py-5 px-15 mb-0 border-2 border-black rounded-100 animation-element" style="background-color: rgba(255, 255, 255, 0.685); font-size: 12px; font-weight: 400; border: none; letter-spacing: normal;">
-                        <h5 class="ld-fh-element inline-block relative text-14 uppercase tracking-1 m-0" style="font-size: 12px; font-weight: 400; letter-spacing: normal; border: none;"><?php echo $traduccion['menuAcceso'] ?></h5>
+                        <h5 class="ld-fh-element inline-block relative text-14 uppercase tracking-1 m-0" style="font-size: 12px; font-weight: 400; letter-spacing: normal; border: none;">ACCESO DISTRIBUIDORES</h5>
                     </div>
                 </button>
                 <div class="dropdown-content" id="dropdown-content" style=" border-radius: 21px; background-color: #ffffffe0;">
-                    <a style="padding: 5px 15px;" href="http://www.rjce.cl/repre/repre"><?php echo $traduccion['menuAccesoOrdenCompra'] ?></a>
-                    <a style="padding: 5px 15px;" href="https://jce.appingcsa.com/"><?php echo $traduccion['menuAccesoPlataforma'] ?></a>
+                    <a style="padding: 5px 15px;" href="http://www.rjce.cl/repre/repre">ORDEN DE COMPRA</a>
+                    <a style="padding: 5px 15px;" href="https://jce.appingcsa.com/">PLATAFORMA POST-VENTA</a>
                 </div>
             </div>
             <div class="ld-dropdown-menu link-black flex relative pl-20 ml-20 border-left border-white-10" role="menubar">
-                <a href="<?php echo $traduccion['menuLangChangeURL'] ?>" curosor="pointer">
-                    <span ><img style="width: 25px;" src=".\images\cambio-idioma.png"><span class="text-white">&nbsp;<?php echo $traduccion['menuLangChange'] ?></span></span>
+                <a href="./index-en.php" curosor="pointer">
+                    <span ><img style="width: 25px;" src=".\images\cambio-idioma.png"><span class="text-white">&nbsp;ENGLISH</span></span>
                 </a>
             </div>
             <div class="ld-dropdown-menu link-black flex relative pl-20 ml-20 border-left border-white-10" role="menubar">
-                <a href="./productos.php<?php echo isset($_GET['lang']) ? '?lang='.$_GET['lang'] : '' ?>" curosor="pointer">
-                    <span class="text-white">&nbsp;<?php echo $traduccion['menuLangProductos'] ?></span>
+                <a href="./productos.php" curosor="pointer">
+                    <span class="text-white">&nbsp;PRODUCTOS</span>
                 </a>
             </div>
             <!--Formulario de contacto-->
             <div class="pl-20 ml-20 border-left border-white-10 ld-module-search lqd-module-search-slide-top items-center" data-module-style="lqd-search-style-slide-top">
                 <span class="ld-module-trigger collapsed lqd-module-trigger-txt-left lqd-module-show-icon lqd-module-icon-plain text-14" role="button" data-ld-toggle="true" data-bs-toggle="collapse" data-bs-target="#search-header-top" aria-controls="search-header-top" aria-expanded="false">
                     <span class="ld-module-trigger-txt"></span>
-                    <span class="ld-module-trigger-icon text-white"><?php echo $traduccion['menuAccesoContacto'] ?></span>
+                    <span class="ld-module-trigger-icon text-white">CONTACTO</span>
                 </span>
                 <div class="ld-module-dropdown flex w-full flex-col fixed overflow-hidden backface-hidden" id="search-header-top" role="searchbox">
                     <div class="ld-search-form-container flex flex-col justify-center h-full mx-auto backface-hidden">
@@ -49,7 +49,7 @@
                                         </span>
                                     </form>
                                     <div class="relative rounded-6 bg-white shadow-md pt-30 pl-50 pb-50 pr-50 transition-all" data-custom-animations="true" data-ca-options='{"animationTarget": ".animation-element", "duration" : 1800 , "delay" : 180 , "ease": "power4.out", "initValues": {"y": "35px", "opacity" : 0} , "animations": {"y": "0px", "opacity" : 1}}'>
-                                        <div><h3><?php echo $traduccion['ContactoFormlbl'] ?></h3></div>
+                                        <div><h3>Contáctanos</h3></div>
                                         <div class="mb-0 lqd-contact-form lqd-contact-form-inputs-filled lqd-contact-form-button-block lqd-contact-form-button-lg lqd-contact-form-button-round lqd-contact-form-inputs-lg animation-element">
                                             <div role="form" id="mini-form-help" lang="es-CL">
                                                 <div class="screen-reader-response">
@@ -59,21 +59,21 @@
                                                     <div class="row">
                                                         <div class="col col-12 py-0">
                                                             <span class="mb-0 lqd-form-control-wrap relative">
-                                                                <input class="text-black px-2em text-14 font-normal bg-yellow-100" type="text" name="entry.1712204619" value="" size="40" aria-required="true" aria-invalid="false" placeholder="<?php echo $traduccion['ContactoFormNombre'] ?>">
+                                                                <input class="text-black px-2em text-14 font-normal bg-yellow-100" type="text" name="entry.1712204619" value="" size="40" aria-required="true" aria-invalid="false" placeholder="Nombre">
                                                                 <i class="lqd-icn-ess icon-lqd-user"></i>
                                                             </span>
                                                         </div>
                                                         <div style="width:100%;"></div>
                                                         <div class="col col-12 py-0">
                                                             <span class="mb-0 lqd-form-control-wrap relative">
-                                                                <input class="text-black px-2em text-14 font-normal bg-yellow-100" type="email" name="entry.1852992241" value="" size="40" aria-required="true" aria-invalid="false" placeholder="<?php echo $traduccion['ContactoFormEmail'] ?>">
+                                                                <input class="text-black px-2em text-14 font-normal bg-yellow-100" type="email" name="entry.1852992241" value="" size="40" aria-required="true" aria-invalid="false" placeholder="Email">
                                                                 <i class="lqd-icn-ess icon-lqd-envelope"></i>
                                                             </span>
                                                         </div>
                                                         <div style="width:100%;"></div>
                                                         <div class="col col-12 py-0">
                                                             <span class="mb-0 lqd-form-control-wrap relative">
-                                                                <input class="text-black px-2em text-14 font-normal bg-yellow-100" type="phone" name="entry.389312874" value="" size="40" aria-required="true" aria-invalid="false" placeholder="<?php echo $traduccion['ContactoFormTelefono'] ?>">
+                                                                <input class="text-black px-2em text-14 font-normal bg-yellow-100" type="phone" name="entry.389312874" value="" size="40" aria-required="true" aria-invalid="false" placeholder="Teléfono">
                                                                 <i class="lqd-icn-ess icon-lqd-phone"></i>
                                                                 <div class="iconbox-icon-wrap mr-25">
                                                                     <div class="iconbox-icon-container w-20 text-20">
@@ -87,12 +87,12 @@
                                                         <div style="width:100%;"></div>
                                                         <div class="col col-12 py-0">
                                                             <span class="mb-0 lqd-form-control-wrap relative">
-                                                                <input class="text-black px-2em text-14 font-normal bg-yellow-100" type="text" name="entry.216002328" value="" size="40" aria-required="true" aria-invalid="false" placeholder="<?php echo $traduccion['ContactoFormMensaje'] ?>">
+                                                                <input class="text-black px-2em text-14 font-normal bg-yellow-100" type="text" name="entry.216002328" value="" size="40" aria-required="true" aria-invalid="false" placeholder="Mensaje">
                                                             </span>
                                                         </div>
                                                         <div style="width:100%;"></div>
                                                         <div class="col col-12 py-0">
-                                                            <input type="submit" value="<?php echo $traduccion['ContactoFormbtn'] ?>" class="mb-0 font-bold text-secondary has-spinner text-16" style="color: white; background-color: #181818e0;">
+                                                            <input type="submit" value="Enviar" class="mb-0 font-bold text-secondary has-spinner text-16" style="color: white; background-color: #181818e0;">
                                                         </div>
                                                     </div>
                                                 </form>

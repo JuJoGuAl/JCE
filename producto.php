@@ -25,793 +25,364 @@ if (!empty($data_producto['0'])) {
     $productos_similares = $productos->findAllFull([],$categoria_filters, 'RAND()', '4');
 }
 
-include_once './translations.php';
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang; ?>">
+<html lang="es">
     <head>
         <?php include ('./header.php'); ?>
-        <title><?php echo $traduccion['title'].' - '.$traduccion['products'] ?></title>
+        <title>Representaciones JCE - Productos</title>
     </head>
     <body class="lqd-preloader-style-fade lqd-sticky-footer-shadow-2 lqd-search-style-slide-top no-home" data-localscroll-offset="72" data-mobile-nav-breakpoint="1199" data-mobile-nav-style="classic" data-mobile-nav-scheme="light" data-mobile-nav-trigger-alignment="right" data-mobile-header-scheme="gray" data-mobile-logo-alignment="default" data-overlay-onmobile="true">
         <div class="bg-white" id="wrap">
             <?php include ('./navheader.php'); ?>
             <main class="content bg-white bg-repeat" id="lqd-site-content">
                 <div id="lqd-contents-wrap">
-                    <!-- Sección de Producto -->
-                    <section class="lqd-section py-100" style="padding-top: 150px;">
+                    <section class="lqd-section pt-100 pb-35" style="padding-top: 150px;">
                         <div class="container">
-                            <div class="row">
-                                <!-- Detalle del Producto -->
-                                <div class="col-12">
-                                    <?php if (empty($data_producto['0'])): ?>
-                                        <div class="w-full text-center py-50">
-                                            <i class="fas fa-search fa-3x text-gray-400 mb-20"></i>
-                                            <h3 class="text-24 font-bold mb-10">No se encontró información del producto</h3>
-                                            <p class="text-gray-600 mb-20">Intenta con otro producto o vuelve al listado.</p>
-                                            <a href="productos.php" class="inline-flex items-center px-20 py-10 bg-secondary text-primary font-bold rounded-5 hover:bg-secondary/90 transition-colors">
-                                                <i class="fas fa-arrow-left mr-10"></i>
-                                                Volver al listado
-                                            </a>
-                                        </div>
-                                    <?php else: $producto = $data_producto['0']; ?>
-                                        <div class="row">
-                                            <section class="product-details-area">
-                                                <div class="container">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-lg-6">
-                                                            <div class="product-view-one-image">
-                                                                <div class="product-main-display">
-                                                                    <div class="product-image">
-                                                                        <?php
-                                                                            $imagen_path = './images/productos/' . $producto['id'] . '/';
-                                                                            $imagen_default = './images/productos/default.jpg';
-                                                                            $imagenes = [];
-
-                                                                            if (is_dir($imagen_path)) {
-                                                                                $archivos = scandir($imagen_path);
-                                                                                foreach ($archivos as $archivo) {
-                                                                                    if ($archivo != '.' && $archivo != '..' && 
-                                                                                        (strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'jpg' || 
-                                                                                         strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'jpeg' || 
-                                                                                         strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'png' || 
-                                                                                         strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'gif')) {
-                                                                                        $imagenes[] = $imagen_path . $archivo;
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                            // Si no hay imágenes, usamos la imagen por defecto
-                                                                            if (empty($imagenes)) {
-                                                                                $imagenes[] = $imagen_default;
-                                                                            }
-
-                                                                            // Mostramos la primera imagen
-                                                                            if (!empty($imagenes)) {
-                                                                                echo '<img src="' . $imagenes[0] . '" alt="' . $producto['nombre_'.$lang] . '" class="w-full h-auto">';
-                                                                            }
-                                                                        ?>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="product-thumbnails-wrapper">
-                                                                    <button class="slider-nav prev">❮</button>
-                                                                    <div class="product-thumbnails-container">
-                                                                        <?php
-                                                                            foreach ($imagenes as $index => $imagen) {
-                                                                                echo '<div class="product-thumbnail" data-image="' . $imagen . '" style="background-image: url(\'' . $imagen . '\')"></div>';
-                                                                            }
-                                                                        ?>
-                                                                    </div>
-                                                                    <button class="slider-nav next">❯</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="product-content ml-15">
-                                                                <div class="product-header mb-30">
-                                                                    <div class="product-brand mb-10">
-                                                                        <span class="text-secondary font-semibold text-18"><?php echo $producto['marca']['nombre']; ?></span>
-                                                                    </div>
-                                                                    <h1 class="product-title text-32 font-bold mb-15"><?php echo $producto['nombre_'.$lang]; ?></h1>
-                                                                    <div class="product-sku bg-gray-100 inline-block px-15 py-5 rounded-5">
-                                                                        <span class="text-gray-600">SKU: <?php echo $producto['sku']; ?></span>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="product-features mb-30">
-                                                                    <h3 class="text-20 font-semibold mb-15">Características</h3>
-                                                                    <div class="row">
-                                                                        <div class="col-4">
-                                                                            <div class="feature-item text-center p-15 bg-gray-50 rounded-8">
-                                                                                <div class="feature-label text-12 text-gray-600 mb-5">
-                                                                                    Material
-                                                                                </div>
-                                                                                <div class="feature-value text-14 font-semibold">
-                                                                                    Acero Inoxidable
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-4">
-                                                                            <div class="feature-item text-center p-15 bg-gray-50 rounded-8">
-                                                                                <div class="feature-label text-12 text-gray-600 mb-5">
-                                                                                    Diámetro
-                                                                                </div>
-                                                                                <div class="feature-value text-14 font-semibold">
-                                                                                    25mm
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-4">
-                                                                            <div class="feature-item text-center p-15 bg-gray-50 rounded-8">
-                                                                                <div class="feature-label text-12 text-gray-600 mb-5">
-                                                                                    Longitud
-                                                                                </div>
-                                                                                <div class="feature-value text-14 font-semibold">
-                                                                                    100mm
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <?php if (!empty($producto['ficha'])): ?>
-                                                                <div class="product-document mb-30">
-                                                                    <a href="./documentos/productos/<?php echo $producto['ficha']; ?>" target="_blank" class="document-link">
-                                                                        <div class="document-content p-8 bg-secondary text-white">
-                                                                            <div class="document-icon mr-15">
-                                                                                <i class="fas fa-file-pdf text-24"></i>
-                                                                            </div>
-                                                                            <div class="document-text">
-                                                                                <h4 class="text-16 font-semibold mb-5 text-white">Ficha Técnica</h4>
-                                                                                <p class="text-14" style="opacity: 0.8;">Descarga la información técnica del producto</p>
-                                                                            </div>
-                                                                            <div class="document-arrow ml-auto">
-                                                                                <i class="fas fa-arrow-right text-18"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                    </a>
-                                                                </div>
-                                                                <?php endif; ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                        </div>
-                                        <div class="row">
-                                            <!-- Sección de Descripción -->
-                                            <section class="product-description mt-50">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="description-content bg-white p-30 rounded-12 shadow-sm">
-                                                                <h3 class="text-24 font-bold mb-20">Descripción del Producto</h3>
-                                                            <div class="description-text text-gray-600">
-                                                                <?php 
-                                                                    echo $producto['descripcion_'.$lang];
-                                                                ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                        </div>
-
-                                        <!-- Productos Similares -->
-                                        <?php if (!empty($producto)): ?>
-                                        <section class="related-products mt-50">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h3 class="text-24 font-bold mb-30">Productos Similares</h3>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
+                            <div class="w-full flex flex-wrap gap-20 sm:flex-col">
+                                <?php if (empty($data_producto['0'])): ?>
+                                <div class="w-full text-center py-50">
+                                    <i class="fas fa-search fa-3x text-gray-400 mb-20"></i>
+                                    <h3 class="text-24 font-bold mb-10">No se encontró información del producto</h3>
+                                    <p class="text-gray-600 mb-20">Intenta con otro producto o vuelve al listado.</p>
+                                    <div class="relative w-full" style="margin-top: auto; padding: 0 20px;">
+                                        <a href="productos.php" class="btn btn-naked btn-sm font-medium whitespace-nowrap text-15 btn-icon-right btn-hover-swp btn-has-label" style="color: #2b2b2b;">
+                                            <span class="btn-txt">Volver al listado</span>
+                                            <span class="btn-icon"><i aria-hidden="true" class="lqd-icn-ess icon-ion-ios-arrow-back"></i></span>
+                                            <span class="btn-icon"><i aria-hidden="true" class="lqd-icn-ess icon-ion-ios-arrow-back"></i></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <?php else: $producto = $data_producto['0']; ?>
+                                <div class="product-card-2 h-full relative flex flex-col overflow-hidden items-center justify-end rounded-12 sm:w-full">
+                                    <div class="div1 relative flex flex-col w-full h-690">
+                                        <div class="lqd-imggrp-single block relative w-full" style="flex: 1; min-height: 0;">
+                                            <div class="lqd-imggrp-img-container inline-flex relative items-center justify-center w-full h-full">
+                                                <figure class="w-full h-full relative">
                                                     <?php
-                                                    if (!empty($productos_similares['result'])) {
-                                                        foreach ($productos_similares['result'] as $producto_similar) {
-                                                    ?>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-30">
-                                                        <div class="product-card bg-white p-20 rounded-12 shadow-sm h-100">
-                                                            <div class="product-image mb-15">
-                                                                <a href="producto.php?id=<?php echo $producto_similar['id']; ?>">
-                                                                    <?php
-                                                                    $imagen_path = './images/productos/' . $producto_similar['id'] . '/';
-                                                                    $imagen_default = './images/productos/default.jpg';
-                                                                    $imagen_principal = $imagen_default;
+                                                        $imagen_path = './images/productos/' . $producto['id'] . '/';
+                                                        $imagen_default = './images/productos/product_default.jpg';
+                                                        $imagenes = [];
 
-                                                                    if (is_dir($imagen_path)) {
-                                                                        $archivos = scandir($imagen_path);
-                                                                        foreach ($archivos as $archivo) {
-                                                                            if ($archivo != '.' && $archivo != '..' && 
-                                                                                (strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'jpg' || 
-                                                                                 strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'jpeg' || 
-                                                                                 strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'png')) {
-                                                                                $imagen_principal = $imagen_path . $archivo;
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    ?>
-                                                                    <img src="<?php echo $imagen_principal; ?>" 
-                                                                         alt="<?php echo $producto_similar['nombre_'.$lang]; ?>" 
-                                                                         class="w-100 h-auto rounded-8">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-info">
-                                                                <h4 class="product-title text-16 font-semibold mb-5">
-                                                                    <a href="producto.php?id=<?php echo $producto_similar['id']; ?>" class="text-dark">
-                                                                        <?php echo $producto_similar['nombre_'.$lang]; ?>
-                                                                    </a>
-                                                                </h4>
-                                                                <div class="product-brand text-14 text-secondary mb-5">
-                                                                    <?php echo $producto_similar['marca']['nombre']; ?>
-                                                                </div>
-                                                                <div class="product-sku text-12 text-gray-600">
-                                                                    SKU: <?php echo $producto_similar['sku']; ?>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <?php
+                                                        if (is_dir($imagen_path)) {
+                                                            $archivos = scandir($imagen_path);
+                                                            foreach ($archivos as $archivo) {
+                                                                if ($archivo != '.' && $archivo != '..' && 
+                                                                    (strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'jpg' || 
+                                                                        strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'jpeg' || 
+                                                                        strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'png' || 
+                                                                        strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'gif')) {
+                                                                    $imagenes[] = $imagen_path . $archivo;
+                                                                }
+                                                            }
                                                         }
-                                                    } else {
-                                                        echo '<div class="col-12"><p class="text-center text-gray-600">No hay productos similares disponibles.</p></div>';
+                                                        echo '<img id="product-image" src="' . $imagen_default . '" alt="' . $producto['nombre_es'] . '" class="w-full h-full object-cover">';
+                                                    ?>
+                                                </figure>
+                                                <span id="product-prev" class="slider-nav prev"><i class="lqd-icn-ess icon-ion-ios-arrow-back"></i></span>
+                                                <span id="product-next" class="slider-nav next"><i class="lqd-icn-ess icon-ion-ios-arrow-forward"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="w-full flex flex-row relative" style="height: 100px;">
+                                            <div class="w-full flex justify-center">
+                                                <span id="thumbnails-prev" class="slider-nav prev"><i class="lqd-icn-ess icon-ion-ios-arrow-back"></i></span>
+                                                <div class="product-thumbnails-scroll">
+                                                    <?php
+                                                    foreach ($imagenes as $index => $imagen) {
+                                                        echo '
+                                                            <div class="product-thumbnail">
+                                                                <img class="thumbnail-img" data-image="' . $imagen . '" src="' . $imagen . '" alt="' . $producto['nombre_es'] . '">
+                                                            </div>
+                                                        ';
                                                     }
                                                     ?>
                                                 </div>
+                                                <span id="thumbnails-next" class="slider-nav next"><i class="lqd-icn-ess icon-ion-ios-arrow-forward"></i></span>
                                             </div>
-                                        </section>
-                                        <?php endif; ?>
-                                    <?php endif; ?>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="product-card-2 h-full relative flex flex-col overflow-hidden items-center justify-end rounded-12 p-20 sm:w-full">
+                                    <div class="div2 relative flex flex-col w-full h-645">
+                                        <div class="mb-0/75em ld-fancy-heading relative">
+                                            <h5 class="mb-0/5em ld-fh-element relative text-gray-900 block"><?php echo $producto['marca']['nombre']; ?></h5>
+                                            <h3 class="text-26 ld-fh-element relative block"><?php echo $producto['nombre_es']; ?></h3>
+                                        </div>
+                                        <div class="bg-gray-100 inline-block px-15 py-5 rounded-5">
+                                            <span class="text-gray-600">SKU: <?php echo $producto['sku']; ?></span>
+                                        </div>
+                                        <?php if (!empty($producto['caracteristicas'])):?>
+                                        <div class="w-full flex flex-wrap gap-10 mt-20">
+                                            <?php foreach ($producto['caracteristicas'] as $caracteristica):
+                                                $imagen_path = './images/caracteristicas/' . $caracteristica['foto'];
+                                                $imagen_default = './images/caracteristicas/delf.jpg?'.filemtime("./images/caracteristicas/delf.jpg");
+                                                if ($caracteristica['foto'] != '' && file_exists($imagen_path)) {
+                                                    $imagen = $imagen_path;
+                                                } else {
+                                                    $imagen = $imagen_default;
+                                                }
+                                            ?>
+                                            <div class="product-caracteristicas h-full relative flex flex-col rounded-8 p-10">
+                                                <div class="relative w-full h-80">
+                                                    <div class="lqd-imggrp-single block relative w-full h-full">
+                                                        <div class="lqd-imggrp-img-container inline-flex relative items-center justify-center w-full h-full">
+                                                            <figure class="w-full h-full relative">
+                                                                <img src="<?php echo $imagen; ?>" alt="<?php echo $caracteristica['nombre_es']; ?>" class="w-full h-full object-cover">
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="relative w-full h-full">
+                                                    <span class="text-12 inline-block w-full font-bold text-secondary"><?php echo $caracteristica['nombre_es']; ?></span>
+                                                    <span class="text-14 inline-block w-full font-semibold"><?php echo $caracteristica['valor']; ?></span>
+                                                </div>
+                                            </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                        <?php endif; ?>
+                                        <?php if (!empty($producto['ficha'])): ?>
+                                        <div class="w-full mt-20">
+                                            <div class="relative w-full" style="margin-top: auto; padding: 0 20px;">
+                                                <a href="./documentos/productos/<?php echo $producto['ficha']; ?>" target="_blank" class="btn btn-naked btn-sm font-medium whitespace-nowrap text-15 btn-icon-right btn-hover-swp btn-has-label" style="color: #2b2b2b;">
+                                                    <span class="btn-txt">Ficha Técnica</span>
+                                                    <span class="btn-icon"><i aria-hidden="true" class="lqd-icn-ess icon-md-arrow-down"></i></span>
+                                                    <span class="btn-icon"><i aria-hidden="true" class="lqd-icn-ess icon-md-arrow-down"></i></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <?php endif; ?>
+                                        <?php if (!empty($producto['descripcion_es'])): ?>
+                                            <div class="accordion accordion-title-underlined accordion-sm mt-20" id="product-description" role="tablist" aria-multiselectable="true">
+                                                <div class="accordion-item panel">
+                                                    <div class="accordion-heading" role="tab" id="heading-item-one" style="display: none;">
+                                                        <h4 style="font-size: 25px; color: rgb(43, 43, 43);" class="accordion-title font-normal">
+                                                            <a class="collapsed" role="button" data-bs-toggle="collapse" href="#collapse-item-one" aria-expanded="true" aria-controls="collapse-item-one">
+                                                                <span class="accordion-title-txt">Descripción</span>
+                                                                <span class="accordion-expander text-24 w-60 h-60 flex items-center justify-center p-0 border-2 rounded-full border-lightgray flex-shrink-0">
+                                                                    <i class="lqd-icn-ess icon-ion-ios-add" style="font-size: 19px;"></i>
+                                                                    <i class="lqd-icn-ess icon-ion-ios-remove" style="font-size: 19px;"></i>
+                                                                </span>
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="description-content pt-1em">
+                                                        <div class="ld-fh-element mb-0 inline-block relative">
+                                                            <?php echo $producto['descripcion_es']; ?>
+                                                        </div>
+                                                    </div>
+                                                    <div id="collapse-item-one" class="accordion-collapse collapse" data-bs-parent="#product-description" role="tabpanel" aria-labelledby="heading-item-one">
+                                                        <div class="accordion-content"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
                             </div>
+                        </div>
+                    </section>
+                    <div style="height: 60px;"></div>
+                    <section class="lqd-section pt-20 pb-35">
+                        <div class="container">
+                            <div class="w-full flex flex-wrap"><h3 class="text-24 font-bold mb-10">Productos Similares</h3></div>
+                            <?php if (empty($productos_similares['result'])): ?>
+                            <div class="w-full py-20">
+                                <p class="text-18 text-gray-600 mb-20">Intenta con otros filtros</p>
+                            </div>
+                            <?php else: ?>
+                            <div id="vista-productos" class="w-full flex flex-wrap py-30 gap-20">
+                                <?php foreach ($productos_similares['result'] as $producto): 
+                                    // Obtener la primera imagen del directorio
+                                    $imagen_path = './images/productos/' . $producto['id'] . '/';
+                                    $imagen_default = './images/productos/product_default.jpg';
+                                    $imagen = $imagen_default;
+                                    
+                                    if (is_dir($imagen_path)) {
+                                        $archivos = scandir($imagen_path);
+                                        foreach ($archivos as $archivo) {
+                                            if ($archivo != '.' && $archivo != '..' && 
+                                                (strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'jpg' || strtolower(pathinfo($archivo, PATHINFO_EXTENSION)) == 'png')) {
+                                                $imagen = $imagen_path . $archivo;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                ?>
+                                    <div class="product-card h-full relative flex flex-col overflow-hidden items-center justify-end rounded-12">
+                                        <div class="relative w-full h-210">
+                                            <div class="lqd-imggrp-single block relative w-full h-full">
+                                                <div class="lqd-imggrp-img-container inline-flex relative items-center justify-center w-full h-full">
+                                                    <figure class="w-full h-full relative">
+                                                        <img src="<?php echo $imagen; ?>" alt="<?php echo $producto['nombre_es']; ?>" class="w-full h-full object-cover">
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <?php if (!empty($producto['marca']['nombre'])): ?>
+                                                <div class="mb-3">
+                                                    <span class="text-12 font-bold text-secondary"><?php echo $producto['marca']['nombre']; ?></span>
+                                                </div>
+                                            <?php endif; ?>
+                                            <h3 class="text-14 font-bold mb-3 line-clamp-2 flex-grow"><?php echo $producto['nombre_es']; ?></h3>
+                                            <?php if (!empty($producto['sku'])): ?>
+                                                <div class="mb-5">
+                                                    <span class="text-12 text-gray-600">SKU: </span>
+                                                    <span class="text-12 font-medium"><?php echo $producto['sku']; ?></span>
+                                                </div>
+                                            <?php endif; ?>
+                                            <div class="relative w-full" style="margin-top: auto; padding: 0 20px;">
+                                                <a href="producto.php?id=<?php echo $producto['id']; ?>" class="btn btn-naked btn-sm font-medium whitespace-nowrap text-15 btn-icon-right btn-hover-swp btn-has-label" style="color: #2b2b2b;">
+                                                    <span class="btn-txt" data-text="Ver Detalles">Ver Detalles</span>
+                                                    <span class="btn-icon"><i aria-hidden="true" class="lqd-icn-ess icon-ion-ios-arrow-forward"></i></span>
+                                                    <span class="btn-icon"><i aria-hidden="true" class="lqd-icn-ess icon-ion-ios-arrow-forward"></i></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php endif; ?>
                         </div>
                     </section>
                 </div>
             </main>
             <?php include ('./footer.php'); ?>
             <?php include ('./asset.php'); ?>
-            <style>
-                .product-view-one-image {
-                    position: relative;
-                    margin-bottom: 30px;
-                    background: #fff;
-                    border-radius: 12px;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-                    padding: 20px;
-                    min-height: 400px; /* Altura mínima fija */
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                .product-main-display {
-                    margin-bottom: 20px;
-                    position: relative;
-                    overflow: hidden;
-                    border-radius: 8px;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-                    flex-grow: 1; /* Ocupa el espacio disponible */
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .product-image {
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                    min-height: 300px; /* Altura mínima para la imagen */
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: #f8f9fa;
-                }
-
-                .product-image img {
-                    max-width: 100%;
-                    max-height: 100%;
-                    object-fit: contain;
-                    transition: transform 0.3s ease;
-                }
-
-                .product-image img:hover {
-                    transform: scale(1.02);
-                }
-
-                .product-thumbnails-wrapper {
-                    display: flex;
-                    align-items: center;
-                    gap: 15px;
-                    padding: 10px;
-                    background: #f8f9fa;
-                    border-radius: 8px;
-                    margin-top: auto; /* Empuja el carrusel hacia abajo */
-                }
-
-                .product-thumbnails-container {
-                    display: flex;
-                    gap: 12px;
-                    overflow-x: auto;
-                    scroll-behavior: smooth;
-                    padding: 5px;
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                    flex: 1;
-                }
-
-                .product-thumbnails-container::-webkit-scrollbar {
-                    display: none;
-                }
-
-                .product-thumbnail {
-                    min-width: 90px;
-                    height: 90px;
-                    background-size: cover;
-                    background-position: center;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    border: 1px solid #eee;
-                    position: relative;
-                    overflow: hidden;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-                }
-
-                .product-thumbnail::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: rgba(0, 0, 0, 0.2);
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-                }
-
-                .product-thumbnail:hover::after {
-                    opacity: 1;
-                }
-
-                .product-thumbnail:hover {
-                    border-color: #007bff;
-                    transform: translateY(-2px);
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-                }
-
-                .product-thumbnail.active {
-                    border-color: #007bff;
-                    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
-                }
-
-                .product-thumbnail.active::after {
-                    opacity: 0;
-                }
-
-                .slider-nav {
-                    background: rgba(255, 255, 255, 0.9);
-                    border: none;
-                    width: 35px;
-                    height: 35px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    color: #666;
-                    font-size: 16px;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    z-index: 10;
-                }
-
-                .slider-nav.prev {
-                    left: 10px;
-                }
-
-                .slider-nav.next {
-                    right: 10px;
-                }
-
-                .slider-nav:hover {
-                    background: #fff;
-                    color: #007bff;
-                    transform: translateY(-50%) scale(1.1);
-                }
-
-                .slider-nav:active {
-                    transform: translateY(-50%) scale(0.95);
-                }
-
-                @media (max-width: 768px) {
-                    .product-view-one-image {
-                        min-height: 300px; /* Altura menor en móvil */
-                    }
-
-                    .product-image {
-                        min-height: 200px;
-                    }
-
-                    .product-title {
-                        font-size: 20px;
-                    }
-
-                    .feature-item {
-                        margin-bottom: 15px;
-                    }
-
-                    .document-content {
-                        padding: 12px;
-                    }
-
-                    .document-icon {
-                        width: 35px;
-                        height: 35px;
-                    }
-
-                    .product-thumbnail {
-                        min-width: 70px;
-                        height: 70px;
-                    }
-
-                    .slider-nav {
-                        width: 30px;
-                        height: 30px;
-                        font-size: 14px;
-                    }
-                }
-
-                .product-content {
-                    padding: 20px;
-                }
-
-                .product-header {
-                    border-bottom: 1px solid #eee;
-                    padding-bottom: 20px;
-                }
-
-                .product-brand {
-                    display: inline-block;
-                    padding: 5px 15px;
-                    background: rgba(0, 123, 255, 0.1);
-                    border-radius: 20px;
-                    margin-bottom: 10px;
-                }
-
-                .product-title {
-                    color: #333;
-                    line-height: 1.2;
-                    font-size: 24px;
-                    font-weight: bold;
-                    margin-bottom: 15px;
-                }
-
-                .product-sku {
-                    display: inline-block;
-                    font-size: 14px;
-                    color: #666;
-                }
-
-                .product-features {
-                    margin-top: 30px;
-                }
-
-                .feature-item {
-                    transition: all 0.3s ease;
-                    border: 1px solid #eee;
-                    background: #fff;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-                }
-
-                .feature-item:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-                    border-color: #007bff;
-                }
-
-                .feature-label {
-                    color: #666;
-                }
-
-                .feature-value {
-                    color: #333;
-                }
-
-                .document-link {
-                    text-decoration: none;
-                    display: block;
-                    transition: all 0.3s ease;
-                }
-
-                .document-link:hover {
-                    transform: translateX(5px);
-                }
-
-                .document-content {
-                    border: 1px solid var(--lqd-color-primary);
-                    transition: all 0.3s ease;
-                    background-color: var(--lqd-color-secondary);
-                    border-radius: 8px;
-                    display: flex;
-                    align-items: center;
-                    padding: 8px;
-                }
-
-                .document-link:hover .document-content {
-                    border-color: var(--lqd-color-primary);
-                    background-color: var(--lqd-color-secondary);
-                    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
-                    transform: translateX(5px);
-                }
-
-                .document-icon {
-                    width: 40px;
-                    height: 40px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: rgba(var(--lqd-color-primary-rgb), 0.1);
-                    border-radius: 8px;
-                    margin-right: 15px;
-                }
-
-                .document-arrow {
-                    opacity: 0;
-                    transition: all 0.3s ease;
-                }
-
-                .document-link:hover .document-arrow {
-                    opacity: 1;
-                    transform: translateX(5px);
-                }
-
-                .description-content {
-                    border: 1px solid #eee;
-                }
-
-                .description-text {
-                    line-height: 1.6;
-                }
-
-                .description-text p {
-                    margin-bottom: 15px;
-                }
-
-                .description-text p:last-child {
-                    margin-bottom: 0;
-                }
-
-                .description-text ul,
-                .description-text ol {
-                    margin-bottom: 15px;
-                    padding-left: 20px;
-                }
-
-                .description-text li {
-                    margin-bottom: 5px;
-                }
-
-                .description-text img {
-                    max-width: 100%;
-                    height: auto;
-                    margin: 15px 0;
-                }
-
-                .description-text h1,
-                .description-text h2,
-                .description-text h3,
-                .description-text h4,
-                .description-text h5,
-                .description-text h6 {
-                    margin: 20px 0 15px;
-                    font-weight: bold;
-                }
-
-                .description-text table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin: 15px 0;
-                }
-
-                .description-text table td,
-                .description-text table th {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                }
-
-                .description-text table th {
-                    background-color: #f5f5f5;
-                }
-
-                .product-description {
-                    margin-top: 50px;
-                }
-
-                .description-content {
-                    border: 1px solid #eee;
-                }
-
-                @media (max-width: 768px) {
-                    .description-content {
-                        margin: 0;
-                    }
-                }
-
-                /* Estilos para Productos Similares */
-                .related-products {
-                    margin-top: 50px;
-                }
-
-                .product-card {
-                    transition: all 0.3s ease;
-                    border: 1px solid #eee;
-                    border-radius: 12px;
-                    overflow: hidden;
-                    background: #fff;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                .product-card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-                }
-
-                .product-card .product-image {
-                    width: 100%;
-                    aspect-ratio: 1; /* Mantiene la proporción cuadrada */
-                    overflow: hidden;
-                    position: relative;
-                    background: #f8f9fa;
-                }
-
-                .product-card .product-image img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    transition: transform 0.3s ease;
-                }
-
-                .product-card:hover .product-image img {
-                    transform: scale(1.05);
-                }
-
-                .product-card .product-info {
-                    padding: 15px;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 8px;
-                }
-
-                .product-card .product-title {
-                    margin: 0;
-                    line-height: 1.3;
-                }
-
-                .product-card .product-title a {
-                    text-decoration: none;
-                    transition: color 0.3s ease;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    font-size: 14px;
-                    color: #333;
-                }
-
-                .product-card:hover .product-title a {
-                    color: var(--lqd-color-primary) !important;
-                }
-
-                .product-card .product-brand {
-                    font-size: 12px;
-                    color: var(--lqd-color-secondary);
-                    margin: 0;
-                }
-
-                .product-card .product-sku {
-                    font-size: 12px;
-                    color: #666;
-                    margin: 0;
-                }
-
-                @media (max-width: 768px) {
-                    .product-card {
-                        margin-bottom: 20px;
-                    }
-                }
-            </style>
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const thumbnails = document.querySelectorAll('.product-thumbnail');
-                    const mainImage = document.querySelector('.product-image img');
-                    const prevButton = document.querySelector('.slider-nav.prev');
-                    const nextButton = document.querySelector('.slider-nav.next');
-                    const container = document.querySelector('.product-thumbnails-container');
-                    let currentIndex = 0;
-                    let touchStartX = 0;
-                    let touchEndX = 0;
-
-                    // Función para actualizar la imagen principal
-                    function updateMainImage(index) {
-                        const thumbnail = thumbnails[index];
-                        const imageUrl = thumbnail.getAttribute('data-image');
-                        mainImage.src = imageUrl;
-                        
-                        // Actualizar clases activas
-                        thumbnails.forEach(thumb => thumb.classList.remove('active'));
-                        thumbnail.classList.add('active');
-                    }
-
-                    // Evento click en miniaturas
-                    thumbnails.forEach((thumbnail, index) => {
-                        thumbnail.addEventListener('click', () => {
-                            currentIndex = index;
-                            updateMainImage(index);
-                        });
-                    });
-
-                    // Navegación con botones
-                    prevButton.addEventListener('click', () => {
-                        currentIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
-                        updateMainImage(currentIndex);
-                        scrollToThumbnail(currentIndex);
-                    });
-
-                    nextButton.addEventListener('click', () => {
-                        currentIndex = (currentIndex + 1) % thumbnails.length;
-                        updateMainImage(currentIndex);
-                        scrollToThumbnail(currentIndex);
-                    });
-
-                    // Función para desplazar a la miniatura seleccionada
-                    function scrollToThumbnail(index) {
-                        const thumbnail = thumbnails[index];
-                        const containerRect = container.getBoundingClientRect();
-                        const thumbnailRect = thumbnail.getBoundingClientRect();
-                        
-                        container.scrollTo({
-                            left: container.scrollLeft + (thumbnailRect.left - containerRect.left) - (containerRect.width / 2) + (thumbnailRect.width / 2),
-                            behavior: 'smooth'
-                        });
-                    }
-
-                    // Soporte para gestos táctiles
-                    container.addEventListener('touchstart', (e) => {
-                        touchStartX = e.changedTouches[0].screenX;
-                    });
-
-                    container.addEventListener('touchend', (e) => {
-                        touchEndX = e.changedTouches[0].screenX;
-                        handleSwipe();
-                    });
-
-                    function handleSwipe() {
-                        const diff = touchStartX - touchEndX;
-                        if (Math.abs(diff) > 50) { // Umbral mínimo para considerar un swipe
-                            if (diff > 0) {
-                                // Swipe izquierda
-                                currentIndex = (currentIndex + 1) % thumbnails.length;
-                            } else {
-                                // Swipe derecha
-                                currentIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
-                            }
-                            updateMainImage(currentIndex);
-                            scrollToThumbnail(currentIndex);
-                        }
-                    }
-
-                    // Inicializar con la primera imagen
-                    if (thumbnails.length > 0) {
-                        updateMainImage(0);
-                    }
-                });
-            </script>
         </div>
     </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const thumbnailsScroll = document.querySelector('.product-thumbnails-scroll');
+            const prevButton = document.getElementById('thumbnails-prev');
+            const nextButton = document.getElementById('thumbnails-next');
+            const productPrevButton = document.getElementById('product-prev');
+            const productNextButton = document.getElementById('product-next');
+            const thumbnails = document.querySelectorAll('.product-thumbnail');
+            const productImage = document.getElementById('product-image');
+            
+            if (thumbnailsScroll && prevButton && nextButton && thumbnails.length > 0 && productImage) {
+                const productSlider = {
+                    elements: {
+                        productImage: productImage,
+                        thumbnails: thumbnails,
+                        prevButton: prevButton,
+                        nextButton: nextButton,
+                        productPrevButton: productPrevButton,
+                        productNextButton: productNextButton,
+                        thumbnailsContainer: thumbnailsScroll
+                    },
+                    currentIndex: 0,
+                    thumbnailGap: 10,
+
+                    init() {
+                        this.addEventListeners();
+                        this.showProduct(0);
+                    },
+
+                    showProduct(index) {
+                        const thumbnail = this.elements.thumbnails[index];
+                        if (!thumbnail) return;
+            
+                        const newImageSrc = thumbnail.querySelector('.thumbnail-img').getAttribute('data-image');
+                        this.elements.productImage.src = newImageSrc;
+            
+                        this.elements.thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                        thumbnail.classList.add('active');
+                        this.currentIndex = index;
+                    },
+
+                    nextProduct() {
+                        const nextIndex = (this.currentIndex + 1) % this.elements.thumbnails.length;
+                        this.showProduct(nextIndex);
+                    },
+
+                    prevProduct() {
+                        const prevIndex = (this.currentIndex - 1 + this.elements.thumbnails.length) % this.elements.thumbnails.length;
+                        this.showProduct(prevIndex);
+                    },
+
+                    scrollThumbnails(direction) {
+                        const thumbnailWidth = this.elements.thumbnails[0]?.offsetWidth || 0;
+                        const scrollAmount = (thumbnailWidth + this.thumbnailGap) * direction;
+                        
+                        this.elements.thumbnailsContainer.scrollBy({
+                            left: scrollAmount,
+                            behavior: 'smooth'
+                        });
+                    },
+
+                    addEventListeners() {
+                        // Eventos para las miniaturas
+                        this.elements.thumbnails.forEach((thumbnail, index) => {
+                            thumbnail.addEventListener('click', () => {
+                                this.showProduct(index);
+                            });
+                        });
+            
+                        // Eventos para los botones de scroll de miniaturas
+                        this.elements.prevButton.addEventListener('click', () => {
+                            this.scrollThumbnails(-1);
+                        });
+                        
+                        this.elements.nextButton.addEventListener('click', () => {
+                            this.scrollThumbnails(1);
+                        });
+
+                        // Eventos para los botones de cambio de imagen principal
+                        this.elements.productPrevButton.addEventListener('click', () => {
+                            this.prevProduct();
+                        });
+
+                        this.elements.productNextButton.addEventListener('click', () => {
+                            this.nextProduct();
+                        });
+                    }
+                };
+
+                productSlider.init();
+            }
+
+            // Función para manejar el acordeón de descripción
+            const accordionToggle = document.querySelector('.accordion-title a');
+            const div2 = document.querySelector('.div2');
+            const collapseOne = document.getElementById('collapse-item-one');
+            const descriptionContent = document.querySelector('.description-content');
+            const accordionHeading = document.querySelector('.accordion-heading');
+
+            if (accordionToggle && div2 && collapseOne && descriptionContent && accordionHeading) {
+                // Asegurar que div2 tenga la altura inicial
+                div2.classList.add('h-645');
+
+                // Función para verificar si el contenido excede el espacio disponible
+                function checkContentOverflow() {
+                    const contentHeight = descriptionContent.scrollHeight;
+                    const containerHeight = div2.offsetHeight;
+                    
+                    // Si el contenido es más alto que el contenedor, mostrar el acordeón
+                    if (contentHeight > containerHeight) {
+                        accordionHeading.style.display = 'block';
+                    } else {
+                        accordionHeading.style.display = 'none';
+                    }
+                }
+
+                // Verificar al cargar y al cambiar el tamaño de la ventana
+                window.addEventListener('load', checkContentOverflow);
+                window.addEventListener('resize', checkContentOverflow);
+
+                // Usar el evento show.bs.collapse y hide.bs.collapse para manejar los cambios
+                collapseOne.addEventListener('show.bs.collapse', function () {
+                    div2.classList.remove('h-645');
+                    div2.classList.add('h-full');
+                });
+
+                collapseOne.addEventListener('hide.bs.collapse', function () {
+                    div2.classList.remove('h-full');
+                    div2.classList.add('h-645');
+                });
+            }
+        });
+    </script>
 </html>

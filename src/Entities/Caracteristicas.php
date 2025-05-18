@@ -12,6 +12,7 @@ class Caracteristicas extends EntidadBase {
             ['name' => 'nombre_en', 'type' => 'public', 'insert' => true, 'update' => true],
             ['name' => 'descripcion_es', 'type' => 'public', 'insert' => true, 'update' => true],
             ['name' => 'descripcion_en', 'type' => 'public', 'insert' => true, 'update' => true],
+            ['name' => 'foto', 'type' => 'public', 'insert' => true, 'update' => true],
             ['name' => 'creacion_fecha', 'type' => 'system', 'definition' => "DATE_FORMAT(creacion_fecha, '%d/%m/%Y %T') AS creacion_fecha", 'insert' => false, 'update' => false],
             ['name' => 'creacion_usuario', 'type' => 'system', 'insert' => false, 'update' => false],
             ['name' => 'creacion_IP', 'type' => 'system', 'insert' => false, 'update' => false],

@@ -26,7 +26,8 @@
             <table class="table table-hover datatables">
                 <thead>
                     <tr>
-                        <th>Característica</th>
+                        <th style="width: 100px">Foto</th>
+                        <th style="width: 100px">Característica</th>
                         <th>Nombre (ES)</th>
                         <th>Nombre (EN)</th>
                         <th class="columna-acciones">Acciones</th>
@@ -34,7 +35,18 @@
                 </thead>
                 <tbody>
                     {% for data in Content %}
-                    <tr data-id="{{ data.id }}">
+                    <tr data-id="{{ data.id }}" data-foto="{{ data.foto }}">
+                        <td>
+                            <div class="position-relative" style="width: 80px; height: 80px;">
+                                {% if data.foto %}
+                                <img src="../{{ ruta_fotos }}{{ data.foto }}" class="img-thumbnail position-absolute" style="width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+                                {% else %}
+                                <div class="bg-light d-flex align-items-center justify-content-center position-absolute" style="width: 100%; height: 100%; z-index: 1;">
+                                    <i class="fas fa-image text-muted"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </td>
                         <td>{{ data.codigo }}</td>
                         <td>{{ data.nombre_es }}</td>
                         <td>{{ data.nombre_en }}</td>
@@ -100,6 +112,25 @@
 
                 <!-- Sidebar -->
                 <div class="col-md-4">
+                    <!-- Imágenes -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Imágenes</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="foto" class="form-label">Foto</label>
+                                <input type="file" class="form-control" id="foto" name="foto" accept="image/*" value="{{ data.foto }}">
+                                <input type="hidden" name="foto_actual" id="foto_actual" value="{{ data.foto }}" />
+                                <input type="hidden" id="foto_path" name="foto_path" value="{{ ruta_fotos }}">
+                                {% if data.foto %}
+                                <div class="mt-2 text-center">
+                                    <img src="../{{ ruta_fotos }}{{ data.foto }}" class="img-thumbnail" style="max-width: 200px;">
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                     <!-- Auditoría -->
                     {% if showAudit %}
                     <div class="card">
@@ -166,11 +197,16 @@
                             action: async function () { 
                                 const row = event.target.closest('tr');
                                 const id = row.getAttribute('data-id');
+                                const foto = row.getAttribute('data-foto');
+
+                                const filesToDelete = [];
+                                if (foto) filesToDelete.push(`images/caracteristicas/${foto}`);
 
                                 const formData = new FormData();
                                 formData.append('action', 'delete');
                                 formData.append('entity', entity);
                                 formData.append('id', id);
+                                formData.append('files', filesToDelete);
                                 
                                 const url = `/src/Api/index.php`;
                                 const response = await fetchCall(url, 'POST',formData);

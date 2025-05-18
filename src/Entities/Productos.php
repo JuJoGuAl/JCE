@@ -34,7 +34,7 @@ class Productos extends EntidadBase {
      * Obtiene todos los Productos con sus Marcas, Categorias y Caracteristicas
      * @return array Datos del producto con sus relaciones.
      */
-    public function findAllFull(array $producto_filters = [], array $categoria_filters = [], string $orderBy = ''): array {
+    public function findAllFull(array $producto_filters = [], array $categoria_filters = [], string $orderBy = '', string $limit = ''): array {
         // Procesar filtros de categoría
         $producto_filters = $this->procesarFiltrosCategoria($producto_filters, $categoria_filters);
         if ($producto_filters === null) {
@@ -45,7 +45,7 @@ class Productos extends EntidadBase {
         $producto_filters = $this->procesarFiltrosMarca($producto_filters);
         
         // Obtener productos base
-        $productos = $this->findAll($producto_filters, '', $orderBy);
+        $productos = $this->findAll($producto_filters, '', $orderBy, $limit);
         if (empty($productos['result'])) {
             return $productos;
         }
@@ -156,6 +156,7 @@ class Productos extends EntidadBase {
                 if (!empty($caracteristicaInfo)) {
                     $caracteristica['nombre_es'] = $caracteristicaInfo[0]['nombre_es'];
                     $caracteristica['nombre_en'] = $caracteristicaInfo[0]['nombre_en'];
+                    $caracteristica['foto'] = $caracteristicaInfo[0]['foto'];
                 }
             }
         }
@@ -204,6 +205,7 @@ class Productos extends EntidadBase {
                 if (!empty($caracteristicaInfo)) {
                     $caracteristica['nombre_es'] = $caracteristicaInfo[0]['nombre_es'];
                     $caracteristica['nombre_en'] = $caracteristicaInfo[0]['nombre_en'];
+                    $caracteristica['foto'] = $caracteristicaInfo[0]['foto'];
                 }
             }
         }

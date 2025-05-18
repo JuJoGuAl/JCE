@@ -14,6 +14,7 @@ class CaracteristicasController
         $this->entidad = new Caracteristicas();
         $this->module_titulo = 'Características';
         $this->module_subtitulo = 'Listado de Características del sistema';
+        $this->ruta_fotos = 'images/caracteristicas/';
         $this->response = new ResponseObject();
         $this->response->showAudit = false;
     }
@@ -25,6 +26,7 @@ class CaracteristicasController
     {
         try {
             $id = isset($params['id']) ? intval($params['id']) : null;
+            $this->response->ruta_fotos = $this->ruta_fotos;
             
             if ($id === null) {
                 // Listar

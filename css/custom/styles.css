@@ -1149,7 +1149,7 @@
     transition: height 0.5s ease-in-out;
 }
 #somosSection {
-    background-image: url('../../images/bg/bg_06.png');
+    background-image: url('../../images/bg/bg_07.png');
     background-size: auto 600px;
     background-repeat: no-repeat;
     background-position: center top;
@@ -1167,10 +1167,11 @@
 }
 #somosSection-content-wrapper h2 {
     font-size: 1.75rem;
+    font-weight: normal;
 }
 @media (max-width: 991.98px) {
     #somosSection {
-        background-image: url('../../images/bg/bg_05.png');
+        background-image: url('../../images/bg/bg_08.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: top center;

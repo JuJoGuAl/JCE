@@ -365,11 +365,9 @@ if (count($data['result']) > 0){
                                         <div class="row">
                                             <div class="col col-lg-12" data-custom-animations="true" data-ca-options='{"animationTarget": ".animation-element", "duration" : 800 , "delay" : 100 , "ease": "power4.out", "initValues": {"opacity" : 0} , "animations": {"opacity" : 1}}'>
                                                 <div class="ld-fancy-heading">
-                                                    <h2 class="ld-fh-element mb-0/5em inline-block relative animation-element">
-                                                        <span class="text-primary">We are your strategic partner</span>
-                                                        <span class="text-white">for market entry, distribution, and positioning in the national market.</span>
-                                                        <span class="text-primary">We collaborate closely and strategically </span>
-                                                        <span class="text-white">to expand your commercial presence. </span>
+                                                    <h2 class="ld-fh-element mb-0/5em inline-block relative animation-element text-white">
+                                                        <b>We are your strategic partner</b> for market entry, distribution, and positioning in the national market.
+                                                        <b>We collaborate closely and strategically </b>to expand your commercial presence.
                                                     </h2>
                                                 </div>
                                             </div>
